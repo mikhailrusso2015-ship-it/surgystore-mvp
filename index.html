@@ -147,12 +147,21 @@ html.pantalla-abierta{overflow:hidden}
 .ficha3d.visible{display:block}
 .ficha3d .cerrar{position:absolute;top:8px;right:8px;width:34px;height:34px;color:var(--noche);background:var(--hielo);border:0}
 .ficha3d .tipo{font-size:13px;color:var(--acero)}
-.ficha3d h3{font-size:24px;margin:4px 36px 12px 0}
-.ficha3d .prod{font-size:13px;color:var(--acero);margin:8px 0 6px}
-.ficha3d ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.ficha3d li button{width:100%;text-align:left;border:1px solid var(--linea);background:var(--hielo);border-radius:12px;padding:10px 12px;cursor:pointer;font-size:14px;font-weight:600;line-height:1.3}
-.ficha3d li button small{font-weight:400}
-.ficha3d li button:hover{border-color:var(--profundo)}
+.ficha3d h3{font-size:22px;margin:2px 40px 12px 0}
+.ficha3d .ver{width:100%;justify-content:space-between}
+.ficha3d .ver svg{transition:transform .2s}
+.ficha3d .ver[aria-expanded="true"] svg{transform:rotate(180deg)}
+.ficha3d .sin-prod{font-size:13px;color:var(--acero);margin:0}
+#fichaProd{margin-top:12px;max-height:min(44vh,400px);overflow:auto;overscroll-behavior:contain}
+#fichaProd .prod{font-size:13px;color:var(--acero);margin:0 0 8px}
+.sugeridos{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.sugeridos li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;align-items:center;background:var(--hielo);border-radius:12px;padding:10px 10px 10px 12px}
+.sugeridos b{display:block;font-size:15px;font-weight:600;line-height:1.25}
+.sugeridos span{font-size:12.5px;color:var(--acero)}
+.sugeridos .opciones{padding-top:2px}
+.sugeridos .opciones select{background:var(--blanco)}
+.sugeridos .hecho{grid-column:1/-1;margin:0;font-size:13px;font-weight:500}
+.sugeridos .hecho button{border:0;background:none;color:var(--profundo);text-decoration:underline;cursor:pointer;font-size:13px;padding:0 0 0 4px}
 .ficha3d .vertodos{margin-top:12px}
 .ilustracion{position:absolute;left:16px;top:70px;z-index:4;font-size:12px;color:var(--noche);background:var(--niebla);padding:4px 10px;border-radius:999px;display:none}
 .ilustracion.visible{display:block}
@@ -176,7 +185,9 @@ html.pantalla-abierta{overflow:hidden}
   .capas button .nota{display:none}
   .estado{bottom:68px;left:14px}
   .estado .pista{display:none}
-  .ficha3d{bottom:66px;right:10px;left:10px;width:auto}
+  .ficha3d{bottom:66px;right:10px;left:10px;width:auto;padding:14px 14px 12px}
+  .con-ficha .estado{display:none}
+  #fichaProd{max-height:31vh}
   .pestanas{left:10px;top:10px;padding:3px}
   .pestanas button{padding:8px 12px;font-size:14px}
   .herramientas{top:60px;right:10px;gap:6px;flex-direction:column}
@@ -351,7 +362,9 @@ dialog.cotizacion::backdrop{background:rgba(0,29,57,.35);backdrop-filter:blur(3p
       <button class="icono cerrar" id="cerrarFicha" type="button" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       <div class="tipo" id="fichaTipo"></div>
       <h3 id="fichaNombre"></h3>
-      <div id="fichaProd"></div>
+      <button class="boton chico ver" id="verSugeridos" type="button" aria-expanded="false" aria-controls="fichaProd"><span id="verSugeridosTexto"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <p class="sin-prod" id="sinProd" hidden>Para esta pieza todavía no hay productos en el catálogo.</p>
+      <div id="fichaProd" hidden></div>
     </div>
     <div class="capa-ui salir-celulas" id="salirCaja"><button class="boton chico lleno" id="salirCelulas" type="button">Volver a la anatomía</button></div>
     <div class="punta" id="punta"></div>
@@ -669,7 +682,8 @@ $('#volverInicio').addEventListener('click', () => {
 });
 if (location.hash === '#catalogo') mostrarPantalla(true);
 // el módulo del 3D usa estas piezas
-window.__surgy = { CAT, nombreFamilia, agregar, mostrarFamilia };
+function quitarUno(clave) { const x = carrito.find((y) => y.clave === clave); if (!x) return; if (x.cantidad > 1) x.cantidad--; else carrito.splice(carrito.indexOf(x), 1); guardarCarrito(); pintarCarrito(); refCot = ''; }
+window.__surgy = { CAT, nombreFamilia, agregar, quitarUno, mostrarFamilia };
 // si el visor 3D no arranca (CDN bloqueado), se avisa y el resto de la página sigue
 setTimeout(() => { if (!window.__surgy3d) { const c = $('#cargando'); c.classList.remove('oculto'); c.textContent = 'No se pudo cargar el visor 3D. El catálogo y la cotización funcionan igual.'; } }, 20000);
 </script>
@@ -688,7 +702,7 @@ const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const medir = location.hash === '#medir';
 const pruebas = medir || navigator.webdriver === true;
 const esc3 = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const { CAT, nombreFamilia, agregar, mostrarFamilia } = window.__surgy || { CAT: { fichas: [], listo: false }, nombreFamilia: (x) => x, agregar: () => {}, mostrarFamilia: () => {} };
+const { CAT, nombreFamilia, agregar, quitarUno, mostrarFamilia } = window.__surgy || { CAT: { fichas: [], listo: false }, nombreFamilia: (x) => x, agregar: () => {}, quitarUno: () => {}, mostrarFamilia: () => {} };
 
 /* ===================== 3D: configuración ===================== */
 const CAPAS = {
@@ -1030,32 +1044,68 @@ lienzo.addEventListener('pointermove', (e) => {
   else { p.style.display = 'none'; lienzo.style.cursor = 'grab'; }
 });
 lienzo.addEventListener('pointerleave', () => { $('#punta').style.display = 'none'; });
+// Tocar una pieza muestra solo su nombre. Los productos se ven con un botón aparte, y cada uno se agrega con su propio botón.
+const ZONA = { columna: 'la columna', craneo: 'el cráneo', cerebro: 'el cerebro' };
+let fichaDesde = 0, famsFicha = [];
 function seleccionar(m) {
   if (resaltado) { resaltado.material.emissive?.setHex(0x000000); }
   resaltado = m; m.material.emissive?.setHex(0x16324d); pedirRender();
   const ud = m.userData; const cfg = ESCENAS[E.escena];
-  $('#fichaTipo').textContent = CAPAS[E.capa].nombre + ' · ' + cfg.nombre;
+  $('#fichaTipo').textContent = CAPAS[E.capa].nombre + ', ' + cfg.nombre.toLowerCase();
   $('#fichaNombre').textContent = ud.nombre_es || 'Pieza';
-  pintarProductos(familiasPara(ud));
-  $('#ficha3d').classList.add('visible');
+  famsFicha = CAT.listo ? familiasPara(ud) : [];
+  const total = CAT.fichas.filter((f) => famsFicha.includes(f.familia)).length;
+  $('#verSugeridos').hidden = !total; $('#sinProd').hidden = !!total || !CAT.listo;
+  $('#verSugeridosTexto').textContent = `Ver productos para ${ZONA[E.escena]} (${total})`;
+  $('#verSugeridos').setAttribute('aria-expanded', 'false'); $('#fichaProd').hidden = true; $('#fichaProd').innerHTML = '';
+  fichaDesde = performance.now();
+  $('#ficha3d').classList.add('visible'); caja.classList.add('con-ficha');
 }
 function familiasPara(ud) { const p = ESCENAS[E.escena].productos[E.capa]; return typeof p === 'function' ? p(ud) : (p || []); }
 function pintarProductos(fams) {
   const cont = $('#fichaProd');
-  if (!CAT.listo || !fams.length) { cont.innerHTML = ''; return; }
   // una ficha destacada por familia (primero implantes y servicios con más variantes), hasta 3
   const peso = (f) => (f.tipo === 'implante' ? 3 : f.tipo === 'servicio' ? 2 : f.tipo === 'equipo' ? 1 : 0) * 100 + f.variantes.length;
   const fichas = []; for (const fam of fams) { const mejor = CAT.fichas.filter((f) => f.familia === fam).sort((x, y) => peso(y) - peso(x))[0]; if (mejor) fichas.push(mejor); }
   for (const f of CAT.fichas.filter((f) => fams.includes(f.familia)).sort((x, y) => peso(y) - peso(x))) { if (fichas.length >= 3) break; if (!fichas.includes(f)) fichas.push(f); }
   fichas.length = Math.min(fichas.length, 3);
-  if (!fichas.length) { cont.innerHTML = ''; return; }
-  cont.innerHTML = `<div class="prod">Productos para esta zona</div><ul>${fichas.map((f) => `<li><button type="button" data-agr3d="${esc3(f.id)}">${esc3(f.nombre)}<br><small style="color:var(--acero)">${esc3(nombreFamilia(f.familia))} · agregar a mi cotización</small></button></li>`).join('')}</ul><button class="boton chico vertodos" type="button" data-fam="${esc3(fams[0])}">Ver todos en el catálogo</button>`;
+  const total = CAT.fichas.filter((f) => fams.includes(f.familia)).length;
+  const item = (f) => {
+    const varios = f.variantes.length > 1;
+    const boton = varios ? `<button class="boton chico" type="button" data-elegir aria-expanded="false" aria-label="Elegir medida de ${esc3(f.nombre)}">Elegir medida</button>`
+      : `<button class="boton chico" type="button" data-agr3d="${esc3(f.id)}" aria-label="Agregar ${esc3(f.nombre)} a mi cotización">Agregar</button>`;
+    const opciones = varios ? `<div class="opciones" hidden><select aria-label="Medida de ${esc3(f.nombre)}">${f.variantes.map((v) => `<option value="${esc3(v.clave)}">${esc3(v.etiqueta || v.clave)}</option>`).join('')}</select><button class="boton chico lleno" type="button" data-agr3d="${esc3(f.id)}">Agregar</button></div>` : '';
+    return `<li data-id="${esc3(f.id)}"><div><b>${esc3(f.nombre)}</b><span>${esc3(nombreFamilia(f.familia))}</span></div>${boton}${opciones}<p class="hecho" role="status" hidden></p></li>`;
+  };
+  cont.innerHTML = `<p class="prod">Esto vendemos o alquilamos para ${ZONA[E.escena]}. Elige qué agregar a tu cotización.</p><ul class="sugeridos">${fichas.map(item).join('')}</ul><button class="boton chico vertodos" type="button" data-fam="${esc3(fams[0])}">Ver los ${total} en el catálogo</button>`;
 }
+$('#verSugeridos').addEventListener('click', (e) => {
+  if (performance.now() - fichaDesde < 450) return; // evita que el mismo toque sobre el modelo abra la lista
+  const b = e.currentTarget; const abrir = b.getAttribute('aria-expanded') !== 'true';
+  if (abrir && !$('#fichaProd').innerHTML) pintarProductos(famsFicha);
+  $('#fichaProd').hidden = !abrir; b.setAttribute('aria-expanded', String(abrir)); fichaDesde = performance.now();
+});
 $('#fichaProd').addEventListener('click', (e) => {
-  const a = e.target.closest('[data-agr3d]'); if (a) { const f = CAT.fichas.find((x) => x.id === a.dataset.agr3d); if (!f) return; agregar(f, f.variantes[0].clave); a.querySelector('small').textContent = 'Agregado a mi cotización'; return; }
+  if (performance.now() - fichaDesde < 450) return; // toques fantasma justo después de abrir
+  const li = e.target.closest('li');
+  const el = e.target.closest('[data-elegir]');
+  if (el) { const op = li.querySelector('.opciones'); const abrir = op.hidden; op.hidden = !abrir; el.hidden = abrir; if (abrir) op.querySelector('select').focus(); return; }
+  const a = e.target.closest('[data-agr3d]');
+  if (a) {
+    const f = CAT.fichas.find((x) => x.id === a.dataset.agr3d); if (!f) return;
+    const sel = li.querySelector('select'); const v = (sel && f.variantes.find((x) => x.clave === sel.value)) || f.variantes[0];
+    agregar(f, v.clave);
+    const op = li.querySelector('.opciones'); if (op) op.hidden = true;
+    li.querySelectorAll(':scope > .boton').forEach((x) => { x.hidden = true; });
+    const h = li.querySelector('.hecho'); h.hidden = false; h.dataset.clave = v.clave;
+    h.innerHTML = `Agregado a tu cotización${sel ? ' (' + esc3(v.etiqueta || v.clave) + ')' : ''}.<button type="button" data-deshacer>Deshacer</button>`;
+    return;
+  }
+  const d = e.target.closest('[data-deshacer]');
+  if (d) { const h = d.closest('.hecho'); quitarUno(h.dataset.clave); h.hidden = true; li.querySelectorAll(':scope > .boton').forEach((x) => { x.hidden = false; }); return; }
   const v = e.target.closest('[data-fam]'); if (v) { if (document.fullscreenElement) document.exitFullscreen(); caja.classList.remove('completa'); mostrarFamilia(v.dataset.fam); }
 });
-function cerrarFicha() { $('#ficha3d').classList.remove('visible'); if (resaltado) { resaltado.material.emissive?.setHex(0x000000); resaltado = null; pedirRender(); } }
+function cerrarFicha() { $('#ficha3d').classList.remove('visible'); caja.classList.remove('con-ficha'); if (resaltado) { resaltado.material.emissive?.setHex(0x000000); resaltado = null; pedirRender(); } }
 $('#cerrarFicha').addEventListener('click', cerrarFicha);
 
 /* ===================== 3D: células (ilustración) ===================== */
