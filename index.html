@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Surgy Store — Equipos, implantes y servicios para neurocirugía y columna</title>
 <meta name="description" content="Surgy Store, Caracas: venta y alquiler de equipos e implantes para neurocirugía y columna. Explora en 3D la columna, el cráneo y el cerebro, capa por capa, y arma tu solicitud de cotización.">
-<meta name="theme-color" content="#001D39">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" type="image/png" href="img/loto.png">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:title" content="Surgy Store — Neurocirugía y columna">
@@ -14,201 +15,250 @@
 <meta property="og:locale" content="es_VE">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Corporación Surgystore 077 C.A.","alternateName":"Surgy Store","sameAs":["https://www.instagram.com/surgystore_vzla/"]}
 </script>
 <style>
 :root{
-  --fondo:#001D39;--profundo:#0A4174;--acero:#49769F;--petroleo:#4E8EA2;--agua:#6EA2B3;--cielo:#7BBDE8;--niebla:#BDD8E9;--loto:#009CD0;--blanco:#fff;
-  --r:8px;--borde:rgba(123,189,232,.18);--tarjeta:rgba(10,65,116,.38);
-  --margen:clamp(20px,4vw,48px);
+  --blanco:#fff;--hielo:#F3F7FA;--linea:#DCE7EF;--niebla:#BDD8E9;--cielo:#7BBDE8;
+  --noche:#001D39;--profundo:#0A4174;--acero:#49769F;--loto:#009CD0;
+  --margen:clamp(18px,4vw,56px);--r-media:28px;--r-control:14px;
+  --sombra:0 1px 2px rgba(0,29,57,.06),0 12px 32px -12px rgba(0,29,57,.18);
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
-body{margin:0;background:var(--fondo);color:var(--blanco);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-optical-sizing:auto;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--blanco);color:var(--noche);font-family:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 a{color:inherit}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 button,input,select,textarea{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--cielo);outline-offset:3px;border-radius:4px}
-.saltar{position:absolute;left:-999px;top:8px;background:var(--niebla);color:var(--fondo);padding:8px 14px;border-radius:20px;z-index:100}
+:focus-visible{outline:2px solid var(--loto);outline-offset:3px;border-radius:6px}
+.saltar{position:absolute;left:-999px;top:8px;background:var(--noche);color:var(--blanco);padding:8px 14px;border-radius:999px;z-index:100}
 .saltar:focus{left:12px}
-.envoltura{max-width:1440px;margin:0 auto;padding:0 var(--margen)}
-.etiqueta{color:var(--cielo);font-size:15px;font-weight:400;margin:0 0 14px}
-h1,h2,h3{font-weight:300;letter-spacing:-.02em;margin:0}
-h2{font-size:clamp(36px,5.2vw,72px);line-height:1.02}
-.texto{color:var(--niebla);font-size:clamp(17px,1.4vw,20px);max-width:36em}
-.boton{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 24px;border-radius:999px;border:1.5px solid var(--acero);background:transparent;cursor:pointer;font-weight:500;font-size:16px;text-decoration:none;transition:background .2s,border-color .2s}
-.boton:hover{border-color:var(--cielo)}
-.boton.lleno{background:var(--niebla);border-color:var(--niebla);color:var(--fondo)}
-.boton.lleno:hover{background:var(--blanco)}
-.boton.chico{min-height:38px;padding:0 16px;font-size:14px}
+.envoltura{max-width:1520px;margin:0 auto;padding:0 var(--margen)}
+h1,h2,h3{margin:0;font-weight:600;font-stretch:80%;letter-spacing:-.035em;line-height:.92;text-wrap:balance}
+h2{font-size:clamp(40px,6vw,92px)}
+h3{font-size:20px;letter-spacing:-.015em;line-height:1.2;font-stretch:92%}
+.texto{color:var(--acero);font-size:clamp(17px,1.35vw,20px);line-height:1.5;max-width:34em;margin:0}
+.boton{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 24px;border-radius:999px;border:1.5px solid var(--noche);background:transparent;color:var(--noche);cursor:pointer;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.boton:hover{background:var(--hielo)}
+.boton.lleno{background:var(--noche);color:var(--blanco)}
+.boton.lleno:hover{background:var(--profundo);border-color:var(--profundo)}
+.boton.chico{min-height:40px;padding:0 16px;font-size:14px}
+.boton svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
 /* cabecera */
-.cabecera{position:sticky;top:0;z-index:40;padding-top:env(safe-area-inset-top);background:rgba(0,29,57,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
-.cabecera.con-borde{border-bottom-color:var(--borde)}
+.cabecera{position:sticky;top:0;z-index:40;padding-top:env(safe-area-inset-top);background:rgba(255,255,255,.86);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
+.cabecera.con-borde{border-bottom-color:var(--linea)}
 .cabecera .envoltura{display:flex;align-items:center;gap:24px;height:68px}
-.marca{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:500;font-size:17px;letter-spacing:-.01em}
-.marca img{width:40px;height:auto}
-.menu{display:flex;gap:4px;margin-left:auto}
-.menu a{text-decoration:none;color:var(--niebla);padding:8px 12px;border-radius:999px;font-size:15px}
-.menu a:hover{color:var(--blanco);background:rgba(123,189,232,.1)}
-.contador{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:var(--loto);color:var(--blanco);font-size:12px;font-weight:600}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:18px;letter-spacing:-.02em;white-space:nowrap}
+.marca img{width:38px;height:auto}
+.menu{display:flex;gap:2px;margin-left:auto}
+.menu a{text-decoration:none;color:var(--noche);padding:8px 14px;border-radius:999px;font-size:15px;font-weight:500}
+.menu a:hover{background:var(--hielo)}
+.contador{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:var(--loto);color:var(--noche);font-size:12px;font-weight:700}
+.cabecera .boton{gap:8px}
 @media (max-width:900px){.menu{display:none}.cabecera .boton{margin-left:auto}}
-/* portada + 3D */
-.portada{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,3vw,48px);align-items:stretch;padding-top:clamp(24px,4vh,48px);padding-bottom:48px}
-.portada .copia{display:flex;flex-direction:column;justify-content:center;padding:24px 0}
-.portada h1{font-size:clamp(48px,6.4vw,104px);line-height:.98;margin:8px 0 28px}
-.portada h1 span{color:var(--cielo)}
-.acciones{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-.explorador{position:relative;border-radius:var(--r);overflow:hidden;background:radial-gradient(120% 90% at 60% 40%,#0A3361 0%,#001D39 70%);min-height:560px;height:calc(100vh - 140px);max-height:980px;border:1px solid var(--borde);touch-action:none}
+@media (max-width:700px){.cabecera .envoltura{height:58px}.marca{font-size:17px}.marca img{width:32px}.cabecera .boton{min-height:38px;padding:0 6px 0 14px}}
+/* portada */
+.portada{padding:clamp(20px,4vh,56px) 0 clamp(40px,6vw,88px)}
+.portada-texto{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(20px,4vw,64px);align-items:end;margin-bottom:clamp(20px,3vw,40px)}
+.portada h1{font-size:clamp(52px,10.4vw,176px);line-height:.86}
+.portada h1 .l{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+.portada h1 .l>span{display:block;animation:subir .9s cubic-bezier(.2,.7,.1,1) both}
+.portada h1 .l:nth-child(2)>span{animation-delay:.08s}
+@keyframes subir{from{transform:translateY(105%)}to{transform:none}}
+.portada-lado{display:grid;gap:22px;padding-bottom:.6em}
+.acciones{display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:900px){.portada-texto{grid-template-columns:1fr;gap:14px}.portada-lado{padding:0;gap:16px}}
+@media (max-width:700px){.portada{padding-top:14px}.portada h1{font-size:clamp(46px,14.5vw,64px)}.portada .texto{font-size:16px}.acciones .boton{min-height:44px;padding:0 18px;font-size:15px}}
+/* escenario 3D */
+.explorador{
+  --ui-fondo:rgba(255,255,255,.82);--ui-borde:var(--linea);--ui-texto:var(--noche);--ui-sub:var(--acero);
+  --ui-activo:var(--noche);--ui-activo-texto:var(--blanco);--ui-barra:rgba(0,29,57,.14);--ui-barra-on:var(--noche);--ui-hover:rgba(0,29,57,.06);
+  position:relative;border-radius:var(--r-media);overflow:hidden;min-height:520px;height:min(calc(100vh - 150px),920px);touch-action:none;color:var(--ui-texto);
+  background:
+    linear-gradient(rgba(10,65,116,.055) 1px,transparent 1px) 0 0/44px 44px,
+    linear-gradient(90deg,rgba(10,65,116,.055) 1px,transparent 1px) 0 0/44px 44px,
+    radial-gradient(70% 62% at 50% 46%,#F4F8FB 0%,#EBF2F7 58%,#DDE8F0 100%);
+  box-shadow:inset 0 0 0 1px var(--linea);animation:aparecer .9s .15s both}
+@keyframes aparecer{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+[data-escenario="oscuro"] .explorador,.explorador.microscopio{
+  --ui-fondo:rgba(0,29,57,.74);--ui-borde:rgba(123,189,232,.2);--ui-texto:var(--blanco);--ui-sub:var(--niebla);
+  --ui-activo:var(--niebla);--ui-activo-texto:var(--noche);--ui-barra:rgba(123,189,232,.22);--ui-barra-on:var(--cielo);--ui-hover:rgba(123,189,232,.1);
+  background:
+    linear-gradient(rgba(123,189,232,.05) 1px,transparent 1px) 0 0/44px 44px,
+    linear-gradient(90deg,rgba(123,189,232,.05) 1px,transparent 1px) 0 0/44px 44px,
+    radial-gradient(80% 70% at 55% 42%,#0B3A68 0%,#001D39 72%);box-shadow:none}
 .explorador canvas{position:absolute;inset:0;width:100%;height:100%;display:block;outline:none}
 .explorador.completa{position:fixed;inset:0;z-index:80;height:100%;max-height:none;border-radius:0}
-@media (max-width:1000px){.portada{grid-template-columns:1fr}.portada .copia{padding:8px 0 0}.explorador{height:78vh;min-height:520px}}
+@media (max-width:700px){.explorador{height:68vh;min-height:440px;border-radius:22px}}
 .capa-ui{position:absolute;z-index:3;pointer-events:none}
 .capa-ui>*{pointer-events:auto}
-.pestanas{top:14px;left:14px;display:flex;gap:4px;padding:4px;border-radius:999px;background:rgba(0,29,57,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--borde)}
-.pestanas button{border:0;background:transparent;padding:8px 16px;border-radius:999px;cursor:pointer;font-size:15px;color:var(--niebla)}
-.pestanas button[aria-selected="true"]{background:var(--niebla);color:var(--fondo);font-weight:500}
-.herramientas{top:14px;right:14px;display:flex;gap:8px}
-.icono{width:42px;height:42px;border-radius:50%;border:1px solid var(--borde);background:rgba(0,29,57,.72);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.icono svg{width:18px;height:18px;stroke:var(--niebla);fill:none;stroke-width:1.6}
-.capas{right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:2px;padding:8px;border-radius:14px;background:rgba(0,29,57,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--borde);min-width:168px}
-.capas .titulo{font-size:12px;color:var(--agua);padding:4px 10px 6px}
-.capas button{display:flex;align-items:center;gap:10px;border:0;background:transparent;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:14px;color:var(--niebla);text-align:left}
-.capas button:hover{background:rgba(123,189,232,.1)}
-.capas button .punto{width:10px;height:10px;border-radius:50%;flex:none;box-shadow:0 0 0 2px rgba(255,255,255,.08)}
-.capas button[aria-pressed="true"]{background:rgba(189,216,233,.16);color:var(--blanco)}
-.capas button.activa .punto{box-shadow:0 0 0 3px rgba(123,189,232,.45)}
-.capas button .nota{margin-left:auto;font-size:11px;color:var(--agua)}
-.capas .auto{border-bottom:1px solid var(--borde);border-radius:8px 8px 0 0;margin-bottom:4px}
-.estado{left:16px;bottom:16px;max-width:min(360px,60%)}
-.estado .capa-nombre{font-size:clamp(22px,2.2vw,30px);font-weight:300;letter-spacing:-.01em}
-.estado .pista{font-size:13px;color:var(--agua);margin-top:4px}
-.profundidad{margin-top:10px;display:flex;gap:3px}
-.profundidad i{height:3px;width:26px;border-radius:2px;background:rgba(123,189,232,.22)}
-.profundidad i.on{background:var(--cielo)}
-.ficha3d{right:16px;bottom:16px;width:min(330px,calc(100% - 32px));background:rgba(0,29,57,.9);border:1px solid var(--borde);border-radius:12px;padding:16px 16px 14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:none}
+.vidrio{background:var(--ui-fondo);border:1px solid var(--ui-borde);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.pestanas{top:16px;left:16px;display:flex;gap:2px;padding:4px;border-radius:999px}
+.pestanas button{border:0;background:transparent;padding:9px 18px;border-radius:999px;cursor:pointer;font-size:15px;font-weight:500;color:var(--ui-texto)}
+.pestanas button:hover{background:var(--ui-hover)}
+.pestanas button[aria-selected="true"]{background:var(--ui-activo);color:var(--ui-activo-texto)}
+.herramientas{top:16px;right:16px;display:flex;gap:8px}
+.icono{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--ui-texto)}
+.icono svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7}
+.capas{right:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:2px;padding:8px;border-radius:20px;min-width:176px}
+.capas .titulo{font-size:12px;color:var(--ui-sub);padding:4px 10px 6px}
+.capas button{display:flex;align-items:center;gap:10px;border:0;background:transparent;padding:8px 10px;border-radius:12px;cursor:pointer;font-size:14px;font-weight:500;color:var(--ui-texto);text-align:left}
+.capas button:hover{background:var(--ui-hover)}
+.capas button .punto{width:10px;height:10px;border-radius:50%;flex:none;box-shadow:0 0 0 1px rgba(0,29,57,.18)}
+.capas button[aria-pressed="true"]{background:var(--ui-activo);color:var(--ui-activo-texto)}
+.capas button.activa .punto{box-shadow:0 0 0 3px rgba(0,156,208,.45)}
+.capas button .nota{margin-left:auto;font-size:11px;color:var(--ui-sub)}
+.capas button[aria-pressed="true"] .nota{color:inherit;opacity:.75}
+.capas .auto{border-bottom:1px solid var(--ui-borde);border-radius:12px 12px 0 0;margin-bottom:4px}
+.estado{left:20px;bottom:20px;max-width:min(380px,60%)}
+.estado .capa-nombre{font-size:clamp(26px,2.6vw,40px);font-weight:600;font-stretch:82%;letter-spacing:-.03em;line-height:1}
+.estado .pista{font-size:13px;color:var(--ui-sub);margin-top:6px;max-width:30em}
+.profundidad{margin-top:12px;display:flex;gap:4px}
+.profundidad i{height:3px;width:28px;border-radius:2px;background:var(--ui-barra)}
+.profundidad i.on{background:var(--ui-barra-on)}
+.ficha3d{right:16px;bottom:16px;width:min(340px,calc(100% - 32px));background:var(--blanco);color:var(--noche);border:1px solid var(--linea);border-radius:20px;padding:18px 18px 16px;box-shadow:var(--sombra);display:none}
 .ficha3d.visible{display:block}
-.ficha3d .cerrar{position:absolute;top:8px;right:8px;width:32px;height:32px}
-.ficha3d .tipo{font-size:13px;color:var(--cielo)}
-.ficha3d h3{font-size:22px;font-weight:400;margin:2px 32px 10px 0;line-height:1.2}
-.ficha3d .prod{font-size:13px;color:var(--agua);margin:8px 0 6px}
+.ficha3d .cerrar{position:absolute;top:8px;right:8px;width:34px;height:34px;color:var(--noche);background:var(--hielo);border:0}
+.ficha3d .tipo{font-size:13px;color:var(--acero)}
+.ficha3d h3{font-size:24px;margin:4px 36px 12px 0}
+.ficha3d .prod{font-size:13px;color:var(--acero);margin:8px 0 6px}
 .ficha3d ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.ficha3d li button{width:100%;text-align:left;border:1px solid var(--borde);background:rgba(10,65,116,.35);border-radius:8px;padding:8px 10px;cursor:pointer;font-size:14px}
-.ficha3d li button:hover{border-color:var(--cielo)}
-.ficha3d .vertodos{margin-top:10px}
-.ilustracion{position:absolute;left:14px;top:64px;z-index:4;font-size:12px;color:var(--fondo);background:var(--niebla);padding:4px 10px;border-radius:999px;display:none}
+.ficha3d li button{width:100%;text-align:left;border:1px solid var(--linea);background:var(--hielo);border-radius:12px;padding:10px 12px;cursor:pointer;font-size:14px;font-weight:600;line-height:1.3}
+.ficha3d li button small{font-weight:400}
+.ficha3d li button:hover{border-color:var(--profundo)}
+.ficha3d .vertodos{margin-top:12px}
+.ilustracion{position:absolute;left:16px;top:70px;z-index:4;font-size:12px;color:var(--noche);background:var(--niebla);padding:4px 10px;border-radius:999px;display:none}
 .ilustracion.visible{display:block}
 .rotulos{position:absolute;inset:0;z-index:2;pointer-events:none}
-.rotulo{position:absolute;transform:translate(-50%,-100%);font-size:12px;color:var(--blanco);background:rgba(0,29,57,.78);border:1px solid var(--borde);padding:3px 9px;border-radius:999px;white-space:nowrap}
+.rotulo{position:absolute;transform:translate(-50%,-100%);font-size:12px;color:var(--blanco);background:rgba(0,29,57,.8);border:1px solid rgba(123,189,232,.25);padding:3px 9px;border-radius:999px;white-space:nowrap}
 .rotulo::after{content:"";position:absolute;left:50%;top:100%;width:1px;height:10px;background:var(--niebla);opacity:.6}
-.punta{position:absolute;z-index:5;pointer-events:none;font-size:13px;background:rgba(0,29,57,.92);border:1px solid var(--borde);padding:4px 10px;border-radius:8px;display:none;white-space:nowrap}
-.cargando{position:absolute;inset:0;display:grid;place-items:center;z-index:6;color:var(--niebla);font-size:14px;pointer-events:none;transition:opacity .3s}
+.punta{position:absolute;z-index:5;pointer-events:none;font-size:13px;font-weight:500;background:var(--noche);color:var(--blanco);padding:5px 11px;border-radius:999px;display:none;white-space:nowrap}
+.cargando{position:absolute;inset:0;display:grid;place-items:center;z-index:6;color:var(--ui-sub);font-size:14px;pointer-events:none;transition:opacity .3s;text-align:center;padding:24px}
 .cargando.oculto{opacity:0}
-.velo{position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(circle at 50% 50%,rgba(189,216,233,.9),rgba(0,29,57,1) 70%);opacity:0;transition:opacity .35s}
+.velo{position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(circle at 50% 50%,rgba(189,216,233,.95),#001D39 70%);opacity:0;transition:opacity .35s}
 .velo.on{opacity:1}
-.salir-celulas{left:50%;bottom:16px;transform:translateX(-50%);display:none}
+.salir-celulas{left:50%;bottom:20px;transform:translateX(-50%);display:none}
 .salir-celulas.visible{display:block}
+.salir-celulas .boton{background:var(--niebla);border-color:var(--niebla);color:var(--noche)}
 @media (max-width:700px){
-  .capas{top:auto;bottom:12px;right:12px;left:12px;transform:none;flex-direction:row;overflow-x:auto;min-width:0;padding:6px;border-radius:999px;scrollbar-width:none}
+  .capas{top:auto;bottom:10px;right:10px;left:10px;transform:none;flex-direction:row;overflow-x:auto;min-width:0;padding:5px;border-radius:999px;scrollbar-width:none}
+  .capas::-webkit-scrollbar{display:none}
   .capas .titulo{display:none}
-  .capas button{white-space:nowrap;padding:8px 12px;border-radius:999px}
-  .capas .auto{border-bottom:0;border-right:1px solid var(--borde);border-radius:999px;margin:0 4px 0 0}
+  .capas button{white-space:nowrap;padding:8px 13px;border-radius:999px}
+  .capas .auto{border-bottom:0;border-right:1px solid var(--ui-borde);border-radius:999px;margin:0 4px 0 0}
   .capas button .nota{display:none}
-  .estado{bottom:74px;left:12px}
+  .estado{bottom:68px;left:14px}
   .estado .pista{display:none}
-  .ficha3d{bottom:70px;right:12px;left:12px;width:auto}
-  .pestanas{left:10px;top:10px}
-  .pestanas button{padding:7px 10px;font-size:13px}
-  .herramientas{top:10px;right:10px;gap:6px}
-  .icono{width:36px;height:36px}
-  .ilustracion{top:56px;left:10px}
-  .portada h1{font-size:clamp(38px,11vw,52px);margin:4px 0 16px}
-  .portada .texto{font-size:16px}
-  .acciones{margin-top:18px}
-  .explorador{height:72vh;min-height:480px}
-  .salir-celulas{bottom:auto;top:54px;left:auto;right:10px;transform:none}
+  .ficha3d{bottom:66px;right:10px;left:10px;width:auto}
+  .pestanas{left:10px;top:10px;padding:3px}
+  .pestanas button{padding:8px 12px;font-size:14px}
+  .herramientas{top:60px;right:10px;gap:6px;flex-direction:column}
+  .icono{width:40px;height:40px}
+  .ilustracion{top:60px;left:10px}
+  .salir-celulas{bottom:auto;top:58px;left:auto;right:10px;transform:none}
   .rotulo{font-size:11px;padding:2px 7px}
 }
 /* secciones */
-section{scroll-margin-top:76px}
-.bloque{padding:clamp(64px,10vw,128px) 0;border-top:1px solid var(--borde)}
-.quirofano{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center}
+section{scroll-margin-top:72px}
+.bloque{padding:clamp(56px,9vw,128px) 0}
+.bloque.hielo{background:var(--hielo)}
+.cabeza{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:20px 32px;margin-bottom:clamp(24px,3vw,40px)}
+.cabeza .texto{max-width:28em}
+/* quirófano */
+.quirofano{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,96px);align-items:center}
 .quirofano figure{margin:0}
-.quirofano img{border-radius:var(--r);width:100%;aspect-ratio:96/110;max-height:82vh;object-fit:cover}
-figcaption{font-size:14px;color:var(--agua);margin-top:12px}
-.lista-servicios{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:0;border-top:1px solid var(--borde)}
-.lista-servicios li{padding:16px 0;border-bottom:1px solid var(--borde);display:flex;gap:16px;color:var(--niebla)}
-.lista-servicios li b{font-weight:400;color:var(--blanco);min-width:9.5em}
-@media (max-width:860px){.quirofano{grid-template-columns:1fr}}
+.quirofano img{border-radius:var(--r-media);width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%}
+figcaption{font-size:13px;color:var(--acero);margin-top:10px}
+.servicios{list-style:none;padding:0;margin:clamp(24px,3vw,40px) 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px}
+.servicios li{padding:18px 0;border-top:1px solid var(--linea)}
+.servicios b{display:block;font-weight:600;font-size:18px;letter-spacing:-.01em;margin-bottom:4px}
+.servicios span{color:var(--acero);font-size:15px;line-height:1.45}
+@media (max-width:860px){.quirofano{grid-template-columns:1fr}.quirofano img{aspect-ratio:16/11}}
+@media (max-width:560px){.servicios{grid-template-columns:1fr}.servicios li{padding:14px 0}}
 /* catálogo */
-.cat-cabeza{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}
-.buscador{position:relative;flex:1 1 380px;max-width:560px}
-.buscador input{width:100%;height:56px;border-radius:999px;border:1.5px solid var(--acero);background:rgba(10,65,116,.25);padding:0 22px 0 52px;font-size:17px}
-.buscador input::placeholder{color:var(--agua)}
-.buscador svg{position:absolute;left:20px;top:50%;transform:translateY(-50%);width:20px;height:20px;stroke:var(--cielo);fill:none;stroke-width:1.8}
-.filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-.filtros button{border:1px solid var(--borde);background:transparent;border-radius:999px;padding:8px 14px;cursor:pointer;font-size:14px;color:var(--niebla)}
-.filtros button[aria-pressed="true"]{background:var(--niebla);color:var(--fondo);border-color:var(--niebla)}
-.filtros select{border:1px solid var(--borde);background:var(--fondo);border-radius:999px;padding:8px 14px;font-size:14px;color:var(--niebla)}
-.resultado{font-size:14px;color:var(--agua);margin:12px 0 18px}
-.rejilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
-.producto{background:var(--tarjeta);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:8px;min-height:210px;border:1px solid transparent}
-.producto:hover{border-color:var(--borde)}
-.producto .fam{font-size:13px;color:var(--cielo)}
-.producto h3{font-size:20px;font-weight:400;line-height:1.25;letter-spacing:-.01em}
-.producto .meta{font-size:14px;color:var(--agua)}
-.producto select{margin-top:4px;border:1px solid var(--borde);background:var(--fondo);border-radius:8px;padding:8px 10px;font-size:14px;color:var(--niebla);max-width:100%}
-.producto .pie{margin-top:auto;padding-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.producto .agregado{font-size:13px;color:var(--cielo)}
-.vacio{padding:40px;border:1px dashed var(--borde);border-radius:var(--r);color:var(--niebla)}
-.mas{display:flex;justify-content:center;margin-top:28px}
+.buscador{position:relative;max-width:720px;margin-bottom:14px}
+.buscador input{width:100%;height:56px;border-radius:999px;border:1.5px solid var(--linea);background:var(--blanco);padding:0 22px 0 54px;font-size:17px;transition:border-color .2s}
+.buscador input:focus{border-color:var(--profundo);outline:none}
+.buscador input::placeholder{color:var(--acero);opacity:.8}
+.buscador svg{position:absolute;left:21px;top:50%;transform:translateY(-50%);width:20px;height:20px;stroke:var(--noche);fill:none;stroke-width:1.9}
+.filtros{display:flex;gap:8px;margin-bottom:10px}
+#filtroTipo{overflow-x:auto;scrollbar-width:none;margin-left:calc(-1 * var(--margen));margin-right:calc(-1 * var(--margen));padding:2px var(--margen)}
+#filtroTipo::-webkit-scrollbar{display:none}
+.filtros button{flex:none;border:1px solid var(--linea);background:var(--blanco);border-radius:999px;padding:9px 16px;cursor:pointer;font-size:14px;font-weight:500}
+.filtros button[aria-pressed="true"]{background:var(--noche);color:var(--blanco);border-color:var(--noche)}
+.selects{display:grid;grid-template-columns:repeat(2,minmax(0,220px));gap:8px}
+.filtros select{width:100%;border:1px solid var(--linea);background:var(--blanco);border-radius:999px;padding:9px 14px;font-size:14px;font-weight:500;min-width:0}
+@media (max-width:560px){.selects{grid-template-columns:1fr 1fr}}
+.resultado{font-size:14px;color:var(--acero);margin:14px 0 12px}
+.lista{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (max-width:760px){.lista{grid-template-columns:1fr}}
+.fila{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 14px;background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r-control);padding:12px 12px 12px 18px;transition:border-color .2s}
+.fila:hover{border-color:var(--niebla)}
+.fila h3{font-size:17px;font-stretch:95%;line-height:1.25;letter-spacing:-.01em}
+.fila p{margin:2px 0 0;font-size:13px;color:var(--acero);line-height:1.35}
+.mas-uno{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--noche);background:transparent;color:var(--noche);display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s}
+.mas-uno:hover,.mas-uno[aria-expanded="true"]{background:var(--noche);color:var(--blanco)}
+.mas-uno svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;transition:transform .2s}
+.mas-uno[aria-expanded="true"] svg{transform:rotate(45deg)}
+.mas-uno .ic-si{display:none}
+.fila.ok .mas-uno{background:var(--loto);border-color:var(--loto);color:var(--noche)}
+.fila.ok .mas-uno .ic-mas{display:none}.fila.ok .mas-uno .ic-si{display:block}
+.opciones{grid-column:1/-1;display:flex;gap:8px;padding-top:6px}
+.opciones select{flex:1;min-width:0;border:1px solid var(--linea);background:var(--hielo);border-radius:999px;padding:8px 14px;font-size:14px}
+.vacio{grid-column:1/-1;padding:28px;border:1px dashed var(--niebla);border-radius:var(--r-control);color:var(--noche);background:var(--blanco)}
+.mas{display:flex;justify-content:center;margin-top:22px}
 /* equipo */
-.equipo{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,48px);align-items:start}
-.persona{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);background:var(--tarjeta);border-radius:var(--r);overflow:hidden}
-.persona img{width:100%;aspect-ratio:1/1;height:auto;object-fit:cover}
-.persona div{padding:28px;display:flex;flex-direction:column;justify-content:flex-end}
-.persona h3{font-size:clamp(28px,3vw,40px)}
-.persona p{margin:6px 0 0;color:var(--niebla)}
-.grupo img{border-radius:var(--r);width:100%;aspect-ratio:70/83;object-fit:cover}
-@media (max-width:860px){.equipo{grid-template-columns:1fr}.persona{grid-template-columns:1fr}.persona img{max-height:360px}}
+.equipo{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(12px,2vw,24px);align-items:end}
+.equipo figure{margin:0}
+.equipo img{border-radius:var(--r-media);width:100%;aspect-ratio:4/5;object-fit:cover}
+.equipo .grupo img{aspect-ratio:7/6}
+.equipo figcaption{margin-top:12px;font-size:15px;color:var(--noche)}
+.equipo figcaption b{display:block;font-size:clamp(22px,2.4vw,32px);font-weight:600;font-stretch:85%;letter-spacing:-.025em;line-height:1.05}
+.equipo figcaption span{color:var(--acero)}
+@media (max-width:700px){.equipo{grid-template-columns:1fr 1fr;align-items:start}.equipo img,.equipo .grupo img{aspect-ratio:4/5;border-radius:18px}.equipo figcaption{font-size:13px}}
 /* instagram */
-.reels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:36px}
-.reel{display:block;text-decoration:none;border-radius:var(--r);overflow:hidden;background:var(--tarjeta)}
-.reel img{width:100%;aspect-ratio:54/63;object-fit:cover;transition:transform .4s}
+.reels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.reel{display:block;text-decoration:none;border-radius:22px;overflow:hidden;position:relative;background:var(--hielo)}
+.reel img{width:100%;aspect-ratio:6/7;object-fit:cover;transition:transform .5s}
 .reel:hover img{transform:scale(1.03)}
-.reel span{display:flex;justify-content:space-between;padding:12px 14px;font-size:14px;color:var(--niebla)}
-@media (max-width:860px){.reels{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.reel span{position:absolute;left:10px;bottom:10px;font-size:13px;font-weight:600;background:rgba(255,255,255,.9);padding:5px 11px;border-radius:999px}
+@media (max-width:860px){.reels{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--margen);scrollbar-width:none;margin:0 calc(-1 * var(--margen));padding:0 var(--margen);gap:10px}.reels::-webkit-scrollbar{display:none}.reel{flex:0 0 min(64%,280px);scroll-snap-align:start;border-radius:18px}}
 /* pie */
-.pie-pagina{border-top:1px solid var(--borde);padding:56px 0 calc(40px + env(safe-area-inset-bottom));color:var(--agua);font-size:14px}
-.pie-pagina .fila{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:flex-start}
+.pie-pagina{background:var(--noche);color:var(--niebla);padding:64px 0 calc(40px + env(safe-area-inset-bottom));font-size:14px}
+.pie-pagina .marca{color:var(--blanco)}
+.pie-pagina .fila-pie{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:space-between;align-items:flex-start}
 .pie-pagina p{margin:6px 0}
-.pie-pagina .creditos{margin-top:28px;max-width:70em;font-size:13px}
+.pie-pagina a{color:var(--blanco)}
+.pie-pagina .creditos{margin-top:36px;padding-top:20px;border-top:1px solid rgba(189,216,233,.18);max-width:72em;font-size:12.5px;color:var(--cielo)}
 /* cotización */
-dialog.cotizacion{width:min(560px,100vw);max-width:100vw;height:100dvh;max-height:100dvh;margin:0 0 0 auto;padding:0;border:0;background:var(--fondo);color:var(--blanco);border-left:1px solid var(--borde)}
-dialog.cotizacion::backdrop{background:rgba(0,10,20,.6)}
+dialog.cotizacion{width:min(560px,100vw);max-width:100vw;height:100dvh;max-height:100dvh;margin:0 0 0 auto;padding:0;border:0;background:var(--blanco);color:var(--noche);box-shadow:-24px 0 60px -20px rgba(0,29,57,.35)}
+dialog.cotizacion::backdrop{background:rgba(0,29,57,.35);backdrop-filter:blur(3px)}
 .cot{display:flex;flex-direction:column;height:100%}
-.cot header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--borde)}
-.cot header h2{font-size:28px}
+.cot header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--linea)}
+.cot header h2{font-size:34px}
+.cot header .icono{color:var(--noche);background:var(--hielo);border:0}
 .cot .cuerpo{padding:20px 24px;overflow:auto;flex:1}
 .cot .items{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:8px}
-.cot .items li{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;background:var(--tarjeta);border-radius:8px;padding:10px 12px}
-.cot .items .n{font-size:15px}
-.cot .items .v{font-size:13px;color:var(--agua)}
-.cot .items input{width:64px;height:36px;border-radius:8px;border:1px solid var(--borde);background:var(--fondo);text-align:center}
-.cot .quitar{border:0;background:transparent;color:var(--agua);cursor:pointer;font-size:13px}
+.cot .items li{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;background:var(--hielo);border-radius:var(--r-control);padding:10px 12px}
+.cot .items .n{font-size:15px;font-weight:600;line-height:1.3}
+.cot .items .v{font-size:13px;color:var(--acero)}
+.cot .items input{width:64px;height:38px;border-radius:10px;border:1px solid var(--linea);background:var(--blanco);text-align:center}
+.cot .quitar{border:0;background:transparent;color:var(--profundo);cursor:pointer;font-size:13px;text-decoration:underline}
 .campo{display:grid;gap:6px;margin-bottom:14px}
-.campo label{font-size:14px;color:var(--niebla)}
-.campo input,.campo textarea{border:1px solid var(--borde);background:rgba(10,65,116,.25);border-radius:8px;padding:12px;font-size:16px}
+.campo label{font-size:14px;font-weight:500}
+.campo input,.campo textarea{border:1px solid var(--linea);background:var(--blanco);border-radius:12px;padding:12px;font-size:16px}
+.campo input:focus,.campo textarea:focus{border-color:var(--profundo);outline:none}
 .campo textarea{min-height:90px;resize:vertical}
-.aviso{font-size:13px;color:var(--cielo)}
-.error{font-size:14px;color:#FFB4A8;margin-top:6px;display:none}
+.aviso{font-size:13px;color:var(--acero)}
+.error{font-size:14px;color:#B3261E;margin-top:6px;display:none}
 .error.visible{display:block}
 .trampa{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.cot footer{padding:16px 24px calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--borde);display:flex;flex-wrap:wrap;gap:10px}
-.referencia{font-size:15px;margin-top:12px;padding:12px;border:1px solid var(--borde);border-radius:8px;display:none;white-space:pre-wrap}
+.cot footer{padding:16px 24px calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--linea);display:flex;flex-wrap:wrap;gap:10px}
+.referencia{font-size:15px;margin-top:12px;padding:14px;border:1px solid var(--linea);background:var(--hielo);border-radius:12px;display:none;white-space:pre-wrap}
 .referencia.visible{display:block}
 .medidor{position:fixed;left:10px;top:76px;z-index:90;background:rgba(0,0,0,.78);color:#9f9;font:12px/1.4 ui-monospace,monospace;padding:8px 10px;border-radius:6px;white-space:pre;display:none}
 .medidor.visible{display:block}
@@ -227,42 +277,43 @@ dialog.cotizacion::backdrop{background:rgba(0,10,20,.6)}
   <div class="envoltura">
     <a class="marca" href="#inicio" aria-label="Surgy Store, inicio"><img src="img/loto.png" alt="" width="40" height="22">Surgy Store</a>
     <nav class="menu" aria-label="Secciones">
-      <a href="#inicio">Explorar en 3D</a><a href="#catalogo">Catálogo</a><a href="#quirofano">Quirófano</a><a href="#equipo">Equipo</a><a href="#instagram">Instagram</a>
+      <a href="#inicio">Anatomía 3D</a><a href="#quirofano">Quirófano</a><a href="#catalogo">Catálogo</a><a href="#equipo">Equipo</a><a href="#instagram">Instagram</a>
     </nav>
-    <button class="boton chico" id="abrirCot" type="button">Mi cotización <span class="contador" id="contador">0</span></button>
+    <button class="boton chico lleno" id="abrirCot" type="button" aria-label="Abrir mi cotización">Cotizar <span class="contador" id="contador">0</span></button>
   </div>
 </header>
 
 <main>
-<section id="inicio" class="envoltura portada" aria-labelledby="titulo">
-  <div class="copia">
-    <p class="etiqueta">Surgy Store — Caracas, Venezuela</p>
-    <h1 id="titulo">Equipos, implantes <span>y servicios.</span></h1>
-    <p class="texto">Venta y alquiler de equipos e implantes para neurocirugía y columna. Explora la anatomía en 3D, capa por capa, y arma tu solicitud de cotización.</p>
-    <div class="acciones">
-      <a class="boton lleno" href="#catalogo">Ver catálogo</a>
-      <button class="boton" type="button" data-abrir-cot>Mi cotización</button>
+<section id="inicio" class="portada" aria-labelledby="titulo">
+  <div class="envoltura portada-texto">
+    <h1 id="titulo"><span class="l"><span>Neurocirugía</span></span><span class="l"><span>y columna.</span></span></h1>
+    <div class="portada-lado">
+      <p class="texto">Equipos, implantes y servicios en venta y alquiler, en Caracas. Gira la anatomía en 3D, acércate capa por capa y arma tu cotización.</p>
+      <div class="acciones">
+        <a class="boton lleno" href="#catalogo">Ver catálogo</a>
+        <button class="boton" type="button" data-abrir-cot>Mi cotización</button>
+      </div>
     </div>
   </div>
-
+  <div class="envoltura">
   <div class="explorador" id="explorador">
     <canvas id="lienzo" role="img" aria-label="Modelo 3D interactivo de anatomía. Usa los botones de capas y de modelo para cambiar la vista."></canvas>
     <div class="rotulos" id="rotulos" aria-hidden="true"></div>
     <div class="velo" id="velo"></div>
     <div class="ilustracion" id="ilustracion">Ilustración 3D, no es una imagen real</div>
-    <div class="capa-ui pestanas" role="tablist" aria-label="Modelo">
+    <div class="capa-ui pestanas vidrio" role="tablist" aria-label="Modelo">
       <button role="tab" data-escena="columna" aria-selected="true">Columna</button>
       <button role="tab" data-escena="craneo" aria-selected="false">Cráneo</button>
       <button role="tab" data-escena="cerebro" aria-selected="false">Cerebro</button>
     </div>
     <div class="capa-ui herramientas">
-      <button class="icono" id="reiniciar" type="button" aria-label="Volver a la vista inicial"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/></svg></button>
-      <button class="icono" id="completa" type="button" aria-label="Pantalla completa"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      <button class="icono vidrio" id="reiniciar" type="button" aria-label="Volver a la vista inicial"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/></svg></button>
+      <button class="icono vidrio" id="completa" type="button" aria-label="Pantalla completa"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
     </div>
-    <div class="capa-ui capas" id="capas" role="group" aria-label="Capas"></div>
+    <div class="capa-ui capas vidrio" id="capas" role="group" aria-label="Capas"></div>
     <div class="capa-ui estado" aria-live="polite">
       <div class="capa-nombre" id="capaNombre">Piel</div>
-      <div class="pista" id="pista">Acércate con la rueda o pellizcando: las capas cambian solas. Doble toque para enfocar.</div>
+      <div class="pista" id="pista">Arrastra para girar. Pellizca o usa la rueda para acercarte: las capas cambian solas. Doble toque sobre una pieza para ir hacia ella.</div>
       <div class="profundidad" id="profundidad"></div>
     </div>
     <div class="capa-ui ficha3d" id="ficha3d" aria-live="polite">
@@ -275,73 +326,73 @@ dialog.cotizacion::backdrop{background:rgba(0,10,20,.6)}
     <div class="punta" id="punta"></div>
     <div class="cargando" id="cargando">Cargando modelo 3D…</div>
   </div>
+  </div>
 </section>
 
 <section id="quirofano" class="bloque" aria-labelledby="t-quirofano">
   <div class="envoltura quirofano">
     <figure>
       <img src="img/quirofano.webp" alt="Instrumentista con gorro de Surgy Store preparando instrumental en quirófano" width="960" height="1100" loading="lazy">
-      <figcaption>En quirófano. Foto de Surgy Store.</figcaption>
+      <figcaption>En quirófano, con el equipo de Surgy Store.</figcaption>
     </figure>
     <div>
-      <p class="etiqueta">Quirófano</p>
       <h2 id="t-quirofano">Lo que la cirugía necesita, a tiempo.</h2>
-      <p class="texto" style="margin-top:24px">Cajas de instrumental y equipos en alquiler para cirugías de columna, cráneo e hipófisis, además de implantes e insumos.</p>
-      <ul class="lista-servicios">
-        <li><b>Columna</b>Tornillos transpediculares, dispositivos intersomáticos, masa lateral y vertebroplastia.</li>
-        <li><b>Cráneo</b>Craneotomía, reconstrucción craneal y prótesis personalizada.</li>
-        <li><b>Cerebro</b>Clips de aneurisma, microcirugía e hidrocefalia.</li>
-        <li><b>En la cirugía</b>Neuronavegación, neuromonitoreo y ecografía Doppler.</li>
+      <p class="texto" style="margin-top:22px">Cajas de instrumental y equipos en alquiler para cirugías de columna, cráneo e hipófisis, además de implantes e insumos.</p>
+      <ul class="servicios">
+        <li><b>Columna</b><span>Tornillos transpediculares, dispositivos intersomáticos, masa lateral y vertebroplastia.</span></li>
+        <li><b>Cráneo</b><span>Craneotomía, reconstrucción craneal y prótesis personalizada.</span></li>
+        <li><b>Cerebro</b><span>Clips de aneurisma, microcirugía e hidrocefalia.</span></li>
+        <li><b>En la cirugía</b><span>Neuronavegación, neuromonitoreo y ecografía Doppler.</span></li>
       </ul>
     </div>
   </div>
 </section>
 
-<section id="catalogo" class="bloque" aria-labelledby="t-catalogo">
+<section id="catalogo" class="bloque hielo" aria-labelledby="t-catalogo">
   <div class="envoltura">
-    <div class="cat-cabeza">
-      <div><p class="etiqueta">Catálogo</p><h2 id="t-catalogo">Busca y cotiza.</h2></div>
-      <div class="buscador">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-        <input id="buscar" type="search" placeholder="Busca: tornillo pedicular, válvula, clip…" aria-label="Buscar en el catálogo" autocomplete="off">
-      </div>
+    <div class="cabeza">
+      <h2 id="t-catalogo">Busca y cotiza.</h2>
+      <p class="texto">Toca + para sumar un producto a tu cotización. Si tiene medidas, eliges la tuya antes de agregarlo.</p>
+    </div>
+    <div class="buscador">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="buscar" type="search" placeholder="Busca: tornillo pedicular, válvula, clip…" aria-label="Buscar en el catálogo" autocomplete="off">
     </div>
     <div class="filtros" id="filtroTipo" role="group" aria-label="Tipo"></div>
-    <div class="filtros"><select id="filtroZona" aria-label="Zona"></select><select id="filtroFamilia" aria-label="Familia"></select></div>
+    <div class="filtros selects"><select id="filtroZona" aria-label="Zona"></select><select id="filtroFamilia" aria-label="Familia"></select></div>
     <p class="resultado" id="resultado" aria-live="polite"></p>
-    <div class="rejilla" id="rejilla"></div>
+    <div class="lista" id="rejilla"></div>
     <div class="mas"><button class="boton" id="verMas" type="button">Ver más</button></div>
   </div>
 </section>
 
 <section id="equipo" class="bloque" aria-labelledby="t-equipo">
   <div class="envoltura">
-    <p class="etiqueta">Equipo</p>
-    <h2 id="t-equipo" style="margin-bottom:36px">Quiénes te atienden.</h2>
+    <div class="cabeza"><h2 id="t-equipo">Quiénes te atienden.</h2></div>
     <div class="equipo">
-      <article class="persona">
+      <figure>
         <img src="img/juan-pablo.webp" alt="Juan Pablo, Director Ejecutivo de Surgy Store" width="700" height="560" loading="lazy">
-        <div><p class="etiqueta" style="margin:0">Dirección</p><h3>Juan Pablo</h3><p>Director Ejecutivo</p></div>
-      </article>
-      <figure class="grupo" style="margin:0">
+        <figcaption><b>Juan Pablo</b><span>Director Ejecutivo</span></figcaption>
+      </figure>
+      <figure class="grupo">
         <img src="img/equipo.webp" alt="Parte del equipo de Surgy Store en un evento" width="700" height="830" loading="lazy">
-        <figcaption>Parte del equipo de Surgy Store.</figcaption>
+        <figcaption><b>El equipo</b><span>Parte del equipo de Surgy Store.</span></figcaption>
       </figure>
     </div>
   </div>
 </section>
 
-<section id="instagram" class="bloque" aria-labelledby="t-ig">
+<section id="instagram" class="bloque" aria-labelledby="t-ig" style="padding-top:0">
   <div class="envoltura">
-    <div class="cat-cabeza">
-      <div><p class="etiqueta">Instagram</p><h2 id="t-ig">Lo último.</h2></div>
-      <a class="boton" href="https://www.instagram.com/surgystore_vzla/" target="_blank" rel="noopener noreferrer">@surgystore_vzla ↗</a>
+    <div class="cabeza">
+      <h2 id="t-ig">En Instagram.</h2>
+      <a class="boton" href="https://www.instagram.com/surgystore_vzla/" target="_blank" rel="noopener noreferrer">@surgystore_vzla <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
     </div>
     <div class="reels">
-      <a class="reel" href="https://www.instagram.com/reel/DWzi1EGCcXR/" target="_blank" rel="noopener noreferrer"><img src="img/reel-2026-04-06.webp" alt="Reel de Surgy Store del 6 de abril de 2026" width="540" height="630" loading="lazy"><span>6 abr 2026<b>↗</b></span></a>
-      <a class="reel" href="https://www.instagram.com/reel/DWKam_biXOl/" target="_blank" rel="noopener noreferrer"><img src="img/reel-2026-03-21.webp" alt="Reel de Surgy Store del 21 de marzo de 2026" width="540" height="630" loading="lazy"><span>21 mar 2026<b>↗</b></span></a>
-      <a class="reel" href="https://www.instagram.com/reel/DWALm94DHlU/" target="_blank" rel="noopener noreferrer"><img src="img/reel-2026-03-17.webp" alt="Reel de Surgy Store del 17 de marzo de 2026" width="540" height="630" loading="lazy"><span>17 mar 2026<b>↗</b></span></a>
-      <a class="reel" href="https://www.instagram.com/reel/DPpRN_Lkd86/" target="_blank" rel="noopener noreferrer"><img src="img/reel-2025-10-10.webp" alt="Reel de Surgy Store del 10 de octubre de 2025" width="540" height="630" loading="lazy"><span>10 oct 2025<b>↗</b></span></a>
+      <a class="reel" href="https://www.instagram.com/reel/DWzi1EGCcXR/" target="_blank" rel="noopener noreferrer"><img src="img/reel-2026-04-06.webp" alt="Reel de Surgy Store del 6 de abril de 2026" width="540" height="630" loading="lazy"><span>6 abr 2026</span></a>
+      <a class="reel" href="https://www.instagram.com/reel/DWKam_biXOl/" target="_blank" rel="noopener noreferrer"><img src="img/reel-2026-03-21.webp" alt="Reel de Surgy Store del 21 de marzo de 2026" width="540" height="630" loading="lazy"><span>21 mar 2026</span></a>
+      <a class="reel" href="https://www.instagram.com/reel/DWALm94DHlU/" target="_blank" rel="noopener noreferrer"><img src="img/reel-2026-03-17.webp" alt="Reel de Surgy Store del 17 de marzo de 2026" width="540" height="630" loading="lazy"><span>17 mar 2026</span></a>
+      <a class="reel" href="https://www.instagram.com/reel/DPpRN_Lkd86/" target="_blank" rel="noopener noreferrer"><img src="img/reel-2025-10-10.webp" alt="Reel de Surgy Store del 10 de octubre de 2025" width="540" height="630" loading="lazy"><span>10 oct 2025</span></a>
     </div>
   </div>
 </section>
@@ -349,9 +400,9 @@ dialog.cotizacion::backdrop{background:rgba(0,10,20,.6)}
 
 <footer class="pie-pagina">
   <div class="envoltura">
-    <div class="fila">
+    <div class="fila-pie">
       <div><a class="marca" href="#inicio"><img src="img/loto.png" alt="" width="40" height="22">Surgy Store</a><p>Corporación Surgystore 077 C.A. · Caracas, Venezuela</p></div>
-      <div><p><a href="https://www.instagram.com/surgystore_vzla/" target="_blank" rel="noopener noreferrer">Instagram @surgystore_vzla ↗</a></p><p>Las marcas son de sus dueños.</p><p>Contenido educativo; modelos 3D ilustrativos.</p></div>
+      <div><p><a href="https://www.instagram.com/surgystore_vzla/" target="_blank" rel="noopener noreferrer">Instagram @surgystore_vzla</a></p><p>Las marcas son de sus dueños.</p><p>Contenido educativo; modelos 3D ilustrativos.</p></div>
     </div>
     <p class="creditos">Modelos anatómicos: BodyParts3D, © The Database Center for Life Science, bajo licencia CC Attribution 4.0 International (convertidos, recortados, simplificados y comprimidos para esta web). La capa de células es una ilustración. Los nombres anatómicos y los textos médicos están pendientes de revisión por un especialista. Versión de demostración del 18-nov-2026.</p>
   </div>
@@ -376,7 +427,7 @@ dialog.cotizacion::backdrop{background:rgba(0,10,20,.6)}
     <footer>
       <button class="boton lleno" type="button" id="generarCot">Preparar solicitud</button>
       <button class="boton" type="button" id="copiarCot" hidden>Copiar texto</button>
-      <a class="boton" id="enviarIG" href="https://ig.me/m/surgystore_vzla" target="_blank" rel="noopener noreferrer" hidden>Enviar por Instagram ↗</a>
+      <a class="boton" id="enviarIG" href="https://ig.me/m/surgystore_vzla" target="_blank" rel="noopener noreferrer" hidden>Enviar por Instagram</a>
     </footer>
   </form>
 </dialog>
@@ -393,12 +444,14 @@ const leer = (k, def) => { try { const v = localStorage.getItem(k); return v ? J
 const sinTildes = (t) => String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const pruebas = location.hash === '#medir' || navigator.webdriver === true;
+document.documentElement.dataset.escenario = new URLSearchParams(location.search).get('escenario') === 'oscuro' ? 'oscuro' : 'claro';
 addEventListener('scroll', () => $('#cabecera').classList.toggle('con-borde', scrollY > 8), { passive: true });
 
 /* ===================== catálogo ===================== */
 const CAT = { fichas: [], familias: [], zonas: [], sinonimos: [], listo: false };
 const TIPOS = [['', 'Todo'], ['implante', 'Implantes'], ['equipo', 'Equipos'], ['insumo', 'Insumos'], ['servicio', 'Servicios']];
-const filtro = { texto: '', tipo: '', zona: '', familia: '', limite: 24 };
+const PASO = matchMedia('(max-width: 760px)').matches ? 8 : 12;
+const filtro = { texto: '', tipo: '', zona: '', familia: '', limite: PASO };
 const nombreFamilia = (id) => (CAT.familias.find((f) => f.id === id) || {}).nombre || id;
 async function cargarCatalogo() {
   try {
@@ -436,38 +489,50 @@ function coincide(f) {
   if (filtro.familia && f.familia !== filtro.familia) return false;
   return expandir(filtro.texto).every((alts) => alts.some((a) => f.buscar.includes(a)));
 }
-function tarjeta(f) {
+const ICONOS = '<svg class="ic-mas" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><svg class="ic-si" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+function fila(f) {
   const varios = f.variantes.length > 1;
-  const sel = varios ? `<select aria-label="Variante de ${esc(f.nombre)}">${f.variantes.map((v) => `<option value="${esc(v.clave)}">${esc(v.etiqueta || v.clave)}</option>`).join('')}</select>` : '';
-  const tipo = { implante: 'Implante', equipo: 'Equipo', insumo: 'Insumo', servicio: 'Servicio' }[f.tipo] || '';
-  return `<article class="producto" data-id="${esc(f.id)}"><div class="fam">${esc(nombreFamilia(f.familia))}</div><h3>${esc(f.nombre)}</h3><div class="meta">${tipo}${varios ? ` · ${f.variantes.length} variantes` : ''}${f.material ? ` · ${esc(f.material)}` : ''}</div>${sel}<div class="pie"><button class="boton chico" type="button" data-agregar="${esc(f.id)}">Agregar a mi cotización</button><span class="agregado" hidden>Agregado</span></div></article>`;
+  const meta = esc(nombreFamilia(f.familia)) + (varios ? `, ${f.variantes.length} variantes` : '');
+  const boton = varios
+    ? `<button class="mas-uno" type="button" data-abrir aria-expanded="false" aria-label="Elegir variante de ${esc(f.nombre)}">${ICONOS}</button>`
+    : `<button class="mas-uno" type="button" data-agregar="${esc(f.id)}" aria-label="Agregar ${esc(f.nombre)} a mi cotización">${ICONOS}</button>`;
+  const opciones = varios ? `<div class="opciones" hidden><select aria-label="Variante de ${esc(f.nombre)}">${f.variantes.map((v) => `<option value="${esc(v.clave)}">${esc(v.etiqueta || v.clave)}</option>`).join('')}</select><button class="boton chico lleno" type="button" data-agregar="${esc(f.id)}">Agregar</button></div>` : '';
+  return `<article class="fila" data-id="${esc(f.id)}"><div><h3>${esc(f.nombre)}</h3><p>${meta}</p></div>${boton}${opciones}<span class="sr" role="status"></span></article>`;
 }
+const ORDEN_TIPO = { implante: 0, equipo: 1, servicio: 2, insumo: 3 };
 function pintarCatalogo() {
   const lista = CAT.fichas.filter(coincide);
+  if (!filtro.texto.trim()) lista.sort((a, b) => (ORDEN_TIPO[a.tipo] ?? 4) - (ORDEN_TIPO[b.tipo] ?? 4) || (b.variantes.length > 1) - (a.variantes.length > 1));
   $('#resultado').textContent = lista.length ? `${lista.length} ${lista.length === 1 ? 'resultado' : 'resultados'}` : '';
   if (!lista.length) {
     $('#rejilla').innerHTML = `<div class="vacio">No encontramos «<span id="noEncontrado"></span>». Prueba con otra palabra (por ejemplo «tornillo», «válvula» o «clip») o pide en tu cotización algo que no esté: escríbelo en las notas.<div style="margin-top:14px"><button class="boton chico" type="button" data-abrir-cot>Pedir cotización de algo que no está</button></div></div>`;
     $('#noEncontrado').textContent = filtro.texto; $('#verMas').hidden = true; return;
   }
-  $('#rejilla').innerHTML = lista.slice(0, filtro.limite).map(tarjeta).join('');
+  $('#rejilla').innerHTML = lista.slice(0, filtro.limite).map(fila).join('');
   $('#verMas').hidden = lista.length <= filtro.limite;
+  $('#verMas').textContent = `Ver más (quedan ${lista.length - Math.min(lista.length, filtro.limite)})`;
 }
 let tBusca;
-$('#buscar').addEventListener('input', (e) => { clearTimeout(tBusca); tBusca = setTimeout(() => { filtro.texto = e.target.value; filtro.limite = 24; pintarCatalogo(); }, 120); });
-$('#filtroTipo').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; filtro.tipo = b.dataset.tipo; $$('#filtroTipo button').forEach((x) => x.setAttribute('aria-pressed', x === b)); filtro.limite = 24; pintarCatalogo(); });
-$('#filtroZona').addEventListener('change', (e) => { filtro.zona = e.target.value; llenarFamilias(); filtro.familia = $('#filtroFamilia').value; filtro.limite = 24; pintarCatalogo(); });
-$('#filtroFamilia').addEventListener('change', (e) => { filtro.familia = e.target.value; filtro.limite = 24; pintarCatalogo(); });
-$('#verMas').addEventListener('click', () => { filtro.limite += 24; pintarCatalogo(); });
+$('#buscar').addEventListener('input', (e) => { clearTimeout(tBusca); tBusca = setTimeout(() => { filtro.texto = e.target.value; filtro.limite = PASO; pintarCatalogo(); }, 120); });
+$('#filtroTipo').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; filtro.tipo = b.dataset.tipo; $$('#filtroTipo button').forEach((x) => x.setAttribute('aria-pressed', x === b)); filtro.limite = PASO; pintarCatalogo(); });
+$('#filtroZona').addEventListener('change', (e) => { filtro.zona = e.target.value; llenarFamilias(); filtro.familia = $('#filtroFamilia').value; filtro.limite = PASO; pintarCatalogo(); });
+$('#filtroFamilia').addEventListener('change', (e) => { filtro.familia = e.target.value; filtro.limite = PASO; pintarCatalogo(); });
+$('#verMas').addEventListener('click', () => { filtro.limite += PASO; pintarCatalogo(); });
 $('#rejilla').addEventListener('click', (e) => {
+  const ab = e.target.closest('[data-abrir]');
+  if (ab) { const op = ab.closest('.fila').querySelector('.opciones'); const abrir = op.hidden; op.hidden = !abrir; ab.setAttribute('aria-expanded', String(abrir)); if (abrir) op.querySelector('select').focus(); return; }
   const b = e.target.closest('[data-agregar]'); if (!b) return;
-  const card = b.closest('.producto'); const f = CAT.fichas.find((x) => x.id === b.dataset.agregar); if (!f) return;
+  const card = b.closest('.fila'); const f = CAT.fichas.find((x) => x.id === b.dataset.agregar); if (!f) return;
   const sel = card.querySelector('select'); const clave = sel ? sel.value : f.variantes[0].clave;
-  agregar(f, clave); const ok = card.querySelector('.agregado'); ok.hidden = false; setTimeout(() => (ok.hidden = true), 1600);
+  agregar(f, clave);
+  if (sel) { card.querySelector('.opciones').hidden = true; card.querySelector('[data-abrir]').setAttribute('aria-expanded', 'false'); }
+  card.classList.add('ok'); card.querySelector('[role=status]').textContent = 'Agregado a tu cotización';
+  setTimeout(() => { card.classList.remove('ok'); card.querySelector('[role=status]').textContent = ''; }, 1600);
 });
 function mostrarFamilia(fam) {
   filtro.familia = fam; filtro.zona = ''; filtro.tipo = ''; filtro.texto = ''; $('#buscar').value = '';
   $('#filtroZona').value = ''; llenarFamilias(); $('#filtroFamilia').value = fam; $$('#filtroTipo button').forEach((x) => x.setAttribute('aria-pressed', x.dataset.tipo === ''));
-  filtro.limite = 24; pintarCatalogo(); $('#catalogo').scrollIntoView({ behavior: reducido ? 'auto' : 'smooth' });
+  filtro.limite = PASO; pintarCatalogo(); $('#catalogo').scrollIntoView({ behavior: reducido ? 'auto' : 'smooth' });
 }
 
 /* ===================== cotización ===================== */
@@ -643,7 +708,8 @@ if (renderer) {
   const clave = new THREE.DirectionalLight(0xffffff, 2.2); clave.position.set(1.2, 1.6, 1.4); escena.add(clave);
   const contra = new THREE.DirectionalLight(0x7BBDE8, 1.4); contra.position.set(-1.4, 0.6, -1.6); escena.add(contra);
   controles = new OrbitControls(camara, lienzo);
-  Object.assign(controles, { enableDamping: true, dampingFactor: 0.085, zoomToCursor: true, screenSpacePanning: true, rotateSpeed: 0.8, zoomSpeed: 1.1, autoRotate: !reducido, autoRotateSpeed: 0.6 });
+  // giro predecible: sin desplazar el punto de giro con dos dedos ni con el cursor; no se voltea en los polos
+  Object.assign(controles, { enableDamping: true, dampingFactor: 0.12, zoomToCursor: false, enablePan: false, rotateSpeed: movil ? 0.6 : 0.8, zoomSpeed: 1.1, minPolarAngle: 0.12, maxPolarAngle: Math.PI - 0.12, autoRotate: !reducido, autoRotateSpeed: 0.6 });
   controles.addEventListener('start', () => { controles.autoRotate = false; });
   controles.addEventListener('change', pedirRender);
 }
@@ -663,7 +729,8 @@ function cargarGLB(url) {
 }
 
 /* materiales */
-const Fisico = (o) => { if (nivel === 'baja') { const { sheen, sheenColor, sheenRoughness, clearcoat, clearcoatRoughness, ...r } = o; return new THREE.MeshStandardMaterial(r); } return new THREE.MeshPhysicalMaterial(o); };
+const CLARO = document.documentElement.dataset.escenario !== 'oscuro';
+const Fisico = (o) => { if (nivel !== 'alta') { const { sheen, sheenColor, sheenRoughness, clearcoat, clearcoatRoughness, ...r } = o; return new THREE.MeshStandardMaterial(r); } return new THREE.MeshPhysicalMaterial(o); };
 function materialReal(capa, mesh) {
   const ud = mesh.userData || {}; const n = (ud.nombre_es || '') + ' ' + (mesh.material?.name || '');
   const base = { metalness: 0, roughness: 0.6, transparent: false, side: THREE.FrontSide };
@@ -673,14 +740,14 @@ function materialReal(capa, mesh) {
     case 'vaso': return Fisico({ ...base, color: /Vena|Venas|Senos/.test(n) ? 0x2E5C9C : 0xB8322A, roughness: 0.32, clearcoat: 0.4, clearcoatRoughness: 0.35 });
     case 'nervio': return new THREE.MeshStandardMaterial({ ...base, color: /Médula/.test(n) ? 0xF1E2B4 : 0xE3C060, roughness: 0.48, emissive: 0x3a2c08, emissiveIntensity: 0.6 });
     case 'cerebro': return Fisico({ ...base, color: 0xD3A69C, roughness: 0.55, clearcoat: 0.2, clearcoatRoughness: 0.6, sheen: 0.25, sheenColor: new THREE.Color(0xFFE2DA) });
-    default: return new THREE.MeshStandardMaterial({ ...base, color: /disco/i.test(n) ? 0x9FC2CB : 0xE7DDC7, roughness: /disco/i.test(n) ? 0.45 : 0.72 });
+    default: return new THREE.MeshStandardMaterial({ ...base, color: /disco/i.test(n) ? 0x9FC2CB : (CLARO ? 0xD3C4A6 : 0xE7DDC7), roughness: /disco/i.test(n) ? 0.45 : 0.72 });
   }
 }
 const holograma = () => new THREE.ShaderMaterial({
-  uniforms: { uColor: { value: new THREE.Color(0x7BBDE8) }, uOp: { value: 0.0 } },
+  uniforms: { uColor: { value: new THREE.Color(CLARO ? 0x0A4174 : 0x7BBDE8) }, uOp: { value: 0.0 } },
   vertexShader: `varying vec3 vN; varying vec3 vV; void main(){ vec4 mv = modelViewMatrix*vec4(position,1.0); vN = normalize(normalMatrix*normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix*mv; }`,
   fragmentShader: `uniform vec3 uColor; uniform float uOp; varying vec3 vN; varying vec3 vV; void main(){ float f = pow(1.0-abs(dot(normalize(vN),normalize(vV))),2.2); gl_FragColor = vec4(uColor*(0.25+1.5*f), uOp*(0.08+0.9*f)); }`,
-  transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
+  transparent: true, depthWrite: false, blending: CLARO ? THREE.NormalBlending : THREE.AdditiveBlending, side: THREE.DoubleSide,
 });
 
 /* estado */
@@ -775,10 +842,30 @@ function distanciaEncuadre() {
 function vistaInicial() {
   const cfg = ESCENAS[E.escena]; const d = new THREE.Vector3(...cfg.vista.dir).normalize();
   E.d0 = distanciaEncuadre() / E.R;
-  controles.target.copy(E.centro); camara.position.copy(E.centro).addScaledVector(d, E.R * E.d0);
+  controles.target.copy(E.centro); camara.position.copy(E.centro).addScaledVector(d, E.R * E.d0); E.encajar = true;
   controles.minDistance = E.R * 0.004; controles.maxDistance = E.R * E.d0 * 1.4; controles.update(); pedirRender();
 }
 function distanciaRel() { return controles.getDistance() / E.R; }
+// Giro siempre centrado: el punto de giro nunca sale de la pieza visible y, al alejarse,
+// vuelve solo al centro de la capa. La cámara se traslada igual, así no hay saltos de ángulo.
+const _delta = new THREE.Vector3();
+function mantenerCentro(ctrl, cam, centro, caja, cerca, lejos, k) {
+  const t = ctrl.target; _delta.copy(t);
+  if (caja) caja.clampPoint(t, t);
+  const w = k >= 1 ? 1 : THREE.MathUtils.smoothstep(ctrl.getDistance(), cerca, lejos);
+  if (w > 0) t.lerp(centro, k >= 1 ? 1 : 1 - Math.exp(-k * w));
+  _delta.subVectors(t, _delta);
+  if (_delta.lengthSq() < 1e-12) return false;
+  cam.position.add(_delta); return true;
+}
+function capaConCaja() {
+  const info = E.grupos[E.escena + ':' + E.capa]; if (!info) return null;
+  if (!info.caja) {
+    const caja = new THREE.Box3().setFromObject(info.grupo); if (caja.isEmpty()) return null;
+    info.centro = caja.getCenter(new THREE.Vector3()); info.caja = caja.expandByScalar(E.R * 0.04);
+  }
+  return info;
+}
 function capaPorDistancia() {
   const d = distanciaRel(); const cs = ESCENAS[E.escena].capas; const actual = E.capa;
   for (const c of cs) {
@@ -791,7 +878,7 @@ async function ponerCapa(id, inmediato = false) {
   if (id === E.capa) return;
   const cfg = ESCENAS[E.escena]; const capa = cfg.capas.find((c) => c.id === id);
   E.capa = id; actualizarUI(); cerrarFicha();
-  if (!E.enCelulas) $('#pista').textContent = 'Acércate con la rueda o pellizcando: las capas cambian solas. Doble toque para enfocar.';
+  if (!E.enCelulas) $('#pista').textContent = 'Arrastra para girar. Pellizca o usa la rueda para acercarte: las capas cambian solas. Doble toque sobre una pieza para ir hacia ella.';
   if (capa.celulas) { entrarEnCelulas(capa.celulas); return; }
   if (E.enCelulas) salirDeCelulas(false);
   const info = await prepararCapa(E.escena, capa);
@@ -870,7 +957,7 @@ lienzo.addEventListener('pointerup', (e) => {
 lienzo.addEventListener('dblclick', (e) => { if (!renderer || !E.centroRef) return; const h = golpe(e); if (h) enfocar(h.point); });
 let animEnfoque = null;
 function enfocar(p) {
-  const d0 = controles.getDistance(); const d1 = Math.max(controles.minDistance * 2, d0 * 0.45);
+  const d0 = controles.getDistance(); const d1 = Math.max(controles.minDistance * 2, Math.min(d0 * 0.45, E.R * E.d0 * 0.5));
   const dir = camara.position.clone().sub(controles.target).normalize();
   animEnfoque = { t0: performance.now(), dur: reducido ? 1 : 650, desdeT: controles.target.clone(), haciaT: p.clone(), desdeP: camara.position.clone(), haciaP: p.clone().addScaledVector(dir, d1) };
   controles.autoRotate = false;
@@ -901,7 +988,7 @@ function pintarProductos(fams) {
   for (const f of CAT.fichas.filter((f) => fams.includes(f.familia)).sort((x, y) => peso(y) - peso(x))) { if (fichas.length >= 3) break; if (!fichas.includes(f)) fichas.push(f); }
   fichas.length = Math.min(fichas.length, 3);
   if (!fichas.length) { cont.innerHTML = ''; return; }
-  cont.innerHTML = `<div class="prod">Productos para esta zona</div><ul>${fichas.map((f) => `<li><button type="button" data-agr3d="${esc3(f.id)}">${esc3(f.nombre)}<br><small style="color:var(--agua)">${esc3(nombreFamilia(f.familia))} · agregar a mi cotización</small></button></li>`).join('')}</ul><button class="boton chico vertodos" type="button" data-fam="${esc3(fams[0])}">Ver todos en el catálogo</button>`;
+  cont.innerHTML = `<div class="prod">Productos para esta zona</div><ul>${fichas.map((f) => `<li><button type="button" data-agr3d="${esc3(f.id)}">${esc3(f.nombre)}<br><small style="color:var(--acero)">${esc3(nombreFamilia(f.familia))} · agregar a mi cotización</small></button></li>`).join('')}</ul><button class="boton chico vertodos" type="button" data-fam="${esc3(fams[0])}">Ver todos en el catálogo</button>`;
 }
 $('#fichaProd').addEventListener('click', (e) => {
   const a = e.target.closest('[data-agr3d]'); if (a) { const f = CAT.fichas.find((x) => x.id === a.dataset.agr3d); if (!f) return; agregar(f, f.variantes[0].clave); a.querySelector('small').textContent = 'Agregado a mi cotización'; return; }
@@ -1171,7 +1258,7 @@ const CEL = (() => {
     mundo = {}; rotulos = []; pulsos = null;
     if (t === 'hueso') construirHueso(esc); else construirNeuronas(esc);
     cam = new THREE.PerspectiveCamera(35, camara.aspect, 0.05, 200);
-    ctrl = new OrbitControls(cam, lienzo); Object.assign(ctrl, { enableDamping: true, dampingFactor: 0.08, zoomToCursor: true, rotateSpeed: 0.7, autoRotate: !reducido, autoRotateSpeed: 0.5, minDistance: 1.2, maxDistance: mundo.dist * 1.6 });
+    ctrl = new OrbitControls(cam, lienzo); Object.assign(ctrl, { enableDamping: true, dampingFactor: 0.12, zoomToCursor: false, enablePan: false, rotateSpeed: movil ? 0.55 : 0.7, minPolarAngle: 0.12, maxPolarAngle: Math.PI - 0.12, autoRotate: !reducido, autoRotateSpeed: 0.5, minDistance: 1.2, maxDistance: mundo.dist * 1.6 });
     ctrl.addEventListener('start', () => (ctrl.autoRotate = false)); ctrl.addEventListener('change', pedirRender);
     ctrl.enabled = false; reiniciar();
     $('#rotulos').innerHTML = rotulos.map((r) => `<span class="rotulo">${r.texto}</span>`).join('');
@@ -1212,10 +1299,10 @@ const CEL = (() => {
 let tipoCelulas = null;
 function entrarEnCelulas(t) {
   E.enCelulas = true; tipoCelulas = t; $('#velo').classList.add('on'); $('#salirCaja').classList.add('visible'); $('#pista').textContent = 'Ilustración 3D. Arrastra para girar; aléjate al máximo para volver.';
-  setTimeout(() => { CEL.entrar(t); $('#velo').classList.remove('on'); pedirRender(); }, reducido ? 0 : 260);
+  setTimeout(() => { CEL.entrar(t); caja.classList.add('microscopio'); $('#velo').classList.remove('on'); pedirRender(); }, reducido ? 0 : 260);
 }
 function salirDeCelulas(silencioso) {
-  if (!E.enCelulas) return; E.enCelulas = false; CEL.salir(); $('#salirCaja').classList.remove('visible'); $('#pista').textContent = 'Acércate con la rueda o pellizcando: las capas cambian solas. Doble toque para enfocar.';
+  if (!E.enCelulas) return; E.enCelulas = false; CEL.salir(); caja.classList.remove('microscopio'); $('#salirCaja').classList.remove('visible'); $('#pista').textContent = 'Arrastra para girar. Pellizca o usa la rueda para acercarte: las capas cambian solas. Doble toque sobre una pieza para ir hacia ella.';
   if (!silencioso) { const cfg = ESCENAS[E.escena]; const nuc = cfg.capas[cfg.capas.length - 2]; // volver un poco atrás desde la superficie
     controles.dollyOut?.(1.0); camara.position.sub(controles.target).setLength(Math.max(E.R * 0.06, controles.getDistance())).add(controles.target); controles.update(); }
   pedirRender();
@@ -1249,6 +1336,7 @@ function cuadro(ahora) {
     if (t >= 1) animEnfoque = null; anim = true;
   }
   if (controles.update()) anim = true; if (controles.autoRotate) anim = true;
+  if (!animEnfoque) { const info = capaConCaja(); if (info) { if (mantenerCentro(controles, camara, info.centro, info.caja, E.R * E.d0 * 0.55, E.R * E.d0 * 0.85, E.encajar ? 1 : dt * 5)) anim = true; E.encajar = false; } }
   // plano cercano según la distancia: permite acercarse mucho sin cortar el modelo
   const d = controles.getDistance(); const cerca = Math.max(0.0004, d * 0.02); if (Math.abs(camara.near - cerca) / cerca > 0.2) { camara.near = cerca; camara.far = Math.max(10, d * 40); camara.updateProjectionMatrix(); }
   // capa automática
@@ -1281,6 +1369,7 @@ if (renderer) {
   lienzo.addEventListener('webglcontextlost', (e) => { e.preventDefault(); $('#cargando').classList.remove('oculto'); $('#cargando').textContent = 'Se perdió el 3D. Recarga la página.'; });
 }
 // Para pruebas automáticas: lleva la cámara a una distancia relativa (en radios del modelo).
+if (pruebas) window.__camara = () => { const i = capaConCaja(); const p = i ? i.centro.clone().project(camara) : null; return { capa: E.capa, d: controles.getDistance() / (E.R * E.d0), t: controles.target.toArray(), centro: i ? i.centro.toArray() : null, pantalla: p ? [p.x, p.y] : null, dentro: i ? i.caja.containsPoint(controles.target) : null }; };
 if (pruebas) window.__zoom = (f) => { if (!controles) return; controles.autoRotate = false; camara.position.sub(controles.target).setLength(f * E.d0 * E.R).add(controles.target); controles.update(); pedirRender(); };
 </script>
 </body>
