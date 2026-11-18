@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="es-VE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Surgy Store — Equipos, implantes y servicios para neurocirugía y columna</title>
+<meta name="description" content="Surgy Store, Caracas: venta y alquiler de equipos e implantes para neurocirugía y columna. Explora en 3D la columna, el cráneo y el cerebro, capa por capa, y arma tu solicitud de cotización.">
+<meta name="theme-color" content="#001D39">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Surgy Store — Neurocirugía y columna">
+<meta property="og:description" content="Equipos, implantes y servicios. Explora en 3D la columna, el cráneo y el cerebro.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_VE">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Corporación Surgystore 077 C.A.","alternateName":"Surgy Store","sameAs":["https://www.instagram.com/surgystore_vzla/"]}
+</script>
+<style>
+:root{
+  --fondo:#001D39;--profundo:#0A4174;--acero:#49769F;--petroleo:#4E8EA2;--agua:#6EA2B3;--cielo:#7BBDE8;--niebla:#BDD8E9;--loto:#009CD0;--blanco:#fff;
+  --r:8px;--borde:rgba(123,189,232,.18);--tarjeta:rgba(10,65,116,.38);
+  --margen:clamp(20px,4vw,48px);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--fondo);color:var(--blanco);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-optical-sizing:auto;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--cielo);outline-offset:3px;border-radius:4px}
+.saltar{position:absolute;left:-999px;top:8px;background:var(--niebla);color:var(--fondo);padding:8px 14px;border-radius:20px;z-index:100}
+.saltar:focus{left:12px}
+.envoltura{max-width:1440px;margin:0 auto;padding:0 var(--margen)}
+.etiqueta{color:var(--cielo);font-size:15px;font-weight:400;margin:0 0 14px}
+h1,h2,h3{font-weight:300;letter-spacing:-.02em;margin:0}
+h2{font-size:clamp(36px,5.2vw,72px);line-height:1.02}
+.texto{color:var(--niebla);font-size:clamp(17px,1.4vw,20px);max-width:36em}
+.boton{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 24px;border-radius:999px;border:1.5px solid var(--acero);background:transparent;cursor:pointer;font-weight:500;font-size:16px;text-decoration:none;transition:background .2s,border-color .2s}
+.boton:hover{border-color:var(--cielo)}
+.boton.lleno{background:var(--niebla);border-color:var(--niebla);color:var(--fondo)}
+.boton.lleno:hover{background:var(--blanco)}
+.boton.chico{min-height:38px;padding:0 16px;font-size:14px}
+/* cabecera */
+.cabecera{position:sticky;top:0;z-index:40;padding-top:env(safe-area-inset-top);background:rgba(0,29,57,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+.cabecera.con-borde{border-bottom-color:var(--borde)}
+.cabecera .envoltura{display:flex;align-items:center;gap:24px;height:68px}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:500;font-size:17px;letter-spacing:-.01em}
+.marca img{width:40px;height:auto}
+.menu{display:flex;gap:4px;margin-left:auto}
+.menu a{text-decoration:none;color:var(--niebla);padding:8px 12px;border-radius:999px;font-size:15px}
+.menu a:hover{color:var(--blanco);background:rgba(123,189,232,.1)}
+.contador{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:var(--loto);color:var(--blanco);font-size:12px;font-weight:600}
+@media (max-width:900px){.menu{display:none}.cabecera .boton{margin-left:auto}}
+/* portada + 3D */
+.portada{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,3vw,48px);align-items:stretch;padding-top:clamp(24px,4vh,48px);padding-bottom:48px}
+.portada .copia{display:flex;flex-direction:column;justify-content:center;padding:24px 0}
+.portada h1{font-size:clamp(48px,6.4vw,104px);line-height:.98;margin:8px 0 28px}
+.portada h1 span{color:var(--cielo)}
+.acciones{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.explorador{position:relative;border-radius:var(--r);overflow:hidden;background:radial-gradient(120% 90% at 60% 40%,#0A3361 0%,#001D39 70%);min-height:560px;height:calc(100vh - 140px);max-height:980px;border:1px solid var(--borde);touch-action:none}
+.explorador canvas{position:absolute;inset:0;width:100%;height:100%;display:block;outline:none}
+.explorador.completa{position:fixed;inset:0;z-index:80;height:100%;max-height:none;border-radius:0}
+@media (max-width:1000px){.portada{grid-template-columns:1fr}.portada .copia{padding:8px 0 0}.explorador{height:78vh;min-height:520px}}
+.capa-ui{position:absolute;z-index:3;pointer-events:none}
+.capa-ui>*{pointer-events:auto}
+.pestanas{top:14px;left:14px;display:flex;gap:4px;padding:4px;border-radius:999px;background:rgba(0,29,57,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--borde)}
+.pestanas button{border:0;background:transparent;padding:8px 16px;border-radius:999px;cursor:pointer;font-size:15px;color:var(--niebla)}
+.pestanas button[aria-selected="true"]{background:var(--niebla);color:var(--fondo);font-weight:500}
+.herramientas{top:14px;right:14px;display:flex;gap:8px}
+.icono{width:42px;height:42px;border-radius:50%;border:1px solid var(--borde);background:rgba(0,29,57,.72);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.icono svg{width:18px;height:18px;stroke:var(--niebla);fill:none;stroke-width:1.6}
+.capas{right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:2px;padding:8px;border-radius:14px;background:rgba(0,29,57,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--borde);min-width:168px}
+.capas .titulo{font-size:12px;color:var(--agua);padding:4px 10px 6px}
+.capas button{display:flex;align-items:center;gap:10px;border:0;background:transparent;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:14px;color:var(--niebla);text-align:left}
+.capas button:hover{background:rgba(123,189,232,.1)}
+.capas button .punto{width:10px;height:10px;border-radius:50%;flex:none;box-shadow:0 0 0 2px rgba(255,255,255,.08)}
+.capas button[aria-pressed="true"]{background:rgba(189,216,233,.16);color:var(--blanco)}
+.capas button.activa .punto{box-shadow:0 0 0 3px rgba(123,189,232,.45)}
+.capas button .nota{margin-left:auto;font-size:11px;color:var(--agua)}
+.capas .auto{border-bottom:1px solid var(--borde);border-radius:8px 8px 0 0;margin-bottom:4px}
+.estado{left:16px;bottom:16px;max-width:min(360px,60%)}
+.estado .capa-nombre{font-size:clamp(22px,2.2vw,30px);font-weight:300;letter-spacing:-.01em}
+.estado .pista{font-size:13px;color:var(--agua);margin-top:4px}
+.profundidad{margin-top:10px;display:flex;gap:3px}
+.profundidad i{height:3px;width:26px;border-radius:2px;background:rgba(123,189,232,.22)}
+.profundidad i.on{background:var(--cielo)}
+.ficha3d{right:16px;bottom:16px;width:min(330px,calc(100% - 32px));background:rgba(0,29,57,.9);border:1px solid var(--borde);border-radius:12px;padding:16px 16px 14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:none}
+.ficha3d.visible{display:block}
+.ficha3d .cerrar{position:absolute;top:8px;right:8px;width:32px;height:32px}
+.ficha3d .tipo{font-size:13px;color:var(--cielo)}
+.ficha3d h3{font-size:22px;font-weight:400;margin:2px 32px 10px 0;line-height:1.2}
+.ficha3d .prod{font-size:13px;color:var(--agua);margin:8px 0 6px}
+.ficha3d ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ficha3d li button{width:100%;text-align:left;border:1px solid var(--borde);background:rgba(10,65,116,.35);border-radius:8px;padding:8px 10px;cursor:pointer;font-size:14px}
+.ficha3d li button:hover{border-color:var(--cielo)}
+.ficha3d .vertodos{margin-top:10px}
+.ilustracion{position:absolute;left:14px;top:64px;z-index:4;font-size:12px;color:var(--fondo);background:var(--niebla);padding:4px 10px;border-radius:999px;display:none}
+.ilustracion.visible{display:block}
+.rotulos{position:absolute;inset:0;z-index:2;pointer-events:none}
+.rotulo{position:absolute;transform:translate(-50%,-100%);font-size:12px;color:var(--blanco);background:rgba(0,29,57,.78);border:1px solid var(--borde);padding:3px 9px;border-radius:999px;white-space:nowrap}
+.rotulo::after{content:"";position:absolute;left:50%;top:100%;width:1px;height:10px;background:var(--niebla);opacity:.6}
+.punta{position:absolute;z-index:5;pointer-events:none;font-size:13px;background:rgba(0,29,57,.92);border:1px solid var(--borde);padding:4px 10px;border-radius:8px;display:none;white-space:nowrap}
+.cargando{position:absolute;inset:0;display:grid;place-items:center;z-index:6;color:var(--niebla);font-size:14px;pointer-events:none;transition:opacity .3s}
+.cargando.oculto{opacity:0}
+.velo{position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(circle at 50% 50%,rgba(189,216,233,.9),rgba(0,29,57,1) 70%);opacity:0;transition:opacity .35s}
+.velo.on{opacity:1}
+.salir-celulas{left:50%;bottom:16px;transform:translateX(-50%);display:none}
+.salir-celulas.visible{display:block}
+@media (max-width:700px){
+  .capas{top:auto;bottom:12px;right:12px;left:12px;transform:none;flex-direction:row;overflow-x:auto;min-width:0;padding:6px;border-radius:999px;scrollbar-width:none}
+  .capas .titulo{display:none}
+  .capas button{white-space:nowrap;padding:8px 12px;border-radius:999px}
+  .capas .auto{border-bottom:0;border-right:1px solid var(--borde);border-radius:999px;margin:0 4px 0 0}
+  .capas button .nota{display:none}
+  .estado{bottom:74px;left:12px}
+  .estado .pista{display:none}
+  .ficha3d{bottom:70px;right:12px;left:12px;width:auto}
+  .pestanas{left:10px;top:10px}
+  .pestanas button{padding:7px 10px;font-size:13px}
+  .herramientas{top:10px;right:10px;gap:6px}
+  .icono{width:36px;height:36px}
+  .ilustracion{top:56px;left:10px}
+  .portada h1{font-size:clamp(38px,11vw,52px);margin:4px 0 16px}
+  .portada .texto{font-size:16px}
+  .acciones{margin-top:18px}
+  .explorador{height:72vh;min-height:480px}
+  .salir-celulas{bottom:auto;top:54px;left:auto;right:10px;transform:none}
+  .rotulo{font-size:11px;padding:2px 7px}
+}
+/* secciones */
+section{scroll-margin-top:76px}
+.bloque{padding:clamp(64px,10vw,128px) 0;border-top:1px solid var(--borde)}
+.quirofano{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center}
+.quirofano figure{margin:0}
+.quirofano img{border-radius:var(--r);width:100%;aspect-ratio:96/110;max-height:82vh;object-fit:cover}
+figcaption{font-size:14px;color:var(--agua);margin-top:12px}
+.lista-servicios{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:0;border-top:1px solid var(--borde)}
+.lista-servicios li{padding:16px 0;border-bottom:1px solid var(--borde);display:flex;gap:16px;color:var(--niebla)}
+.lista-servicios li b{font-weight:400;color:var(--blanco);min-width:9.5em}
+@media (max-width:860px){.quirofano{grid-template-columns:1fr}}
+/* catálogo */
+.cat-cabeza{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}
+.buscador{position:relative;flex:1 1 380px;max-width:560px}
+.buscador input{width:100%;height:56px;border-radius:999px;border:1.5px solid var(--acero);background:rgba(10,65,116,.25);padding:0 22px 0 52px;font-size:17px}
+.buscador input::placeholder{color:var(--agua)}
+.buscador svg{position:absolute;left:20px;top:50%;transform:translateY(-50%);width:20px;height:20px;stroke:var(--cielo);fill:none;stroke-width:1.8}
+.filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.filtros button{border:1px solid var(--borde);background:transparent;border-radius:999px;padding:8px 14px;cursor:pointer;font-size:14px;color:var(--niebla)}
+.filtros button[aria-pressed="true"]{background:var(--niebla);color:var(--fondo);border-color:var(--niebla)}
+.filtros select{border:1px solid var(--borde);background:var(--fondo);border-radius:999px;padding:8px 14px;font-size:14px;color:var(--niebla)}
+.resultado{font-size:14px;color:var(--agua);margin:12px 0 18px}
+.rejilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.producto{background:var(--tarjeta);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:8px;min-height:210px;border:1px solid transparent}
+.producto:hover{border-color:var(--borde)}
+.producto .fam{font-size:13px;color:var(--cielo)}
+.producto h3{font-size:20px;font-weight:400;line-height:1.25;letter-spacing:-.01em}
+.producto .meta{font-size:14px;color:var(--agua)}
+.producto select{margin-top:4px;border:1px solid var(--borde);background:var(--fondo);border-radius:8px;padding:8px 10px;font-size:14px;color:var(--niebla);max-width:100%}
+.producto .pie{margin-top:auto;padding-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.producto .agregado{font-size:13px;color:var(--cielo)}
+.vacio{padding:40px;border:1px dashed var(--borde);border-radius:var(--r);color:var(--niebla)}
+.mas{display:flex;justify-content:center;margin-top:28px}
+/* equipo */
+.equipo{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,48px);align-items:start}
+.persona{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);background:var(--tarjeta);border-radius:var(--r);overflow:hidden}
+.persona img{width:100%;aspect-ratio:1/1;height:auto;object-fit:cover}
+.persona div{padding:28px;display:flex;flex-direction:column;justify-content:flex-end}
+.persona h3{font-size:clamp(28px,3vw,40px)}
+.persona p{margin:6px 0 0;color:var(--niebla)}
+.grupo img{border-radius:var(--r);width:100%;aspect-ratio:70/83;object-fit:cover}
+@media (max-width:860px){.equipo{grid-template-columns:1fr}.persona{grid-template-columns:1fr}.persona img{max-height:360px}}
+/* instagram */
+.reels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:36px}
+.reel{display:block;text-decoration:none;border-radius:var(--r);overflow:hidden;background:var(--tarjeta)}
+.reel img{width:100%;aspect-ratio:54/63;object-fit:cover;transition:transform .4s}
+.reel:hover img{transform:scale(1.03)}
+.reel span{display:flex;justify-content:space-between;padding:12px 14px;font-size:14px;color:var(--niebla)}
+@media (max-width:860px){.reels{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* pie */
+.pie-pagina{border-top:1px solid var(--borde);padding:56px 0 calc(40px + env(safe-area-inset-bottom));color:var(--agua);font-size:14px}
+.pie-pagina .fila{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:flex-start}
+.pie-pagina p{margin:6px 0}
+.pie-pagina .creditos{margin-top:28px;max-width:70em;font-size:13px}
+/* cotización */
+dialog.cotizacion{width:min(560px,100vw);max-width:100vw;height:100dvh;max-height:100dvh;margin:0 0 0 auto;padding:0;border:0;background:var(--fondo);color:var(--blanco);border-left:1px solid var(--borde)}
+dialog.cotizacion::backdrop{background:rgba(0,10,20,.6)}
+.cot{display:flex;flex-direction:column;height:100%}
+.cot header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--borde)}
+.cot header h2{font-size:28px}
+.cot .cuerpo{padding:20px 24px;overflow:auto;flex:1}
+.cot .items{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:8px}
+.cot .items li{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;background:var(--tarjeta);border-radius:8px;padding:10px 12px}
+.cot .items .n{font-size:15px}
+.cot .items .v{font-size:13px;color:var(--agua)}
+.cot .items input{width:64px;height:36px;border-radius:8px;border:1px solid var(--borde);background:var(--fondo);text-align:center}
+.cot .quitar{border:0;background:transparent;color:var(--agua);cursor:pointer;font-size:13px}
+.campo{display:grid;gap:6px;margin-bottom:14px}
+.campo label{font-size:14px;color:var(--niebla)}
+.campo input,.campo textarea{border:1px solid var(--borde);background:rgba(10,65,116,.25);border-radius:8px;padding:12px;font-size:16px}
+.campo textarea{min-height:90px;resize:vertical}
+.aviso{font-size:13px;color:var(--cielo)}
+.error{font-size:14px;color:#FFB4A8;margin-top:6px;display:none}
+.error.visible{display:block}
+.trampa{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.cot footer{padding:16px 24px calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--borde);display:flex;flex-wrap:wrap;gap:10px}
+.referencia{font-size:15px;margin-top:12px;padding:12px;border:1px solid var(--borde);border-radius:8px;display:none;white-space:pre-wrap}
+.referencia.visible{display:block}
+.medidor{position:fixed;left:10px;top:76px;z-index:90;background:rgba(0,0,0,.78);color:#9f9;font:12px/1.4 ui-monospace,monospace;padding:8px 10px;border-radius:6px;white-space:pre;display:none}
+.medidor.visible{display:block}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+<script type="importmap">
+{"imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/"
+}}
+</script>
+</head>
+<body>
+<a class="saltar" href="#catalogo">Saltar al catálogo</a>
+<header class="cabecera" id="cabecera">
+  <div class="envoltura">
+    <a class="marca" href="#inicio" aria-label="Surgy Store, inicio"><img src="img/loto.png" alt="" width="40" height="22">Surgy Store</a>
+    <nav class="menu" aria-label="Secciones">
+      <a href="#inicio">Explorar en 3D</a><a href="#catalogo">Catálogo</a><a href="#quirofano">Quirófano</a><a href="#equipo">Equipo</a><a href="#instagram">Instagram</a>
+    </nav>
+    <button class="boton chico" id="abrirCot" type="button">Mi cotización <span class="contador" id="contador">0</span></button>
+  </div>
+</header>
+
+<main>
+<section id="inicio" class="envoltura portada" aria-labelledby="titulo">
+  <div class="copia">
+    <p class="etiqueta">Surgy Store — Caracas, Venezuela</p>
+    <h1 id="titulo">Equipos, implantes <span>y servicios.</span></h1>
+    <p class="texto">Venta y alquiler de equipos e implantes para neurocirugía y columna. Explora la anatomía en 3D, capa por capa, y arma tu solicitud de cotización.</p>
+    <div class="acciones">
+      <a class="boton lleno" href="#catalogo">Ver catálogo</a>
+      <button class="boton" type="button" data-abrir-cot>Mi cotización</button>
+    </div>
+  </div>
+
+  <div class="explorador" id="explorador">
+    <canvas id="lienzo" role="img" aria-label="Modelo 3D interactivo de anatomía. Usa los botones de capas y de modelo para cambiar la vista."></canvas>
+    <div class="rotulos" id="rotulos" aria-hidden="true"></div>
+    <div class="velo" id="velo"></div>
+    <div class="ilustracion" id="ilustracion">Ilustración 3D, no es una imagen real</div>
+    <div class="capa-ui pestanas" role="tablist" aria-label="Modelo">
+      <button role="tab" data-escena="columna" aria-selected="true">Columna</button>
+      <button role="tab" data-escena="craneo" aria-selected="false">Cráneo</button>
+      <button role="tab" data-escena="cerebro" aria-selected="false">Cerebro</button>
+    </div>
+    <div class="capa-ui herramientas">
+      <button class="icono" id="reiniciar" type="button" aria-label="Volver a la vista inicial"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/></svg></button>
+      <button class="icono" id="completa" type="button" aria-label="Pantalla completa"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    </div>
+    <div class="capa-ui capas" id="capas" role="group" aria-label="Capas"></div>
+    <div class="capa-ui estado" aria-live="polite">
+      <div class="capa-nombre" id="capaNombre">Piel</div>
+      <div class="pista" id="pista">Acércate con la rueda o pellizcando: las capas cambian solas. Doble toque para enfocar.</div>
+      <div class="profundidad" id="profundidad"></div>
+    </div>
+    <div class="capa-ui ficha3d" id="ficha3d" aria-live="polite">
+      <button class="icono cerrar" id="cerrarFicha" type="button" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div class="tipo" id="fichaTipo"></div>
+      <h3 id="fichaNombre"></h3>
+      <div id="fichaProd"></div>
+    </div>
+    <div class="capa-ui salir-celulas" id="salirCaja"><button class="boton chico lleno" id="salirCelulas" type="button">Volver a la anatomía</button></div>
+    <div class="punta" id="punta"></div>
+    <div class="cargando" id="cargando">Cargando modelo 3D…</div>
+  </div>
+</section>
+
+<section id="quirofano" class="bloque" aria-labelledby="t-quirofano">
+  <div class="envoltura quirofano">
+    <figure>
+      <img src="img/quirofano.webp" alt="Instrumentista con gorro de Surgy Store preparando instrumental en quirófano" width="960" height="1100" loading="lazy">
+      <figcaption>En quirófano. Foto de Surgy Store.</figcaption>
+    </figure>
+    <div>
+      <p class="etiqueta">Quirófano</p>
+      <h2 id="t-quirofano">Lo que la cirugía necesita, a tiempo.</h2>
+      <p class="texto" style="margin-top:24px">Cajas de instrumental y equipos en alquiler para cirugías de columna, cráneo e hipófisis, además de implantes e insumos.</p>
+      <ul class="lista-servicios">
+        <li><b>Columna</b>Tornillos transpediculares, dispositivos intersomáticos, masa lateral y vertebroplastia.</li>
+        <li><b>Cráneo</b>Craneotomía, reconstrucción craneal y prótesis personalizada.</li>
+        <li><b>Cerebro</b>Clips de aneurisma, microcirugía e hidrocefalia.</li>
+        <li><b>En la cirugía</b>Neuronavegación, neuromonitoreo y ecografía Doppler.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="catalogo" class="bloque" aria-labelledby="t-catalogo">
+  <div class="envoltura">
+    <div class="cat-cabeza">
+      <div><p class="etiqueta">Catálogo</p><h2 id="t-catalogo">Busca y cotiza.</h2></div>
+      <div class="buscador">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input id="buscar" type="search" placeholder="Busca: tornillo pedicular, válvula, clip…" aria-label="Buscar en el catálogo" autocomplete="off">
+      </div>
+    </div>
+    <div class="filtros" id="filtroTipo" role="group" aria-label="Tipo"></div>
+    <div class="filtros"><select id="filtroZona" aria-label="Zona"></select><select id="filtroFamilia" aria-label="Familia"></select></div>
+    <p class="resultado" id="resultado" aria-live="polite"></p>
+    <div class="rejilla" id="rejilla"></div>
+    <div class="mas"><button class="boton" id="verMas" type="button">Ver más</button></div>
+  </div>
+</section>
+
+<section id="equipo" class="bloque" aria-labelledby="t-equipo">
+  <div class="envoltura">
+    <p class="etiqueta">Equipo</p>
+    <h2 id="t-equipo" style="margin-bottom:36px">Quiénes te atienden.</h2>
+    <div class="equipo">
+      <article class="persona">
+        <img src="img/juan-pablo.webp" alt="Juan Pablo, Director Ejecutivo de Surgy Store" width="700" height="560" loading="lazy">
+        <div><p class="etiqueta" style="margin:0">Dirección</p><h3>Juan Pablo</h3><p>Director Ejecutivo</p></div>
+      </article>
+      <figure class="grupo" style="margin:0">
+        <img src="img/equipo.webp" alt="Parte del equipo de Surgy Store en un evento" width="700" height="830" loading="lazy">
+        <figcaption>Parte del equipo de Surgy Store.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="instagram" class="bloque" aria-labelledby="t-ig">
+  <div class="envoltura">
+    <div class="cat-cabeza">
+      <div><p class="etiqueta">Instagram</p><h2 id="t-ig">Lo último.</h2></div>
+      <a class="boton" href="https://www.instagram.com/surgystore_vzla/" target="_blank" rel="noopener noreferrer">@surgystore_vzla ↗</a>
+    </div>
+    <div class="reels">
+      <a class="reel" href="https://www.instagram.com/reel/DWzi1EGCcXR/" target="_blank" rel="noopener noreferrer"><img src="img/reel-2026-04-06.webp" alt="Reel de Surgy Store del 6 de abril de 2026" width="540" height="630" loading="lazy"><span>6 abr 2026<b>↗</b></span></a>
+      <a class="reel" href="https://www.instagram.com/reel/DWKam_biXOl/" target="_blank" rel="noopener noreferrer"><img src="img/reel-2026-03-21.webp" alt="Reel de Surgy Store del 21 de marzo de 2026" width="540" height="630" loading="lazy"><span>21 mar 2026<b>↗</b></span></a>
+      <a class="reel" href="https://www.instagram.com/reel/DWALm94DHlU/" target="_blank" rel="noopener noreferrer"><img src="img/reel-2026-03-17.webp" alt="Reel de Surgy Store del 17 de marzo de 2026" width="540" height="630" loading="lazy"><span>17 mar 2026<b>↗</b></span></a>
+      <a class="reel" href="https://www.instagram.com/reel/DPpRN_Lkd86/" target="_blank" rel="noopener noreferrer"><img src="img/reel-2025-10-10.webp" alt="Reel de Surgy Store del 10 de octubre de 2025" width="540" height="630" loading="lazy"><span>10 oct 2025<b>↗</b></span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="pie-pagina">
+  <div class="envoltura">
+    <div class="fila">
+      <div><a class="marca" href="#inicio"><img src="img/loto.png" alt="" width="40" height="22">Surgy Store</a><p>Corporación Surgystore 077 C.A. · Caracas, Venezuela</p></div>
+      <div><p><a href="https://www.instagram.com/surgystore_vzla/" target="_blank" rel="noopener noreferrer">Instagram @surgystore_vzla ↗</a></p><p>Las marcas son de sus dueños.</p><p>Contenido educativo; modelos 3D ilustrativos.</p></div>
+    </div>
+    <p class="creditos">Modelos anatómicos: BodyParts3D, © The Database Center for Life Science, bajo licencia CC Attribution 4.0 International (convertidos, recortados, simplificados y comprimidos para esta web). La capa de células es una ilustración. Los nombres anatómicos y los textos médicos están pendientes de revisión por un especialista. Versión de demostración del 18-nov-2026.</p>
+  </div>
+</footer>
+
+<dialog class="cotizacion" id="cotizacion" aria-labelledby="t-cot">
+  <form class="cot" id="formCot" method="dialog" novalidate>
+    <header><h2 id="t-cot">Mi cotización</h2><button class="icono" type="button" id="cerrarCot" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></header>
+    <div class="cuerpo">
+      <ul class="items" id="itemsCot"></ul>
+      <p class="vacio" id="cotVacia">Todavía no agregaste nada. Busca en el catálogo o toca una pieza del modelo 3D.</p>
+      <div class="campo"><label for="cInst">Institución</label><input id="cInst" name="institucion" autocomplete="organization" required></div>
+      <div class="campo"><label for="cMed">Médico</label><input id="cMed" name="medico" autocomplete="name" required></div>
+      <div class="campo"><label for="cCont">Contacto de quien pide (teléfono o correo)</label><input id="cCont" name="contacto" autocomplete="email" required></div>
+      <div class="campo"><label for="cFecha">Fecha tentativa</label><input id="cFecha" name="fecha" type="date"></div>
+      <div class="campo"><label for="cNotas">Notas</label><textarea id="cNotas" name="notas" aria-describedby="avisoNotas errNotas"></textarea><span class="aviso" id="avisoNotas">No escribas datos de pacientes.</span><span class="error" id="errNotas" role="alert"></span></div>
+      <div class="trampa" aria-hidden="true"><label>No llenar<input id="cTrampa" tabindex="-1" autocomplete="off"></label></div>
+      <button class="quitar" type="button" id="vaciarCot" hidden>Vaciar mi cotización</button>
+      <span class="error" id="errCot" role="alert"></span>
+      <div class="referencia" id="referencia"></div>
+    </div>
+    <footer>
+      <button class="boton lleno" type="button" id="generarCot">Preparar solicitud</button>
+      <button class="boton" type="button" id="copiarCot" hidden>Copiar texto</button>
+      <a class="boton" id="enviarIG" href="https://ig.me/m/surgystore_vzla" target="_blank" rel="noopener noreferrer" hidden>Enviar por Instagram ↗</a>
+    </footer>
+  </form>
+</dialog>
+<div class="medidor" id="medidor"></div>
+
+<script type="module">
+// Módulo 1: catálogo y cotización. No importa nada externo: funciona aunque el CDN del 3D falle.
+/* ===================== utilidades ===================== */
+const $ = (s, d = document) => d.querySelector(s);
+const $$ = (s, d = document) => [...d.querySelectorAll(s)];
+const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const guardar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const leer = (k, def) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch (e) { return def; } };
+const sinTildes = (t) => String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const pruebas = location.hash === '#medir' || navigator.webdriver === true;
+addEventListener('scroll', () => $('#cabecera').classList.toggle('con-borde', scrollY > 8), { passive: true });
+
+/* ===================== catálogo ===================== */
+const CAT = { fichas: [], familias: [], zonas: [], sinonimos: [], listo: false };
+const TIPOS = [['', 'Todo'], ['implante', 'Implantes'], ['equipo', 'Equipos'], ['insumo', 'Insumos'], ['servicio', 'Servicios']];
+const filtro = { texto: '', tipo: '', zona: '', familia: '', limite: 24 };
+const nombreFamilia = (id) => (CAT.familias.find((f) => f.id === id) || {}).nombre || id;
+async function cargarCatalogo() {
+  try {
+    const r = await fetch('datos/catalogo.json'); if (!r.ok) throw new Error(r.status);
+    const j = await r.json();
+    // solo las claves esperadas, y fichas completas
+    CAT.fichas = (j.fichas || []).filter((f) => f && f.id && f.nombre && Array.isArray(f.variantes) && f.variantes.length)
+      .map((f) => ({ ...f, buscar: String(f.buscar || sinTildes(f.nombre)) }));
+    CAT.familias = Array.isArray(j.familias) ? j.familias : []; CAT.zonas = Array.isArray(j.zonas) ? j.zonas : [];
+    CAT.sinonimos = (j.sinonimos || []).filter(Array.isArray); CAT.listo = true;
+    $('#filtroTipo').innerHTML = TIPOS.map(([v, n]) => `<button type="button" data-tipo="${v}" aria-pressed="${v === '' ? 'true' : 'false'}">${n}</button>`).join('');
+    $('#filtroZona').innerHTML = '<option value="">Todas las zonas</option>' + CAT.zonas.map((z) => `<option value="${esc(z.id)}">${esc(z.nombre)}</option>`).join('');
+    llenarFamilias();
+    pintarCatalogo();
+  } catch (e) {
+    $('#rejilla').innerHTML = '<div class="vacio">No se pudo cargar el catálogo. Revisa tu conexión y vuelve a intentar.</div>';
+  }
+}
+function llenarFamilias() {
+  const fams = CAT.familias.filter((f) => !filtro.zona || f.zona === filtro.zona);
+  $('#filtroFamilia').innerHTML = '<option value="">Todas las familias</option>' + fams.map((f) => `<option value="${esc(f.id)}">${esc(f.nombre)}</option>`).join('');
+  $('#filtroFamilia').value = fams.some((f) => f.id === filtro.familia) ? filtro.familia : '';
+}
+function expandir(q) {
+  const t = sinTildes(q).trim(); if (!t) return [];
+  return t.split(/\s+/).map((pal) => {
+    const alt = new Set([pal]);
+    for (const g of CAT.sinonimos) { const gg = g.map(sinTildes); if (gg.some((x) => x.includes(pal) || pal.includes(x))) gg.forEach((x) => alt.add(x)); }
+    return [...alt];
+  });
+}
+function coincide(f) {
+  if (filtro.tipo && f.tipo !== filtro.tipo) return false;
+  if (filtro.zona && f.zona !== filtro.zona) return false;
+  if (filtro.familia && f.familia !== filtro.familia) return false;
+  return expandir(filtro.texto).every((alts) => alts.some((a) => f.buscar.includes(a)));
+}
+function tarjeta(f) {
+  const varios = f.variantes.length > 1;
+  const sel = varios ? `<select aria-label="Variante de ${esc(f.nombre)}">${f.variantes.map((v) => `<option value="${esc(v.clave)}">${esc(v.etiqueta || v.clave)}</option>`).join('')}</select>` : '';
+  const tipo = { implante: 'Implante', equipo: 'Equipo', insumo: 'Insumo', servicio: 'Servicio' }[f.tipo] || '';
+  return `<article class="producto" data-id="${esc(f.id)}"><div class="fam">${esc(nombreFamilia(f.familia))}</div><h3>${esc(f.nombre)}</h3><div class="meta">${tipo}${varios ? ` · ${f.variantes.length} variantes` : ''}${f.material ? ` · ${esc(f.material)}` : ''}</div>${sel}<div class="pie"><button class="boton chico" type="button" data-agregar="${esc(f.id)}">Agregar a mi cotización</button><span class="agregado" hidden>Agregado</span></div></article>`;
+}
+function pintarCatalogo() {
+  const lista = CAT.fichas.filter(coincide);
+  $('#resultado').textContent = lista.length ? `${lista.length} ${lista.length === 1 ? 'resultado' : 'resultados'}` : '';
+  if (!lista.length) {
+    $('#rejilla').innerHTML = `<div class="vacio">No encontramos «<span id="noEncontrado"></span>». Prueba con otra palabra (por ejemplo «tornillo», «válvula» o «clip») o pide en tu cotización algo que no esté: escríbelo en las notas.<div style="margin-top:14px"><button class="boton chico" type="button" data-abrir-cot>Pedir cotización de algo que no está</button></div></div>`;
+    $('#noEncontrado').textContent = filtro.texto; $('#verMas').hidden = true; return;
+  }
+  $('#rejilla').innerHTML = lista.slice(0, filtro.limite).map(tarjeta).join('');
+  $('#verMas').hidden = lista.length <= filtro.limite;
+}
+let tBusca;
+$('#buscar').addEventListener('input', (e) => { clearTimeout(tBusca); tBusca = setTimeout(() => { filtro.texto = e.target.value; filtro.limite = 24; pintarCatalogo(); }, 120); });
+$('#filtroTipo').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; filtro.tipo = b.dataset.tipo; $$('#filtroTipo button').forEach((x) => x.setAttribute('aria-pressed', x === b)); filtro.limite = 24; pintarCatalogo(); });
+$('#filtroZona').addEventListener('change', (e) => { filtro.zona = e.target.value; llenarFamilias(); filtro.familia = $('#filtroFamilia').value; filtro.limite = 24; pintarCatalogo(); });
+$('#filtroFamilia').addEventListener('change', (e) => { filtro.familia = e.target.value; filtro.limite = 24; pintarCatalogo(); });
+$('#verMas').addEventListener('click', () => { filtro.limite += 24; pintarCatalogo(); });
+$('#rejilla').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-agregar]'); if (!b) return;
+  const card = b.closest('.producto'); const f = CAT.fichas.find((x) => x.id === b.dataset.agregar); if (!f) return;
+  const sel = card.querySelector('select'); const clave = sel ? sel.value : f.variantes[0].clave;
+  agregar(f, clave); const ok = card.querySelector('.agregado'); ok.hidden = false; setTimeout(() => (ok.hidden = true), 1600);
+});
+function mostrarFamilia(fam) {
+  filtro.familia = fam; filtro.zona = ''; filtro.tipo = ''; filtro.texto = ''; $('#buscar').value = '';
+  $('#filtroZona').value = ''; llenarFamilias(); $('#filtroFamilia').value = fam; $$('#filtroTipo button').forEach((x) => x.setAttribute('aria-pressed', x.dataset.tipo === ''));
+  filtro.limite = 24; pintarCatalogo(); $('#catalogo').scrollIntoView({ behavior: reducido ? 'auto' : 'smooth' });
+}
+
+/* ===================== cotización ===================== */
+// El carrito se guarda solo en este navegador y vence a los 30 días.
+const VENCE = 30 * 24 * 3600 * 1000;
+const limpiarCarrito = (v) => Array.isArray(v) ? v.filter((x) => x && typeof x.clave === 'string' && typeof x.nombre === 'string').slice(0, 200).map((x) => ({
+  clave: x.clave.slice(0, 80), nombre: x.nombre.slice(0, 160), variante: typeof x.variante === 'string' ? x.variante.slice(0, 160) : '',
+  cantidad: Math.max(1, Math.min(999, parseInt(x.cantidad, 10) || 1)) })) : [];
+let carrito = (() => { const g = leer('surgy-cotizacion', null); if (!g || typeof g !== 'object' || !Array.isArray(g.items) || !(Date.now() - (+g.t || 0) < VENCE)) return []; return limpiarCarrito(g.items); })();
+const guardarCarrito = () => guardar('surgy-cotizacion', { t: Date.now(), items: carrito });
+function agregar(f, clave) {
+  const v = f.variantes.find((x) => x.clave === clave) || f.variantes[0];
+  const ya = carrito.find((x) => x.clave === v.clave);
+  if (ya) ya.cantidad = Math.min(999, ya.cantidad + 1); else carrito.push({ clave: v.clave, nombre: f.nombre, variante: v.etiqueta || '', cantidad: 1 });
+  guardarCarrito(); pintarCarrito(); refCot = '';
+}
+function pintarCarrito() {
+  $('#contador').textContent = carrito.reduce((a, x) => a + x.cantidad, 0);
+  $('#cotVacia').hidden = carrito.length > 0; $('#vaciarCot').hidden = carrito.length === 0;
+  $('#itemsCot').innerHTML = carrito.map((x, i) => `<li><div><div class="n">${esc(x.nombre)}</div>${x.variante ? `<div class="v">${esc(x.variante)}</div>` : ''}</div><input type="number" min="1" max="999" value="${x.cantidad}" aria-label="Cantidad de ${esc(x.nombre)}" data-i="${i}"><button class="quitar" type="button" data-quitar="${i}">Quitar</button></li>`).join('');
+}
+$('#itemsCot').addEventListener('change', (e) => { const i = e.target.dataset.i; if (i == null || !carrito[i]) return; carrito[i].cantidad = Math.max(1, Math.min(999, parseInt(e.target.value, 10) || 1)); guardarCarrito(); pintarCarrito(); refCot = ''; });
+$('#itemsCot').addEventListener('click', (e) => { const i = e.target.dataset.quitar; if (i == null) return; carrito.splice(i, 1); guardarCarrito(); pintarCarrito(); refCot = ''; });
+$('#vaciarCot').addEventListener('click', () => { carrito = []; guardarCarrito(); pintarCarrito(); refCot = ''; $('#referencia').classList.remove('visible'); $('#copiarCot').hidden = true; $('#enviarIG').hidden = true; });
+const dlg = $('#cotizacion'); let abiertoEn = 0;
+function abrirCot() { abiertoEn = performance.now(); pintarCarrito(); if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', ''); }
+document.addEventListener('click', (e) => { if (e.target.closest('[data-abrir-cot]')) abrirCot(); });
+$('#abrirCot').addEventListener('click', abrirCot);
+$('#cerrarCot').addEventListener('click', () => dlg.close());
+// Datos de pacientes (revisión de seguridad del 18-nov-2026): cédulas V/E con cualquier separador, «C.I.», «cédula» o «historia clínica»
+// seguidos de un número, números de 7 u 8 cifras con separadores de miles y las palabras paciente(s)/pcte(s). «1.500 gasas» pasa.
+const normalizar = (t) => String(t).normalize('NFKC').normalize('NFD').replace(/[̀-ͯ​-‍⁠﻿­]/g, '').replace(/[‐-―−]/g, '-').toLowerCase();
+const RX_PACIENTE = /(^|[^a-z])(pacientes?|pctes?)(?![a-z])/;
+const RX_CEDULA = /(^|[^a-z0-9])[ve][\s.\-_/:]{0,3}(?:\d{1,2}(?:[.\s\-]?\d{3}){2}|\d{6,9})(?!\d)/;
+const RX_DOC = /(^|[^a-z])(?:c\.?\s?i\.?|cedula|historia(?:\s+clinica)?|h\.?c\.?)\s*(?:n[°ºo]\.?|nro\.?|#)?\s*[:\-]?\s*\d[\d.\s\-]{4,11}\d/;
+const RX_MILES = /(^|[^\d.,])\d{1,2}([.,])\d{3}\2\d{3}(?!\d|[.,]\d)/;
+function datoDePaciente(t) {
+  const n = normalizar(t).replace(/\S+@\S+/g, ' '); // los correos no se evalúan
+  if (RX_PACIENTE.test(n)) return 'Quita la palabra «paciente»: aquí no van datos de pacientes.';
+  if (RX_CEDULA.test(n) || RX_DOC.test(n)) return 'Parece una cédula o un número de historia. Quítalo: aquí no van datos de pacientes.';
+  if (RX_MILES.test(n)) return 'Ese número parece una cédula. Si es una cantidad, escríbela sin puntos (2500000).';
+  return '';
+}
+if (pruebas) window.__datoDePaciente = datoDePaciente;
+for (const [campo, error] of [['#cNotas', '#errNotas'], ['#cInst', '#errNotas'], ['#cMed', '#errNotas'], ['#cCont', '#errNotas']]) {
+  $(campo).addEventListener('input', (e) => { const m = datoDePaciente(e.target.value); $(error).textContent = m; $(error).classList.toggle('visible', !!m); refCot = ''; });
+}
+function referencia() {
+  // 6 caracteres de un alfabeto de 31 (sin 0, O, 1, I ni L), con muestreo por rechazo para no favorecer letras
+  const A = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; let r = ''; const b = new Uint8Array(16);
+  while (r.length < 6) { crypto.getRandomValues(b); for (const x of b) if (x < 248 && r.length < 6) r += A[x % 31]; }
+  const d = new Date(); const f = String(d.getFullYear()).slice(2) + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+  return `SS-${f}-${r}`;
+}
+let textoCot = '', refCot = '';
+$('#generarCot').addEventListener('click', () => {
+  const err = $('#errCot'); err.classList.remove('visible');
+  const fallo = (m) => { err.textContent = m; err.classList.add('visible'); };
+  if ($('#cTrampa').value) return fallo('No se pudo preparar la solicitud.');
+  if (performance.now() - abiertoEn < 2500) return fallo('Revisa los datos antes de preparar la solicitud.');
+  if (!carrito.length) return fallo('Agrega al menos un producto o servicio.');
+  const inst = $('#cInst').value.trim(), med = $('#cMed').value.trim(), cont = $('#cCont').value.trim();
+  if (!inst || !med || !cont) return fallo('Completa institución, médico y contacto.');
+  const notas = $('#cNotas').value.trim();
+  for (const t of [inst, med, cont, notas]) { const m = datoDePaciente(t); if (m) return fallo(m); }
+  if (!refCot) refCot = referencia();
+  textoCot = `Solicitud de cotización ${refCot}\nInstitución: ${inst}\nMédico: ${med}\nContacto: ${cont}\nFecha tentativa: ${$('#cFecha').value || 'por definir'}\n\n` +
+    carrito.map((x) => `- ${x.cantidad} × ${x.nombre}${x.variante ? ' (' + x.variante + ')' : ''} [${x.clave}]`).join('\n') + (notas ? `\n\nNotas: ${notas}` : '') + '\n\nOrigen: web de Surgy Store (demostración)';
+  $('#referencia').textContent = textoCot; $('#referencia').classList.add('visible');
+  $('#copiarCot').hidden = false; $('#enviarIG').hidden = false;
+});
+$('#copiarCot').addEventListener('click', async () => { try { await navigator.clipboard.writeText(textoCot); $('#copiarCot').textContent = 'Copiado'; } catch (e) { $('#copiarCot').textContent = 'Selecciona y copia el texto'; } });
+pintarCarrito();
+cargarCatalogo();
+// el módulo del 3D usa estas piezas
+window.__surgy = { CAT, nombreFamilia, agregar, mostrarFamilia };
+// si el visor 3D no arranca (CDN bloqueado), se avisa y el resto de la página sigue
+setTimeout(() => { if (!window.__surgy3d) { const c = $('#cargando'); c.classList.remove('oculto'); c.textContent = 'No se pudo cargar el visor 3D. El catálogo y la cotización funcionan igual.'; } }, 20000);
+</script>
+<script type="module">
+// Módulo 2: visor 3D.
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+window.__surgy3d = true;
+const $ = (s, d = document) => d.querySelector(s);
+const $$ = (s, d = document) => [...d.querySelectorAll(s)];
+const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const medir = location.hash === '#medir';
+const pruebas = medir || navigator.webdriver === true;
+const esc3 = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const { CAT, nombreFamilia, agregar, mostrarFamilia } = window.__surgy || { CAT: { fichas: [], listo: false }, nombreFamilia: (x) => x, agregar: () => {}, mostrarFamilia: () => {} };
+
+/* ===================== 3D: configuración ===================== */
+const CAPAS = {
+  piel: { nombre: 'Piel', color: '#C79E86' },
+  musculo: { nombre: 'Músculos', color: '#A6463D' },
+  vaso: { nombre: 'Vasos sanguíneos', color: '#C0392B' },
+  nervio: { nombre: 'Nervios', color: '#E5C36A' },
+  hueso: { nombre: 'Huesos', color: '#E8DFC9' },
+  cerebro: { nombre: 'Cerebro', color: '#D7ACA2' },
+  celula: { nombre: 'Células', color: '#7BBDE8', nota: 'ilustración' },
+  nervioIlus: { nombre: 'Nervios', color: '#E5C36A', nota: 'ilustración' },
+};
+// Capas de afuera hacia adentro. f = fracción de la distancia inicial a partir de la cual se ve esa capa en modo automático.
+const ESCENAS = {
+  columna: {
+    nombre: 'Columna', ref: 'modelos/columna.glb', nucleo: 'hueso', vista: { dir: [0.55, 0.25, -1], dist: 2.5 },
+    capas: [
+      { id: 'piel', glb: 'modelos/columna-piel.glb', f: 0.82 },
+      { id: 'musculo', glb: 'modelos/columna-musculo.glb', f: 0.62 },
+      { id: 'vaso', glb: 'modelos/columna-vaso.glb', f: 0.47 },
+      { id: 'nervio', medula: true, f: 0.34 },
+      { id: 'hueso', glb: 'modelos/columna.glb', detalle: 'modelos/columna-detalle.glb', f: 0.012 },
+      { id: 'celula', celulas: 'hueso', f: 0 },
+    ],
+    productos: { piel: ['instrumental-columna'], musculo: ['instrumental-columna'], vaso: ['duramadre-hemostasia'], nervio: ['equipos'], celula: ['injerto-oseo'],
+      hueso: (p) => p.id?.startsWith('disco') ? ['intersomaticos'] : ({ 'columna-cervical': ['fijacion-cervical', 'intersomaticos'], 'columna-sacra': ['fijacion-columna', 'injerto-oseo'] }[p.zona] || ['fijacion-columna', 'vertebroplastia', 'intersomaticos']) },
+  },
+  craneo: {
+    nombre: 'Cráneo', ref: 'modelos/craneo.glb', nucleo: 'hueso', vista: { dir: [0.6, 0.15, 1], dist: 2.6 },
+    capas: [
+      { id: 'piel', glb: 'modelos/cabeza-piel.glb', f: 0.82 },
+      { id: 'musculo', glb: 'modelos/cabeza-musculo.glb', f: 0.62 },
+      { id: 'vaso', glb: 'modelos/cabeza-vaso.glb', f: 0.47 },
+      { id: 'nervio', glb: 'modelos/cabeza-nervio.glb', f: 0.34 },
+      { id: 'hueso', glb: 'modelos/craneo.glb', detalle: 'modelos/craneo-detalle.glb', f: 0.012 },
+      { id: 'celula', celulas: 'hueso', f: 0 },
+    ],
+    productos: { piel: ['craneotomia'], musculo: ['craneotomia'], vaso: ['clips-aneurisma'], nervio: ['microcirugia'], hueso: ['craneotomia', 'reconstruccion-craneal'], celula: ['reconstruccion-craneal'] },
+  },
+  cerebro: {
+    nombre: 'Cerebro', ref: 'modelos/cerebro.glb', nucleo: 'cerebro', vista: { dir: [0.75, 0.3, 1], dist: 2.7 },
+    capas: [
+      { id: 'piel', glb: 'modelos/cabeza-piel.glb', f: 0.82 },
+      { id: 'hueso', glb: 'modelos/craneo.glb', f: 0.64 },
+      { id: 'vaso', glb: 'modelos/cabeza-vaso.glb', f: 0.5 },
+      { id: 'nervio', glb: 'modelos/cabeza-nervio.glb', f: 0.37 },
+      { id: 'cerebro', glb: 'modelos/cerebro.glb', detalle: 'modelos/cerebro-detalle.glb', f: 0.012 },
+      { id: 'celula', celulas: 'neuronas', f: 0 },
+    ],
+    productos: { piel: ['craneotomia'], hueso: ['craneotomia', 'reconstruccion-craneal', 'duramadre-hemostasia'], vaso: ['clips-aneurisma', 'microcirugia'], nervio: ['microcirugia', 'equipos'], cerebro: ['microcirugia', 'hidrocefalia', 'equipos'], celula: ['equipos'] },
+  },
+};
+
+/* ===================== 3D: motor ===================== */
+const lienzo = $('#lienzo'); const caja = $('#explorador');
+const movil = matchMedia('(pointer: coarse)').matches;
+const memoria = navigator.deviceMemory || 4; const nucleos = navigator.hardwareConcurrency || 4;
+const nivel = movil ? (memoria <= 4 || nucleos <= 6 ? 'baja' : 'media') : 'alta';
+const DPR_MAX = Math.min(devicePixelRatio || 1, { baja: 1.25, media: 1.6, alta: 2 }[nivel]);
+let dpr = DPR_MAX;
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ canvas: lienzo, antialias: nivel !== 'baja', alpha: true, powerPreference: 'high-performance' });
+} catch (e) {
+  $('#cargando').textContent = 'Tu navegador no puede mostrar 3D. El catálogo funciona igual.'; caja.classList.add('sin-3d');
+}
+const escena = new THREE.Scene();
+const camara = new THREE.PerspectiveCamera(35, 1, 0.001, 60);
+let controles;
+if (renderer) {
+  renderer.setPixelRatio(dpr);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.AgXToneMapping; renderer.toneMappingExposure = 1.15;
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  escena.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  escena.environmentIntensity = 0.55;
+  escena.add(new THREE.HemisphereLight(0xBDD8E9, 0x0A2340, 0.9));
+  const clave = new THREE.DirectionalLight(0xffffff, 2.2); clave.position.set(1.2, 1.6, 1.4); escena.add(clave);
+  const contra = new THREE.DirectionalLight(0x7BBDE8, 1.4); contra.position.set(-1.4, 0.6, -1.6); escena.add(contra);
+  controles = new OrbitControls(camara, lienzo);
+  Object.assign(controles, { enableDamping: true, dampingFactor: 0.085, zoomToCursor: true, screenSpacePanning: true, rotateSpeed: 0.8, zoomSpeed: 1.1, autoRotate: !reducido, autoRotateSpeed: 0.6 });
+  controles.addEventListener('start', () => { controles.autoRotate = false; });
+  controles.addEventListener('change', pedirRender);
+}
+const cargador = new GLTFLoader(); cargador.setMeshoptDecoder(MeshoptDecoder);
+const cacheGLB = new Map();
+// Los modelos se publican como .glb.json (GLB en base64), porque el servidor de la página no sirve archivos .glb.
+function cargarGLB(url) {
+  if (!cacheGLB.has(url)) {
+    // primero el .glb (GitHub Pages); si el servidor no lo tiene, el .glb.json (página de Claude)
+    const binario = () => fetch(url).then((r) => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); });
+    const enJson = () => fetch(url + '.json').then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }).then((j) => {
+      const bin = atob(j.datos); const u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u.buffer; });
+    const p = binario().catch(enJson).then((buf) => new Promise((ok, mal) => cargador.parse(buf, '', ok, mal)));
+    p.catch(() => cacheGLB.delete(url)); cacheGLB.set(url, p);
+  }
+  return cacheGLB.get(url);
+}
+
+/* materiales */
+const Fisico = (o) => { if (nivel === 'baja') { const { sheen, sheenColor, sheenRoughness, clearcoat, clearcoatRoughness, ...r } = o; return new THREE.MeshStandardMaterial(r); } return new THREE.MeshPhysicalMaterial(o); };
+function materialReal(capa, mesh) {
+  const ud = mesh.userData || {}; const n = (ud.nombre_es || '') + ' ' + (mesh.material?.name || '');
+  const base = { metalness: 0, roughness: 0.6, transparent: false, side: THREE.FrontSide };
+  switch (capa) {
+    case 'piel': return Fisico({ ...base, color: 0xC59B83, roughness: 0.52, sheen: 0.35, sheenColor: new THREE.Color(0xFFD9C8), sheenRoughness: 0.6, side: THREE.DoubleSide });
+    case 'musculo': return Fisico({ ...base, color: 0x9C3B33, roughness: 0.42, clearcoat: 0.25, clearcoatRoughness: 0.5 });
+    case 'vaso': return Fisico({ ...base, color: /Vena|Venas|Senos/.test(n) ? 0x2E5C9C : 0xB8322A, roughness: 0.32, clearcoat: 0.4, clearcoatRoughness: 0.35 });
+    case 'nervio': return new THREE.MeshStandardMaterial({ ...base, color: /Médula/.test(n) ? 0xF1E2B4 : 0xE3C060, roughness: 0.48, emissive: 0x3a2c08, emissiveIntensity: 0.6 });
+    case 'cerebro': return Fisico({ ...base, color: 0xD3A69C, roughness: 0.55, clearcoat: 0.2, clearcoatRoughness: 0.6, sheen: 0.25, sheenColor: new THREE.Color(0xFFE2DA) });
+    default: return new THREE.MeshStandardMaterial({ ...base, color: /disco/i.test(n) ? 0x9FC2CB : 0xE7DDC7, roughness: /disco/i.test(n) ? 0.45 : 0.72 });
+  }
+}
+const holograma = () => new THREE.ShaderMaterial({
+  uniforms: { uColor: { value: new THREE.Color(0x7BBDE8) }, uOp: { value: 0.0 } },
+  vertexShader: `varying vec3 vN; varying vec3 vV; void main(){ vec4 mv = modelViewMatrix*vec4(position,1.0); vN = normalize(normalMatrix*normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix*mv; }`,
+  fragmentShader: `uniform vec3 uColor; uniform float uOp; varying vec3 vN; varying vec3 vV; void main(){ float f = pow(1.0-abs(dot(normalize(vN),normalize(vV))),2.2); gl_FragColor = vec4(uColor*(0.25+1.5*f), uOp*(0.08+0.9*f)); }`,
+  transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
+});
+
+/* estado */
+const E = { escena: 'columna', modo: 'auto', capa: null, R: 0.35, centroRef: null, grupos: {}, fantasma: null, enCelulas: false, seleccion: null };
+const raiz = new THREE.Group(); escena.add(raiz);
+let pedido = true; function pedirRender() { pedido = true; }
+
+async function construirMedula() {
+  // Médula espinal y raíces nerviosas: ILUSTRACIÓN trazada por el canal vertebral del modelo de huesos.
+  const g = await cargarGLB(ESCENAS.columna.ref); const c = g.parser.json.asset?.extras?.centro_m || [0, 0, 0];
+  const orden = ['c1','c2','c3','c4','c5','c6','c7','t1','t2','t3','t4','t5','t6','t7','t8','t9','t10','t11','t12','l1','l2','l3','l4','l5'];
+  const caja = new THREE.Box3(); const pts = [];
+  g.scene.updateMatrixWorld(true);
+  for (const v of orden) { const n = g.scene.getObjectByName('vertebra_' + v); if (!n) continue; caja.setFromObject(n); const ce = caja.getCenter(new THREE.Vector3());
+    pts.push({ v, p: new THREE.Vector3(ce.x, ce.y, caja.max.z - 0.45 * (caja.max.z - caja.min.z)), ancho: caja.max.x - caja.min.x, alto: caja.max.y - caja.min.y }); }
+  const sacro = g.scene.getObjectByName('sacro'); if (sacro) { caja.setFromObject(sacro); const ce = caja.getCenter(new THREE.Vector3()); pts.push({ v: 's', p: new THREE.Vector3(ce.x, ce.y, caja.max.z - 0.5 * (caja.max.z - caja.min.z)) }); }
+  const grupo = new THREE.Group(); const mat = materialReal('nervio', { userData: { nombre_es: 'Médula' } }); const matR = materialReal('nervio', { userData: {} });
+  const malla = (geo, m, nombre) => { const x = new THREE.Mesh(geo, m); x.userData = { nombre_es: nombre + ' (ilustración)', capa: 'nervio' }; grupo.add(x); return x; };
+  const iL1 = pts.findIndex((q) => q.v === 'l1');
+  const curvaMed = new THREE.CatmullRomCurve3(pts.slice(0, iL1 + 2).map((q) => q.p));
+  malla(new THREE.TubeGeometry(curvaMed, 160, 0.0052, 14, false), mat, 'Médula espinal');
+  // cola de caballo: hebras desde L1 hasta el sacro
+  const bajo = pts.slice(iL1, pts.length);
+  for (let k = 0; k < 8; k++) { const dx = (k - 3.5) * 0.0011, dz = ((k % 2) - 0.5) * 0.0018; malla(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(bajo.map((q) => q.p.clone().add(new THREE.Vector3(dx, 0, dz)))), 60, 0.0009, 6, false), matR, 'Cola de caballo'); }
+  // raíces nerviosas: un par por nivel, saliendo por los agujeros intervertebrales
+  for (let i = 0; i < pts.length - 1; i++) {
+    const a = pts[i], b = pts[i + 1]; const m = a.p.clone().lerp(b.p, 0.5); const w = (a.ancho || 0.05) * 0.5;
+    for (const lado of [-1, 1]) {
+      const fin = m.clone().add(new THREE.Vector3(lado * (w + 0.018), -0.012, 0.01)); const med = m.clone().add(new THREE.Vector3(lado * w * 0.7, -0.004, 0.004));
+      const cur = new THREE.CatmullRomCurve3([m.clone().add(new THREE.Vector3(lado * 0.004, 0, 0)), med, fin]);
+      const nombre = `Raíz nerviosa ${a.v.toUpperCase()}-${b.v.toUpperCase()} ${lado < 0 ? 'derecha' : 'izquierda'}`;
+      malla(new THREE.TubeGeometry(cur, 16, 0.0016, 8, false), matR, nombre);
+      const gang = malla(new THREE.SphereGeometry(0.0032, 12, 8), matR, 'Ganglio de la raíz dorsal'); gang.position.copy(cur.getPointAt(0.62)); gang.scale.set(1.5, 1, 1);
+    }
+  }
+  const mats = []; grupo.traverse((x) => { if (x.isMesh && !mats.includes(x.material)) mats.push(x.material); });
+  const envoltura = new THREE.Group(); envoltura.add(grupo); envoltura.position.set(c[0] - E.centroRef[0], c[1] - E.centroRef[1], c[2] - E.centroRef[2]);
+  return { grupo: envoltura, mats };
+}
+async function prepararCapa(esc, capa) {
+  const clave = esc + ':' + capa.id;
+  if (E.grupos[clave]) return E.grupos[clave];
+  if (capa.medula) { const m = await construirMedula(); const info = { grupo: m.grupo, mats: m.mats, op: 0, obj: 0, capa, detalle: null }; m.grupo.visible = false; raiz.add(m.grupo); E.grupos[clave] = info; ponerOpacidad(info, 0); return info; }
+  const g = await cargarGLB(capa.glb);
+  const obj = g.scene.clone(true);
+  const c = g.parser.json.asset?.extras?.centro_m || [0, 0, 0];
+  const grupo = new THREE.Group(); grupo.add(obj);
+  grupo.position.set(c[0] - E.centroRef[0], c[1] - E.centroRef[1], c[2] - E.centroRef[2]);
+  const mats = [];
+  obj.traverse((m) => { if (m.isMesh) { m.material = materialReal(capa.id, m); mats.push(m.material); m.userData.capa = capa.id; } });
+  const info = { grupo, mats, op: 0, obj: 0, capa, detalle: null };
+  grupo.visible = false; raiz.add(grupo); E.grupos[clave] = info;
+  ponerOpacidad(info, 0);
+  return info;
+}
+function ponerOpacidad(info, o) {
+  info.op = o; info.grupo.visible = o > 0.01;
+  for (const m of info.mats) { m.opacity = o; const t = o < 0.999; if (m.transparent !== t) { m.transparent = t; m.needsUpdate = true; } m.depthWrite = o > 0.6; }
+}
+async function prepararFantasma(esc) {
+  const cfg = ESCENAS[esc]; const capa = cfg.capas.find((c) => c.id === cfg.nucleo);
+  const g = await cargarGLB(capa.glb); const obj = g.scene.clone(true); const mat = holograma();
+  obj.traverse((m) => { if (m.isMesh) m.material = mat; });
+  const c = g.parser.json.asset?.extras?.centro_m || [0, 0, 0];
+  const grupo = new THREE.Group(); grupo.add(obj); grupo.position.set(c[0] - E.centroRef[0], c[1] - E.centroRef[1], c[2] - E.centroRef[2]);
+  grupo.renderOrder = 10; raiz.add(grupo); return { grupo, mat, op: 0, obj: 0 };
+}
+
+async function abrirEscena(esc) {
+  if (!renderer) return;
+  E.escena = esc; E.capa = null; E.seleccion = null; cerrarFicha(); salirDeCelulas(true);
+  $$('.pestanas button').forEach((b) => b.setAttribute('aria-selected', b.dataset.escena === esc));
+  $('#cargando').classList.remove('oculto'); $('#cargando').textContent = 'Cargando modelo 3D…';
+  for (const k in E.grupos) { E.grupos[k].grupo.visible = false; E.grupos[k].obj = 0; ponerOpacidad(E.grupos[k], 0); }
+  if (E.fantasma) { raiz.remove(E.fantasma.grupo); E.fantasma = null; }
+  const cfg = ESCENAS[esc];
+  if (E.modo !== 'auto' && !cfg.capas.some((c) => c.id === E.modo)) E.modo = 'auto';
+  const ref = await cargarGLB(cfg.ref);
+  E.centroRef = ref.parser.json.asset?.extras?.centro_m || [0, 0, 0];
+  for (const k of Object.keys(E.grupos)) if (!k.startsWith(esc + ':')) { raiz.remove(E.grupos[k].grupo); delete E.grupos[k]; }
+  const esfera = new THREE.Box3().setFromObject(ref.scene).getBoundingSphere(new THREE.Sphere());
+  E.R = esfera.radius; E.centro = esfera.center.clone();
+  E.fantasma = await prepararFantasma(esc);
+  pintarCapas(); vistaInicial();
+  await ponerCapa(E.modo === 'auto' ? capaPorDistancia() : E.modo, true);
+  $('#cargando').classList.add('oculto');
+}
+function distanciaEncuadre() {
+  const v = THREE.MathUtils.degToRad(camara.fov) / 2; const h = Math.atan(Math.tan(v) * camara.aspect);
+  return (E.R * 1.18) / Math.sin(Math.min(v, h));
+}
+function vistaInicial() {
+  const cfg = ESCENAS[E.escena]; const d = new THREE.Vector3(...cfg.vista.dir).normalize();
+  E.d0 = distanciaEncuadre() / E.R;
+  controles.target.copy(E.centro); camara.position.copy(E.centro).addScaledVector(d, E.R * E.d0);
+  controles.minDistance = E.R * 0.004; controles.maxDistance = E.R * E.d0 * 1.4; controles.update(); pedirRender();
+}
+function distanciaRel() { return controles.getDistance() / E.R; }
+function capaPorDistancia() {
+  const d = distanciaRel(); const cs = ESCENAS[E.escena].capas; const actual = E.capa;
+  for (const c of cs) {
+    const margen = c.id === actual ? 0.94 : 1.0; // histéresis
+    if (d >= c.f * E.d0 * margen) return c.id;
+  }
+  return cs[cs.length - 1].id;
+}
+async function ponerCapa(id, inmediato = false) {
+  if (id === E.capa) return;
+  const cfg = ESCENAS[E.escena]; const capa = cfg.capas.find((c) => c.id === id);
+  E.capa = id; actualizarUI(); cerrarFicha();
+  if (!E.enCelulas) $('#pista').textContent = 'Acércate con la rueda o pellizcando: las capas cambian solas. Doble toque para enfocar.';
+  if (capa.celulas) { entrarEnCelulas(capa.celulas); return; }
+  if (E.enCelulas) salirDeCelulas(false);
+  const info = await prepararCapa(E.escena, capa);
+  if (E.capa !== id) return;
+  for (const k in E.grupos) if (k.startsWith(E.escena + ':')) E.grupos[k].obj = E.grupos[k] === info ? 1 : 0;
+  if (inmediato) for (const k in E.grupos) ponerOpacidad(E.grupos[k], E.grupos[k].obj);
+  if (E.fantasma) E.fantasma.obj = (id === cfg.nucleo || id === 'piel') ? 0 : (cfg.nucleo === 'cerebro' ? (id === 'nervio' ? 0.22 : 0.32) : (id === 'nervio' ? 0.4 : 0.85));
+  if (cfg.nucleo === 'cerebro' && id === 'hueso') E.fantasma.obj = 0;
+  pedirRender();
+  // capas vecinas, en segundo plano
+  const i = cfg.capas.indexOf(capa); for (const v of [cfg.capas[i + 1], cfg.capas[i - 1]]) if (v && v.glb) prepararCapa(E.escena, v).catch(() => {});
+}
+async function quizaDetalle() {
+  const cfg = ESCENAS[E.escena]; const capa = cfg.capas.find((c) => c.id === E.capa);
+  if (!capa?.detalle) return; const info = E.grupos[E.escena + ':' + capa.id]; if (!info || info.detalle) return;
+  if (distanciaRel() > 0.3 * E.d0) return;
+  info.detalle = 'cargando'; $('#pista').textContent = 'Cargando más detalle…';
+  try {
+    const g = await cargarGLB(capa.detalle); const obj = g.scene.clone(true); const mats = [];
+    obj.traverse((m) => { if (m.isMesh) { m.material = materialReal(capa.id, m); m.userData.capa = capa.id; mats.push(m.material); } });
+    const viejo = info.grupo.children[0]; info.grupo.add(obj); info.grupo.remove(viejo);
+    info.mats = mats; ponerOpacidad(info, info.op); info.detalle = 'listo'; pedirRender(); $('#pista').textContent = 'Máximo detalle. Sigue acercándote para ver las células.';
+  } catch (e) { info.detalle = 'fallo'; $('#pista').textContent = ''; }
+}
+
+/* UI de capas */
+function pintarCapas() {
+  const cs = ESCENAS[E.escena].capas;
+  $('#capas').innerHTML = `<div class="titulo">Capas</div><button type="button" class="auto" data-capa="auto" aria-pressed="${E.modo === 'auto'}"><span class="punto" style="background:linear-gradient(135deg,#C79E86,#7BBDE8)"></span>Automático<span class="nota">zoom</span></button>` +
+    cs.map((c) => { const nota = c.medula ? 'ilustración' : CAPAS[c.id].nota; return `<button type="button" data-capa="${c.id}" aria-pressed="${E.modo === c.id}"><span class="punto" style="background:${CAPAS[c.id].color}"></span>${CAPAS[c.id].nombre}${nota ? `<span class="nota">${nota}</span>` : ''}</button>`; }).join('');
+  $('#profundidad').innerHTML = cs.map(() => '<i></i>').join('');
+  actualizarUI();
+}
+function actualizarUI() {
+  const cs = ESCENAS[E.escena].capas; const i = cs.findIndex((c) => c.id === E.capa);
+  $$('#capas button').forEach((b) => { b.classList.toggle('activa', b.dataset.capa === E.capa); b.setAttribute('aria-pressed', b.dataset.capa === E.modo); });
+  $$('#profundidad i').forEach((x, k) => x.classList.toggle('on', k <= i));
+  $('#capaNombre').textContent = E.capa ? CAPAS[E.capa].nombre + (E.modo !== 'auto' ? ' · fija' : '') : '';
+  const capaCfg = ESCENAS[E.escena].capas.find((c) => c.id === E.capa); $('#ilustracion').classList.toggle('visible', E.capa === 'celula' || !!capaCfg?.medula);
+}
+$('#capas').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return; const id = b.dataset.capa;
+  if (!renderer) return;
+  if (id === 'auto') { E.modo = 'auto'; if (E.enCelulas) salirDeCelulas(false); ponerCapa(capaPorDistancia()).catch(falloCapa); }
+  else { E.modo = id; if (E.capa === id) actualizarUI(); else ponerCapa(id).catch(falloCapa); }
+  actualizarUI();
+});
+const falloEscena = (e) => { $('#cargando').classList.remove('oculto'); $('#cargando').textContent = 'No se pudo cargar el modelo 3D. Revisa tu conexión.'; };
+function falloCapa() { $('#pista').textContent = 'No se pudo cargar esta capa. Revisa tu conexión.'; E.capa = null; }
+$$('.pestanas button').forEach((b) => b.addEventListener('click', () => { if (renderer && b.dataset.escena !== E.escena) abrirEscena(b.dataset.escena).catch(falloEscena); }));
+$('#reiniciar').addEventListener('click', () => { if (!renderer || !E.centroRef) return; if (E.enCelulas) { CEL.reiniciar(); return; } vistaInicial(); if (E.modo === 'auto') ponerCapa(capaPorDistancia()).catch(falloCapa); });
+$('#completa').addEventListener('click', async () => {
+  try { if (!document.fullscreenElement && caja.requestFullscreen) { await caja.requestFullscreen(); return; } if (document.fullscreenElement) { await document.exitFullscreen(); return; } } catch (e) {}
+  caja.classList.toggle('completa'); redimensionar();
+});
+document.addEventListener('fullscreenchange', redimensionar);
+
+/* selección y enfoque */
+const rayo = new THREE.Raycaster(); const puntero = new THREE.Vector2();
+function golpe(ev) {
+  const r = lienzo.getBoundingClientRect(); puntero.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+  rayo.setFromCamera(puntero, camara);
+  const info = E.grupos[E.escena + ':' + E.capa]; if (!info || !info.grupo.visible) return null;
+  const h = rayo.intersectObject(info.grupo, true); return h[0] || null;
+}
+let abajo = null, ultimoToque = 0, resaltado = null;
+lienzo.addEventListener('pointerdown', (e) => { abajo = { x: e.clientX, y: e.clientY, t: performance.now() }; });
+lienzo.addEventListener('pointerup', (e) => {
+  if (!renderer || !E.centroRef || !abajo || E.enCelulas) return; const mov = Math.hypot(e.clientX - abajo.x, e.clientY - abajo.y); if (mov > 6) return;
+  const ahora = performance.now(); const doble = ahora - ultimoToque < 320; ultimoToque = ahora;
+  const h = golpe(e);
+  if (doble && h) { enfocar(h.point); return; }
+  $('#punta').style.display = 'none';
+  if (h) seleccionar(h.object); else cerrarFicha();
+});
+lienzo.addEventListener('dblclick', (e) => { if (!renderer || !E.centroRef) return; const h = golpe(e); if (h) enfocar(h.point); });
+let animEnfoque = null;
+function enfocar(p) {
+  const d0 = controles.getDistance(); const d1 = Math.max(controles.minDistance * 2, d0 * 0.45);
+  const dir = camara.position.clone().sub(controles.target).normalize();
+  animEnfoque = { t0: performance.now(), dur: reducido ? 1 : 650, desdeT: controles.target.clone(), haciaT: p.clone(), desdeP: camara.position.clone(), haciaP: p.clone().addScaledVector(dir, d1) };
+  controles.autoRotate = false;
+}
+lienzo.addEventListener('pointermove', (e) => {
+  if (!renderer || !E.centroRef || movil || E.enCelulas || e.buttons) { $('#punta').style.display = 'none'; return; }
+  const h = golpe(e); const p = $('#punta');
+  if (h && h.object.userData.nombre_es) { const r = caja.getBoundingClientRect(); p.textContent = h.object.userData.nombre_es; p.style.left = (e.clientX - r.left + 14) + 'px'; p.style.top = (e.clientY - r.top + 14) + 'px'; p.style.display = 'block'; lienzo.style.cursor = 'pointer'; }
+  else { p.style.display = 'none'; lienzo.style.cursor = 'grab'; }
+});
+lienzo.addEventListener('pointerleave', () => { $('#punta').style.display = 'none'; });
+function seleccionar(m) {
+  if (resaltado) { resaltado.material.emissive?.setHex(0x000000); }
+  resaltado = m; m.material.emissive?.setHex(0x16324d); pedirRender();
+  const ud = m.userData; const cfg = ESCENAS[E.escena];
+  $('#fichaTipo').textContent = CAPAS[E.capa].nombre + ' · ' + cfg.nombre;
+  $('#fichaNombre').textContent = ud.nombre_es || 'Pieza';
+  pintarProductos(familiasPara(ud));
+  $('#ficha3d').classList.add('visible');
+}
+function familiasPara(ud) { const p = ESCENAS[E.escena].productos[E.capa]; return typeof p === 'function' ? p(ud) : (p || []); }
+function pintarProductos(fams) {
+  const cont = $('#fichaProd');
+  if (!CAT.listo || !fams.length) { cont.innerHTML = ''; return; }
+  // una ficha destacada por familia (primero implantes y servicios con más variantes), hasta 3
+  const peso = (f) => (f.tipo === 'implante' ? 3 : f.tipo === 'servicio' ? 2 : f.tipo === 'equipo' ? 1 : 0) * 100 + f.variantes.length;
+  const fichas = []; for (const fam of fams) { const mejor = CAT.fichas.filter((f) => f.familia === fam).sort((x, y) => peso(y) - peso(x))[0]; if (mejor) fichas.push(mejor); }
+  for (const f of CAT.fichas.filter((f) => fams.includes(f.familia)).sort((x, y) => peso(y) - peso(x))) { if (fichas.length >= 3) break; if (!fichas.includes(f)) fichas.push(f); }
+  fichas.length = Math.min(fichas.length, 3);
+  if (!fichas.length) { cont.innerHTML = ''; return; }
+  cont.innerHTML = `<div class="prod">Productos para esta zona</div><ul>${fichas.map((f) => `<li><button type="button" data-agr3d="${esc3(f.id)}">${esc3(f.nombre)}<br><small style="color:var(--agua)">${esc3(nombreFamilia(f.familia))} · agregar a mi cotización</small></button></li>`).join('')}</ul><button class="boton chico vertodos" type="button" data-fam="${esc3(fams[0])}">Ver todos en el catálogo</button>`;
+}
+$('#fichaProd').addEventListener('click', (e) => {
+  const a = e.target.closest('[data-agr3d]'); if (a) { const f = CAT.fichas.find((x) => x.id === a.dataset.agr3d); if (!f) return; agregar(f, f.variantes[0].clave); a.querySelector('small').textContent = 'Agregado a mi cotización'; return; }
+  const v = e.target.closest('[data-fam]'); if (v) { if (document.fullscreenElement) document.exitFullscreen(); caja.classList.remove('completa'); mostrarFamilia(v.dataset.fam); }
+});
+function cerrarFicha() { $('#ficha3d').classList.remove('visible'); if (resaltado) { resaltado.material.emissive?.setHex(0x000000); resaltado = null; pedirRender(); } }
+$('#cerrarFicha').addEventListener('click', cerrarFicha);
+
+/* ===================== 3D: células (ilustración) ===================== */
+const CEL = (() => {
+  let esc = null, cam = null, ctrl = null, tipo = null, mundo = {}, rotulos = [], pulsos = null, reloj = 0;
+  const mapaRuido = (() => { const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d'); const im = x.createImageData(128, 128); for (let i = 0; i < im.data.length; i += 4) { const v = 200 + Math.random() * 55; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; } x.putImageData(im, 0, 0); const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t; })();
+  function texturaFibras(angulo) {
+    const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d');
+    x.fillStyle = '#808080'; x.fillRect(0, 0, 256, 256); x.translate(128, 128); x.rotate(angulo); x.translate(-200, -200);
+    for (let i = 0; i < 160; i++) { const y = i * 2.6 + Math.random() * 1.2; x.strokeStyle = `rgba(${Math.random() < 0.5 ? '255,255,255' : '0,0,0'},${0.08 + Math.random() * 0.12})`; x.lineWidth = 0.6 + Math.random() * 1.2; x.beginPath(); x.moveTo(0, y); x.lineTo(400, y + (Math.random() - 0.5) * 6); x.stroke(); }
+    const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(3, 2); return t;
+  }
+  function tuboAfinado(curva, r0, r1, seg = 48, rad = 8) {
+    const fr = curva.computeFrenetFrames(seg, false); const pos = [], nor = [], idx = [];
+    for (let i = 0; i <= seg; i++) {
+      const t = i / seg; const p = curva.getPointAt(t); const r = r0 + (r1 - r0) * t;
+      for (let j = 0; j <= rad; j++) {
+        const a = (j / rad) * Math.PI * 2; const n = fr.normals[i].clone().multiplyScalar(Math.cos(a)).add(fr.binormals[i].clone().multiplyScalar(Math.sin(a)));
+        pos.push(p.x + n.x * r, p.y + n.y * r, p.z + n.z * r); nor.push(n.x, n.y, n.z);
+      }
+    }
+    for (let i = 0; i < seg; i++) for (let j = 0; j < rad; j++) { const a = i * (rad + 1) + j, b = a + rad + 1; idx.push(a, b, a + 1, b, b + 1, a + 1); }
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); g.setIndex(idx); return g;
+  }
+  // ---- Material liviano de membrana (investigacion/celulas-y-moleculas.md, sección 3.1) ----
+  // Iluminación envolvente (Green), translucidez (Barré-Brisebois), Fresnel de Schlick y niebla exponencial; mediump; sirve con instancias.
+  const ML_REG = []; const LUZ_MUNDO = new THREE.Vector3(0.45, 0.75, 0.5).normalize();
+  function ML(p) {
+    const m = new THREE.ShaderMaterial({
+      uniforms: {
+        uColor: { value: new THREE.Color(p.color) }, uDispersion: { value: new THREE.Color(p.dispersion ?? 0x6fb7ff) }, uBorde: { value: new THREE.Color(p.borde ?? 0x9fd8ff) },
+        uLuz: { value: LUZ_MUNDO.clone() }, uAmb: { value: p.amb ?? 0.2 }, uWrap: { value: p.wrap ?? 0.35 }, uDist: { value: p.dist ?? 0.2 }, uPot: { value: p.pot ?? 3.0 }, uEsc: { value: p.esc ?? 1.2 },
+        uF0: { value: 0.02 }, uNieblaColor: { value: new THREE.Color(0x001d39) }, uNieblaDens: { value: p.niebla ?? 0.04 },
+      },
+      vertexShader: `attribute float espesor; varying vec3 vN; varying vec3 vV; varying float vE; varying float vZ;
+        void main(){ vec4 pos = vec4(position,1.0); vec3 nor = normal;
+          #ifdef USE_INSTANCING
+            pos = instanceMatrix * pos; nor = mat3(instanceMatrix) * nor;
+          #endif
+          vec4 mv = modelViewMatrix * pos; vN = normalize(normalMatrix * nor); vV = normalize(-mv.xyz); vE = espesor; vZ = -mv.z; gl_Position = projectionMatrix * mv; }`,
+      fragmentShader: `precision mediump float;
+        uniform vec3 uColor, uDispersion, uBorde, uLuz, uNieblaColor; uniform float uAmb, uWrap, uDist, uPot, uEsc, uF0, uNieblaDens;
+        varying vec3 vN; varying vec3 vV; varying float vE; varying float vZ;
+        void main(){ vec3 N = normalize(vN); N = gl_FrontFacing ? N : -N; vec3 V = normalize(vV); vec3 L = uLuz;
+          float w = (dot(N, L) + uWrap) / (1.0 + uWrap); float dif = max(w, 0.0);
+          float banda = smoothstep(0.0, 0.3, w) * smoothstep(0.6, 0.3, w);
+          vec3 H = normalize(L + N * uDist); float tr = pow(clamp(dot(V, -H), 0.0, 1.0), uPot) * uEsc * (1.0 - vE);
+          float f = uF0 + (1.0 - uF0) * pow(1.0 - clamp(dot(N, V), 0.0, 1.0), 5.0);
+          vec3 c = uColor * (uAmb + dif) + uDispersion * (0.35 * banda + tr) + uBorde * f;
+          float niebla = 1.0 - exp(-uNieblaDens * uNieblaDens * vZ * vZ);
+          gl_FragColor = vec4(mix(c, uNieblaColor, niebla), 1.0);
+          #include <tonemapping_fragment>
+          #include <colorspace_fragment>
+        }`,
+      side: p.lado ?? THREE.FrontSide,
+    });
+    ML_REG.push(m); return m;
+  }
+  const conEspesor = (g, v = 0.5) => { if (!g.getAttribute('espesor')) g.setAttribute('espesor', new THREE.Float32BufferAttribute(new Float32Array(g.getAttribute('position').count).fill(v), 1)); if (g.getAttribute('uv')) g.deleteAttribute('uv'); return g; };
+  function tuboAfinado(curva, r0, r1, seg = 48, rad = 8, e0 = 0.6, e1 = 0.1) {
+    const fr = curva.computeFrenetFrames(seg, false); const pos = [], nor = [], esp = [], idx = [];
+    for (let i = 0; i <= seg; i++) {
+      const t = i / seg; const p = curva.getPointAt(t); const r = r0 + (r1 - r0) * t;
+      for (let j = 0; j <= rad; j++) {
+        const a = (j / rad) * Math.PI * 2; const n = fr.normals[i].clone().multiplyScalar(Math.cos(a)).add(fr.binormals[i].clone().multiplyScalar(Math.sin(a)));
+        pos.push(p.x + n.x * r, p.y + n.y * r, p.z + n.z * r); nor.push(n.x, n.y, n.z); esp.push(e0 + (e1 - e0) * t);
+      }
+    }
+    for (let i = 0; i < seg; i++) for (let j = 0; j < rad; j++) { const a = i * (rad + 1) + j, b = a + rad + 1; idx.push(a, b, a + 1, b, b + 1, a + 1); }
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); g.setAttribute('espesor', new THREE.Float32BufferAttribute(esp, 1)); g.setIndex(idx); return g;
+  }
+  let semilla = 7; const azar = (a = 0, b = 1) => { semilla = (semilla * 16807) % 2147483647; return a + ((semilla - 1) / 2147483646) * (b - a); };
+  const normal = (m, s) => { const u = 1 - azar(), v = azar(); return m + s * Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  function luces(e) { e.add(new THREE.HemisphereLight(0xdcefff, 0x07203a, 0.9)); }
+
+  function construirHueso(e) {
+    // Hueso compacto, 1 unidad = 100 µm. Osteona 232 ± 48 µm; conducto central 0,21 del diámetro; laminillas de 5 a 9 µm;
+    // lagunas de 17–19 × 9 × 4–5 µm, ~34 por sección de osteona; 16 a 22 canalículos por laguna (investigacion/celulas-y-moleculas.md, 2.1).
+    semilla = 11; const bloque = new THREE.Group(); e.add(bloque);
+    const H = 5.0; const centros = [[0, 0], [2.25, 0.25], [-2.2, 0.35], [1.1, 2.05], [-1.15, 2.0], [1.15, -1.95], [-1.05, -2.05]];
+    const mLamA = ML({ color: 0xE9DEC6, dispersion: 0xF2C9A0, borde: 0xFFF3DD, wrap: 0.25, dist: 0.1, pot: 4, esc: 0.4, niebla: 0.03 });
+    const mLamB = ML({ color: 0xD9C9AA, dispersion: 0xF2C9A0, borde: 0xFFF3DD, wrap: 0.25, dist: 0.1, pot: 4, esc: 0.4, niebla: 0.03 });
+    const mMatriz = ML({ color: 0xE2D4B8, dispersion: 0xF2C9A0, borde: 0xFFF0D8, wrap: 0.25, dist: 0.1, pot: 4, esc: 0.3, niebla: 0.03 });
+    const mPeri = ML({ color: 0xD49C8E, dispersion: 0xFFB3A0, borde: 0xFFD8CC, wrap: 0.4, dist: 0.2, pot: 3, esc: 0.8, niebla: 0.03 });
+    const mCanal = ML({ color: 0x7A463E, dispersion: 0xC0705C, borde: 0x9A5A4E, wrap: 0.3, esc: 0.3, niebla: 0.03, lado: THREE.BackSide });
+    const mArteria = ML({ color: 0xB3261E, dispersion: 0xFF6A4D, borde: 0xFF9C88, wrap: 0.4, dist: 0.3, pot: 2.5, esc: 1.5, niebla: 0.03 });
+    const mVena = ML({ color: 0x34508F, dispersion: 0x6A8CFF, borde: 0x9DB4FF, wrap: 0.4, dist: 0.3, pot: 2.5, esc: 1.2, niebla: 0.03 });
+    const mNervio = ML({ color: 0xE3C060, dispersion: 0xFFE08A, borde: 0xFFF0C0, wrap: 0.4, esc: 0.8, niebla: 0.03 });
+    const mCito = ML({ color: 0x6B4A57, dispersion: 0xC98A8A, borde: 0xE8C3C3, wrap: 0.4, dist: 0.2, pot: 3, esc: 1.0, niebla: 0.03 });
+    // cara de corte: anillos concéntricos (sin descartar píxeles)
+    const mTapa = new THREE.ShaderMaterial({
+      uniforms: { uR: { value: 1 }, uRc: { value: 0.2 }, uN: { value: 14 }, uNieblaDens: { value: 0.03 }, uNieblaColor: { value: new THREE.Color(0x001d39) } },
+      vertexShader: 'varying vec2 vP; varying float vZ; void main(){ vP = position.xy; vec4 mv = modelViewMatrix*vec4(position,1.0); vZ = -mv.z; gl_Position = projectionMatrix*mv; }',
+      fragmentShader: `precision mediump float; uniform float uR, uRc, uN, uNieblaDens; uniform vec3 uNieblaColor; varying vec2 vP; varying float vZ;
+        float h(vec2 p){ return fract(sin(dot(p, vec2(12.9898,78.233)))*43758.5453); }
+        void main(){ float r = length(vP); float x = (r - uRc) / (uR - uRc);
+          float ondula = 0.012*sin(atan(vP.y, vP.x)*7.0 + r*9.0);
+          float banda = 0.5 + 0.5*sin((x*uN + ondula*uN)*6.2831);
+          vec3 claro = vec3(0.94,0.89,0.79), oscuro = vec3(0.70,0.60,0.46);
+          vec3 c = mix(oscuro, claro, smoothstep(0.25,0.75,banda));
+          c *= 0.93 + 0.07*h(floor(vP*90.0));
+          c = mix(c, vec3(0.62,0.52,0.42), smoothstep(0.955,0.99,x)*0.9);   // línea de cementación
+          c *= mix(0.6, 1.0, smoothstep(0.0, 0.06, x));                       // borde del conducto
+          float niebla = 1.0 - exp(-uNieblaDens*uNieblaDens*vZ*vZ);
+          gl_FragColor = vec4(mix(c, uNieblaColor, niebla), 1.0);
+          #include <tonemapping_fragment>
+          #include <colorspace_fragment>
+        }`,
+    });
+    const lados = [], tapas = [], canales = [], vasosA = [], vasosV = [], nervios = [], citos = [], lin = [];
+    // matriz intersticial y periostio
+    const base = new THREE.Mesh(conEspesor(new THREE.CylinderGeometry(3.7, 3.7, H, 7, 1, false), 0.9), mMatriz); base.scale.set(1, 1, 0.92); base.position.y = -0.04; bloque.add(base);
+    const peri = new THREE.Mesh(conEspesor(new THREE.CylinderGeometry(3.86, 3.86, H * 0.82, 56, 1, true, 0.4, Math.PI * 1.2), 0.3), mPeri); peri.scale.set(1, 1, 0.94); peri.position.y = -H * 0.09; bloque.add(peri);
+    const mats = [];
+    centros.forEach(([x, z], k) => {
+      const R = Math.min(1.3, Math.max(0.95, normal(1.12, 0.12))); const rc = R * (0.21 + azar(-0.02, 0.03)); const nL = Math.floor((R - rc) / 0.07);
+      // laminillas laterales en escalera (dejan ver las capas)
+      for (let i = 0; i < 6; i++) { const r = rc + (R - rc) * (0.12 + i * 0.17); const alto = H * (1 - i * 0.045) - (k === 0 ? i * 0.12 : 0);
+        const g = conEspesor(new THREE.CylinderGeometry(r, r, alto, 48, 1, true), 0.8); g.translate(x, (H - alto) / 2 + 0.02, z); (i % 2 ? lados[1] ||= [] : lados[0] ||= []).push(g); }
+      const tapa = new THREE.Mesh(new THREE.RingGeometry(rc, R, 96, 1), mTapa.clone()); tapa.material.uniforms.uR.value = R; tapa.material.uniforms.uRc.value = rc; tapa.material.uniforms.uN.value = nL;
+      tapa.rotation.x = -Math.PI / 2; tapa.position.set(x, H / 2 + 0.03, z); bloque.add(tapa); mats.push(tapa.material);
+      const c = conEspesor(new THREE.CylinderGeometry(rc, rc, H, 28, 1, true), 0.5); c.translate(x, 0.02, z); canales.push(c);
+      const via = (dx, dz) => new THREE.CatmullRomCurve3([...Array(7)].map((_, i) => new THREE.Vector3(x + dx + Math.sin(i * 1.3 + k) * 0.02, -H / 2 - 0.15 + i * (H + 0.5) / 6, z + dz + Math.cos(i * 1.1 + k) * 0.02)));
+      vasosA.push(tuboAfinado(via(rc * 0.32, 0.01), 0.065, 0.06, 40, 10, 0.3, 0.3)); vasosV.push(tuboAfinado(via(-rc * 0.3, -0.02), 0.055, 0.05, 40, 10, 0.3, 0.3)); nervios.push(tuboAfinado(via(0.0, -rc * 0.45), 0.02, 0.02, 40, 6, 0.3, 0.3));
+      // osteocitos en laminillas alternas de la cara de corte (~34 por sección)
+      for (let i = 0; i < 34; i++) { const anillo = 1 + 2 * Math.floor(azar(0, nL / 2)); const rr = rc + (anillo + 0.5) * (R - rc) / nL; if (rr > R * 0.96) continue; const a = azar(0, Math.PI * 2);
+        const esc = 0.8 + 0.2 * (rr - rc) / (R - rc); citos.push({ p: new THREE.Vector3(x + Math.cos(a) * rr, H / 2 + 0.036, z + Math.sin(a) * rr), a, esc, R, rc, cx: x, cz: z }); }
+    });
+    // canalículos: 18 por laguna; el 64 % a menos de 30° de la radial, el 20 % entre 30 y 60°, el 16 % entre 60 y 90°; largo 0,38 ± 0,07
+    citos.forEach((c) => { for (let j = 0; j < 18; j++) { const u = azar(); const desv = (u < 0.64 ? azar(0, 30) : u < 0.84 ? azar(30, 60) : azar(60, 90)) * Math.PI / 180 * (azar() < 0.5 ? -1 : 1);
+      const haciaAfuera = azar() < 0.5 ? 0 : Math.PI; const b = c.a + haciaAfuera + desv; const l = Math.max(0.08, normal(u < 0.64 ? 0.38 : 0.2, 0.07)) * 0.42;
+      lin.push(c.p.x, c.p.y + 0.002, c.p.z, c.p.x + Math.cos(b) * l, c.p.y + 0.002, c.p.z + Math.sin(b) * l); } });
+    const agregar = (geos, m) => { if (!geos?.length) return; const g = mergeGeometries(geos, false); if (g) bloque.add(new THREE.Mesh(g, m)); };
+    agregar(lados[0], mLamA); agregar(lados[1], mLamB); agregar(canales, mCanal); agregar(vasosA, mArteria); agregar(vasosV, mVena); agregar(nervios, mNervio);
+    const geoC = conEspesor(new THREE.IcosahedronGeometry(1, 2), 0.2); const inst = new THREE.InstancedMesh(geoC, mCito, citos.length); const M = new THREE.Matrix4(); const q = new THREE.Quaternion();
+    citos.forEach((c, i) => { q.setFromEuler(new THREE.Euler(0, -c.a + Math.PI / 2, 0)); M.compose(c.p, q, new THREE.Vector3(0.11 * c.esc, 0.025 * c.esc, 0.045 * c.esc)); inst.setMatrixAt(i, M); });
+    bloque.add(inst);
+    const gl = new THREE.BufferGeometry(); gl.setAttribute('position', new THREE.Float32BufferAttribute(lin, 3));
+    bloque.add(new THREE.LineSegments(gl, new THREE.LineBasicMaterial({ color: 0x5e4048, transparent: true, opacity: 0.32 })));
+    // conducto perforante (de Volkmann), 40–50 µm de diámetro, une conductos centrales vecinos
+    const volk = new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0.7, 0), new THREE.Vector3(1.1, 0.85, 0.15), new THREE.Vector3(2.25, 0.75, 0.25)]);
+    bloque.add(new THREE.Mesh(tuboAfinado(volk, 0.22, 0.22, 40, 16, 0.5, 0.5), mCanal));
+    bloque.add(new THREE.Mesh(tuboAfinado(volk, 0.06, 0.06, 40, 8, 0.3, 0.3), mArteria));
+    bloque.rotation.set(0.42, 0.5, 0);
+    mundo.objetivoInicial = new THREE.Vector3(0, 0.3, 0); mundo.dist = 12.5;
+    rotulos = [
+      { texto: 'Osteona (sistema de Havers)', p: new THREE.Vector3(-1.15 + 0.6, H / 2, 2.0), obj: bloque },
+      { texto: 'Conducto central', p: new THREE.Vector3(0, H / 2, 0), obj: bloque },
+      { texto: 'Osteocito', p: citos[5].p.clone(), obj: bloque },
+      { texto: 'Laminillas', p: new THREE.Vector3(2.25 + 0.75, H / 2, 0.25), obj: bloque },
+      { texto: 'Conducto perforante', p: new THREE.Vector3(1.2, 0.85, 0.15), obj: bloque },
+      { texto: 'Periostio', p: new THREE.Vector3(Math.cos(1.0) * 3.9, -0.4, -Math.sin(1.0) * 3.6), obj: bloque },
+    ];
+  }
+
+  function construirNeuronas(e) {
+    // Tejido nervioso (ilustración). Proporciones según investigacion/celulas-y-moleculas.md, 2.4–2.6:
+    // sin espinas en el tramo inicial de cada dendrita; espinas con cuello y cabeza; mielina con cociente g ≈ 0,8;
+    // nodos de Ranvier cortos; impulso saltatorio en cámara lenta; capilar con glóbulos rojos y astrocitos.
+    semilla = 23; const red = new THREE.Group(); e.add(red);
+    const mMemb = ML({ color: 0x5E9FD6, dispersion: 0x58C8F5, borde: 0xA9DCFF, wrap: 0.45, dist: 0.25, pot: 3, esc: 1.2, amb: 0.14, niebla: 0.045 });
+    const mMielina = ML({ color: 0xEEF3F7, dispersion: 0xBFD9F0, borde: 0xFFFFFF, wrap: 0.3, dist: 0.15, pot: 4, esc: 0.6, niebla: 0.045 });
+    const mBoton = ML({ color: 0x4FD1E8, dispersion: 0x8FF0FF, borde: 0xDFFBFF, wrap: 0.45, esc: 1.6, niebla: 0.045 });
+    const mAstro = ML({ color: 0xB9A6E0, dispersion: 0xD9C8FF, borde: 0xF0E8FF, wrap: 0.5, esc: 1.6, niebla: 0.045 });
+    const mGR = ML({ color: 0xB3261E, dispersion: 0xFF6A4D, borde: 0xFF9C88, wrap: 0.4, dist: 0.3, pot: 2.5, esc: 1.5, niebla: 0.045 });
+    const posiciones = [[0, 0, 0], [5.5, 1.8, -2.5], [-5.2, -1.2, -1.8], [2.8, -3.6, 2.6], [-3.0, 3.4, 2.4], [7.5, -2.2, 2.0], [-7.6, 2.2, -3.4]];
+    // espina: cuello fino + cabeza (forma de hongo); una geometría base, escalas aleatorias
+    const gCuello = conEspesor(new THREE.CylinderGeometry(0.014, 0.017, 0.06, 6, 1), 0.1); gCuello.translate(0, 0.03, 0);
+    const gCabeza = conEspesor(new THREE.IcosahedronGeometry(0.042, 1), 0.1); gCabeza.translate(0, 0.075, 0);
+    const gEspina = mergeGeometries([gCuello.toNonIndexed(), gCabeza], false);
+    const neuronas = [];
+    function rama(origen, dir, largo, r0, nivelR, n, distSoma) {
+      const pts = [origen.clone()]; let p = origen.clone(); const d = dir.clone(); const pasos = 6;
+      for (let i = 0; i < pasos; i++) { d.add(new THREE.Vector3(azar(-.28, .28), azar(-.28, .28), azar(-.28, .28))).normalize(); p = p.clone().addScaledVector(d, largo / pasos); pts.push(p); }
+      const curva = new THREE.CatmullRomCurve3(pts); const r1 = r0 * 0.55;
+      n.tubos.push(tuboAfinado(curva, r0, r1, 32, 7, 0.6, 0.15));
+      // espinas: ninguna en el primer tramo desde el soma; la densidad sube hacia las ramas distales
+      const dens = nivelR === 2 ? 3 : nivelR === 1 ? 11 : 17; const cant = Math.floor(largo * dens);
+      for (let i = 0; i < cant; i++) { const t = azar(0.08, 0.97); if (distSoma + t * largo < 0.9) continue; const q = curva.getPointAt(t); const tg = curva.getTangentAt(t);
+        const lado = new THREE.Vector3(azar(-1, 1), azar(-1, 1), azar(-1, 1)).cross(tg).normalize(); const rr = r0 + (r1 - r0) * t; n.espinas.push({ p: q.clone().addScaledVector(lado, rr * 0.8), d: lado, s: azar(0.5, 1.0) }); }
+      if (nivelR > 0) { const fin = curva.getPointAt(1); const tg = curva.getTangentAt(1); for (let k = 0; k < 2; k++) { const nd = tg.clone().applyAxisAngle(new THREE.Vector3(azar(-1, 1), azar(-1, 1), azar(-1, 1)).normalize(), azar(0.5, 1.0)).normalize(); rama(fin, nd, largo * azar(0.6, 0.8), r1, nivelR - 1, n, distSoma + largo); } }
+    }
+    posiciones.forEach((pp) => {
+      const g = new THREE.Group(); g.position.set(...pp); g.rotation.set(azar(-.4, .4), azar(0, 6.28), azar(-.4, .4)); red.add(g);
+      const soma = conEspesor(new THREE.IcosahedronGeometry(0.6, 4), 1.0); const pos = soma.getAttribute('position'); const esp = soma.getAttribute('espesor'); const v = new THREE.Vector3();
+      for (let i = 0; i < pos.count; i++) { v.fromBufferAttribute(pos, i); const up = Math.max(0, v.y / 0.6); v.multiplyScalar(1 + 0.03 * Math.sin(v.x * 11) * Math.cos(v.z * 9)); v.x *= 1 - up * 0.5; v.z *= 1 - up * 0.5; v.y *= 1 + up * 0.7; pos.setXYZ(i, v.x, v.y, v.z); esp.setX(i, 1.0 - up * 0.6); }
+      soma.computeVertexNormals(); g.add(new THREE.Mesh(soma, mMemb));
+      const n = { tubos: [], espinas: [] };
+      rama(new THREE.Vector3(0, 0.95, 0), new THREE.Vector3(0, 1, 0), 3.8, 0.14, 2, n, 0); // dendrita apical
+      for (let b = 0; b < 6; b++) { const a = b / 6 * 6.28 + azar(-.3, .3); rama(new THREE.Vector3(Math.cos(a) * 0.38, -0.25, Math.sin(a) * 0.38), new THREE.Vector3(Math.cos(a), azar(-0.7, -0.15), Math.sin(a)), azar(1.7, 2.5), 0.095, 1, n, 0); }
+      // cono axónico
+      n.tubos.push(tuboAfinado(new THREE.CatmullRomCurve3([new THREE.Vector3(0, -0.5, 0), new THREE.Vector3(0, -0.9, 0), new THREE.Vector3(0, -1.3, 0)]), 0.13, 0.075, 8, 8, 0.6, 0.3));
+      g.add(new THREE.Mesh(mergeGeometries(n.tubos, false), mMemb));
+      const M = new THREE.Matrix4(); const q = new THREE.Quaternion(); const Y = new THREE.Vector3(0, 1, 0);
+      const ie = new THREE.InstancedMesh(gEspina, mMemb, n.espinas.length);
+      n.espinas.forEach((s, i) => { q.setFromUnitVectors(Y, s.d); M.compose(s.p, q, new THREE.Vector3(s.s, s.s * azar(0.8, 1.5), s.s)); ie.setMatrixAt(i, M); });
+      g.add(ie); neuronas.push(g);
+    });
+    red.updateMatrixWorld(true);
+    // axones mielinizados: axón de radio 0,075 bajo mielina de 0,094 (g ≈ 0,8); internodo 2,0; nodo 0,06
+    const caminos = []; const nodos = []; const mielinas = []; const axones = []; const botones = [];
+    neuronas.forEach((g, k) => {
+      const ini = new THREE.Vector3(0, -1.3, 0).applyMatrix4(g.matrixWorld); const destino = neuronas[(k + 2) % neuronas.length].localToWorld(new THREE.Vector3(azar(-1, 1), azar(1.5, 3), azar(-1, 1)));
+      const medio = ini.clone().lerp(destino, 0.5).add(new THREE.Vector3(azar(-2, 2), azar(-2, 2), azar(-2, 2)));
+      const curva = new THREE.CatmullRomCurve3([ini, ini.clone().add(new THREE.Vector3(0, -0.9, 0)), medio, destino]);
+      axones.push(tuboAfinado(curva, 0.075, 0.06, 120, 7, 0.4, 0.3));
+      const L = curva.getLength(); const internodo = 2.0, nodo = 0.06; const marcas = [];
+      for (let s0 = 0.8; s0 + internodo < L - 0.5; s0 += internodo + nodo) {
+        const t0 = s0 / L, t1 = (s0 + internodo) / L; const pts = []; for (let i = 0; i <= 10; i++) pts.push(curva.getPointAt(t0 + (t1 - t0) * i / 10));
+        // paranodos: la vaina se afina hacia cada nodo
+        const sub = new THREE.CatmullRomCurve3(pts); const geo = tuboAfinado(sub, 0.094, 0.094, 20, 12, 0.5, 0.5); const pa = geo.getAttribute('position');
+        const nAn = 13; for (let i = 0; i <= 20; i++) { const t = i / 20; const f = Math.min(1, Math.min(t, 1 - t) / 0.08); const c = sub.getPointAt(t); for (let j = 0; j < nAn; j++) { const ix = i * nAn + j; v3.fromBufferAttribute(pa, ix).sub(c).multiplyScalar(0.82 + 0.18 * f).add(c); pa.setXYZ(ix, v3.x, v3.y, v3.z); } }
+        geo.computeVertexNormals(); mielinas.push(geo); marcas.push(t1 + nodo / L / 2);
+      }
+      nodos.push(...marcas.map((t) => curva.getPointAt(Math.min(1, t))));
+      botones.push(destino);
+      caminos.push({ curva, marcas: [0.02, ...marcas, 1], fase: azar() });
+    });
+    red.add(new THREE.Mesh(mergeGeometries(axones, false), mMemb));
+    red.add(new THREE.Mesh(mergeGeometries(mielinas, false), mMielina));
+    const gb = conEspesor(new THREE.IcosahedronGeometry(0.16, 2), 0.2); const ib = new THREE.InstancedMesh(gb, mBoton, botones.length); const MB = new THREE.Matrix4();
+    botones.forEach((b, i) => { MB.makeTranslation(b.x, b.y, b.z); ib.setMatrixAt(i, MB); }); red.add(ib);
+    // impulsos: destellos que esperan en cada nodo y saltan al siguiente (conducción saltatoria, en cámara lenta)
+    const nP = caminos.length * 3; const gp = new THREE.BufferGeometry(); gp.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(nP * 3), 3));
+    const sprite = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'); const gr = x.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.25, 'rgba(160,230,255,.9)'); gr.addColorStop(1, 'rgba(0,156,208,0)'); x.fillStyle = gr; x.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
+    pulsos = new THREE.Points(gp, new THREE.PointsMaterial({ size: 0.6, map: sprite, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, color: 0xffffff }));
+    red.add(pulsos); mundo.caminos = caminos;
+    // capilar (6 µm) con glóbulos rojos bicóncavos deformados al pasar, y astrocitos con un pie sobre el capilar
+    const capCurva = new THREE.CatmullRomCurve3([new THREE.Vector3(-14, -4, 3), new THREE.Vector3(-6, -2.5, 4.5), new THREE.Vector3(0, -3.2, 3.2), new THREE.Vector3(6, -1.8, 4.2), new THREE.Vector3(14, -3, 2.5)]);
+    const mCap = new THREE.ShaderMaterial({ uniforms: { uC: { value: new THREE.Color(0xE58A86) } }, vertexShader: 'varying vec3 vN; varying vec3 vV; void main(){ vec4 mv = modelViewMatrix*vec4(position,1.0); vN = normalize(normalMatrix*normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix*mv; }',
+      fragmentShader: 'precision mediump float; uniform vec3 uC; varying vec3 vN; varying vec3 vV; void main(){ float f = pow(1.0-abs(dot(normalize(vN),normalize(vV))),2.0); gl_FragColor = vec4(uC*(0.4+0.8*f), 0.12+0.5*f); }', transparent: true, depthWrite: false, side: THREE.DoubleSide });
+    red.add(new THREE.Mesh(tuboAfinado(capCurva, 0.33, 0.33, 160, 24, 0.3, 0.3), mCap));
+    const perfil = []; for (let i = 0; i <= 16; i++) { const r = i / 16; const x = r * 0.27; const y = 0.5 * 0.27 * Math.sqrt(Math.max(0, 1 - r * r)) * (0.21 + 2.0 * r * r - 1.12 * r * r * r * r); perfil.push(new THREE.Vector2(x, y)); } // forma de Evans y Fung
+    const ladoGR = new THREE.LatheGeometry(perfil, 20); const ladoGR2 = ladoGR.clone(); ladoGR2.scale(1, -1, 1); ladoGR2.index && ladoGR2.setIndex([...ladoGR2.index.array].reverse());
+    const gGR = conEspesor(mergeGeometries([conEspesor(ladoGR, 0.2), conEspesor(ladoGR2, 0.2)], false), 0.2); gGR.computeVertexNormals();
+    const nGR = 22; const gr = new THREE.InstancedMesh(gGR, mGR, nGR); red.add(gr); mundo.globulos = { mesh: gr, curva: capCurva, fases: [...Array(nGR)].map(() => azar()), giro: [...Array(nGR)].map(() => new THREE.Euler(azar(0, 3), azar(0, 3), azar(0, 3))) };
+    const astros = [], astroCuerpos = [];
+    for (const pa of [[3, 3.5, -4], [-4, -3.5, 3.5], [8.5, 3, 0.5], [-9, -0.5, 1.5]]) { const c = new THREE.Vector3(...pa); const s = conEspesor(new THREE.IcosahedronGeometry(0.42, 2), 0.9); s.translate(c.x, c.y, c.z); astroCuerpos.push(s);
+      for (let b = 0; b < 12; b++) { const d = new THREE.Vector3(azar(-1, 1), azar(-1, 1), azar(-1, 1)).normalize(); const p1 = c.clone().addScaledVector(d, azar(1.2, 2.4)); astros.push(tuboAfinado(new THREE.CatmullRomCurve3([c.clone(), c.clone().addScaledVector(d, 0.7).add(new THREE.Vector3(azar(-.25, .25), azar(-.25, .25), azar(-.25, .25))), p1]), 0.085, 0.015, 14, 6, 0.6, 0.1)); }
+      const cerca = capCurva.getPointAt(Math.min(0.95, Math.max(0.05, (c.x + 14) / 28))); astros.push(tuboAfinado(new THREE.CatmullRomCurve3([c.clone(), c.clone().lerp(cerca, 0.5).add(new THREE.Vector3(0, 0.3, 0)), cerca.clone().add(new THREE.Vector3(0, 0.33, 0))]), 0.08, 0.16, 20, 8, 0.6, 0.4)); }
+    red.add(new THREE.Mesh(mergeGeometries(astros, false), mAstro)); red.add(new THREE.Mesh(mergeGeometries(astroCuerpos, false), mAstro));
+    // neuropilo sugerido: partículas finas
+    const nPart = nivel === 'baja' ? 600 : 1400; const pp2 = new Float32Array(nPart * 3); for (let i = 0; i < nPart; i++) { pp2[i * 3] = azar(-14, 14); pp2[i * 3 + 1] = azar(-9, 9); pp2[i * 3 + 2] = azar(-10, 10); }
+    const gpp = new THREE.BufferGeometry(); gpp.setAttribute('position', new THREE.Float32BufferAttribute(pp2, 3));
+    red.add(new THREE.Points(gpp, new THREE.PointsMaterial({ size: 0.05, color: 0x7BBDE8, transparent: true, opacity: 0.35, depthWrite: false })));
+    mundo.objetivoInicial = new THREE.Vector3(0, 0.8, 0); mundo.dist = 13;
+    rotulos = [
+      { texto: 'Cuerpo de la neurona (soma)', p: new THREE.Vector3(0, 0, 0), obj: neuronas[0] },
+      { texto: 'Dendrita con espinas', p: new THREE.Vector3(0, 3.0, 0), obj: neuronas[0] },
+      { texto: 'Vaina de mielina', p: caminos[0].curva.getPointAt(0.35), obj: null },
+      { texto: 'Nodo de Ranvier', p: nodos[1] || nodos[0], obj: null },
+      { texto: 'Botón sináptico', p: caminos[0].curva.getPointAt(1), obj: null },
+      { texto: 'Capilar con glóbulos rojos', p: capCurva.getPointAt(0.55), obj: null },
+      { texto: 'Astrocito', p: new THREE.Vector3(3, 3.5, -4), obj: null },
+      { texto: 'Impulso nervioso (cámara lenta ×10 000)', p: caminos[1].curva.getPointAt(0.5), obj: null },
+    ];
+  }
+  const v3 = new THREE.Vector3();
+  function iniciar(t) {
+    tipo = t; esc = new THREE.Scene(); esc.environment = escena.environment; esc.environmentIntensity = 0.6; luces(esc);
+    mundo = {}; rotulos = []; pulsos = null;
+    if (t === 'hueso') construirHueso(esc); else construirNeuronas(esc);
+    cam = new THREE.PerspectiveCamera(35, camara.aspect, 0.05, 200);
+    ctrl = new OrbitControls(cam, lienzo); Object.assign(ctrl, { enableDamping: true, dampingFactor: 0.08, zoomToCursor: true, rotateSpeed: 0.7, autoRotate: !reducido, autoRotateSpeed: 0.5, minDistance: 1.2, maxDistance: mundo.dist * 1.6 });
+    ctrl.addEventListener('start', () => (ctrl.autoRotate = false)); ctrl.addEventListener('change', pedirRender);
+    ctrl.enabled = false; reiniciar();
+    $('#rotulos').innerHTML = rotulos.map((r) => `<span class="rotulo">${r.texto}</span>`).join('');
+  }
+  function reiniciar() { cam.position.set(mundo.dist * 0.35, mundo.dist * 0.45, mundo.dist * 0.82); ctrl.target.copy(mundo.objetivoInicial); ctrl.update(); pedirRender(); }
+  const v = new THREE.Vector3();
+  function cuadro(dt) {
+    reloj += dt;
+    if (pulsos && mundo.caminos) {
+      const a = pulsos.geometry.attributes.position; let i = 0;
+      for (const c of mundo.caminos) for (let k = 0; k < 3; k++) {
+        const fase = (reloj * 0.35 + c.fase + k / 3) % 1; const n = c.marcas.length - 1; const pos = fase * n; const j = Math.floor(pos); const f = pos - j;
+        const salto = f < 0.82 ? 0 : (f - 0.82) / 0.18; // espera en el nodo y salta
+        const t = c.marcas[j] + (c.marcas[Math.min(j + 1, n)] - c.marcas[j]) * salto * salto * (3 - 2 * salto);
+        c.curva.getPointAt(Math.min(1, t), v); a.setXYZ(i++, v.x, v.y, v.z);
+      }
+      a.needsUpdate = true;
+    }
+    if (mundo.globulos) { const g = mundo.globulos; const M = new THREE.Matrix4(); const q = new THREE.Quaternion(); const tg = new THREE.Vector3(); const Y = new THREE.Vector3(0, 1, 0);
+      g.fases.forEach((f, i) => { const t = (f + reloj * 0.03) % 1; g.curva.getPointAt(t, v); g.curva.getTangentAt(t, tg); q.setFromUnitVectors(Y, tg); M.compose(v, q, new THREE.Vector3(1, 1.25, 1)); g.mesh.setMatrixAt(i, M); }); g.mesh.instanceMatrix.needsUpdate = true; }
+    ctrl.update(); cam.updateMatrixWorld(); const lv = LUZ_MUNDO.clone().transformDirection(cam.matrixWorldInverse); for (const m of ML_REG) m.uniforms.uLuz.value.copy(lv);
+    // rótulos
+    const r = lienzo.getBoundingClientRect(); const els = $('#rotulos').children;
+    rotulos.forEach((ro, i) => {
+      v.copy(ro.p); if (ro.obj) ro.obj.localToWorld(v); v.project(cam);
+      const el = els[i]; if (!el) return; const vis = v.z < 1 && Math.abs(v.x) < 1.05 && Math.abs(v.y) < 1.05;
+      el.style.display = vis ? 'block' : 'none'; el.style.left = ((v.x + 1) / 2 * r.width) + 'px'; el.style.top = ((1 - v.y) / 2 * r.height - 8) + 'px';
+    });
+  }
+  return {
+    get activa() { return !!esc; }, get tipo() { return tipo; },
+    entrar(t) { if (tipo !== t || !esc) iniciar(t); ctrl.enabled = true; controles.enabled = false; reiniciar(); },
+    salir() { if (ctrl) ctrl.enabled = false; controles.enabled = true; $('#rotulos').innerHTML = ''; },
+    render(dt) { cam.aspect = camara.aspect; cam.updateProjectionMatrix(); cuadro(dt); renderer.render(esc, cam); },
+    reiniciar() { reiniciar(); }, get ctrl() { return ctrl; }, get mundo() { return mundo; },
+  };
+})();
+let tipoCelulas = null;
+function entrarEnCelulas(t) {
+  E.enCelulas = true; tipoCelulas = t; $('#velo').classList.add('on'); $('#salirCaja').classList.add('visible'); $('#pista').textContent = 'Ilustración 3D. Arrastra para girar; aléjate al máximo para volver.';
+  setTimeout(() => { CEL.entrar(t); $('#velo').classList.remove('on'); pedirRender(); }, reducido ? 0 : 260);
+}
+function salirDeCelulas(silencioso) {
+  if (!E.enCelulas) return; E.enCelulas = false; CEL.salir(); $('#salirCaja').classList.remove('visible'); $('#pista').textContent = 'Acércate con la rueda o pellizcando: las capas cambian solas. Doble toque para enfocar.';
+  if (!silencioso) { const cfg = ESCENAS[E.escena]; const nuc = cfg.capas[cfg.capas.length - 2]; // volver un poco atrás desde la superficie
+    controles.dollyOut?.(1.0); camara.position.sub(controles.target).setLength(Math.max(E.R * 0.06, controles.getDistance())).add(controles.target); controles.update(); }
+  pedirRender();
+}
+$('#salirCelulas').addEventListener('click', () => { const cfg = ESCENAS[E.escena]; const nuc = cfg.capas[cfg.capas.length - 2].id; if (E.modo === 'celula') E.modo = 'auto'; salirDeCelulas(false); camara.position.sub(controles.target).setLength(E.R * 0.5).add(controles.target); controles.update(); ponerCapa(E.modo === 'auto' ? nuc : E.modo); actualizarUI(); });
+// salir de células alejándose: varios giros de rueda o pellizcos hacia afuera estando en la distancia máxima
+let empujes = 0;
+lienzo.addEventListener('wheel', (e) => { if (!E.enCelulas || E.modo !== 'auto') return; const c = CEL.ctrl; if (e.deltaY > 0 && c.getDistance() >= c.maxDistance * 0.97) { if (++empujes > 5) { empujes = 0; $('#salirCelulas').click(); } } else empujes = 0; }, { passive: true });
+
+/* ===================== 3D: bucle ===================== */
+let ultimo = performance.now(); const tiempos = []; let ultimoAjuste = 0; let visible = true; let enPantalla = true;
+const med = { cuadros: 0, inicio: performance.now(), ms: [] };
+function redimensionar() {
+  if (!renderer) return; const r = caja.getBoundingClientRect(); const w = Math.max(1, r.width), h = Math.max(1, r.height);
+  renderer.setPixelRatio(dpr); renderer.setSize(w, h, false); camara.aspect = w / h; camara.updateProjectionMatrix(); pedirRender();
+}
+new ResizeObserver(redimensionar).observe(caja);
+new IntersectionObserver((en) => { enPantalla = en[0].isIntersecting; if (enPantalla) pedirRender(); }, { threshold: 0.02 }).observe(caja);
+document.addEventListener('visibilitychange', () => { visible = !document.hidden; ultimo = performance.now(); });
+addEventListener('pageshow', (e) => { if (e.persisted) { ultimo = performance.now(); pedirRender(); } });
+function cuadro(ahora) {
+  requestAnimationFrame(cuadro);
+  if (!renderer || !visible || !enPantalla) return;
+  const dt = Math.min(0.1, (ahora - ultimo) / 1000); ultimo = ahora;
+  if (E.enCelulas && CEL.activa) { CEL.render(dt); medicion(ahora, dt); ajustarDPR(dt); return; }
+  if (!E.centroRef) return;
+  let anim = false;
+  if (animEnfoque) {
+    const t = Math.min(1, (ahora - animEnfoque.t0) / animEnfoque.dur); const s = t * t * (3 - 2 * t);
+    controles.target.lerpVectors(animEnfoque.desdeT, animEnfoque.haciaT, s); camara.position.lerpVectors(animEnfoque.desdeP, animEnfoque.haciaP, s);
+    if (t >= 1) animEnfoque = null; anim = true;
+  }
+  if (controles.update()) anim = true; if (controles.autoRotate) anim = true;
+  // plano cercano según la distancia: permite acercarse mucho sin cortar el modelo
+  const d = controles.getDistance(); const cerca = Math.max(0.0004, d * 0.02); if (Math.abs(camara.near - cerca) / cerca > 0.2) { camara.near = cerca; camara.far = Math.max(10, d * 40); camara.updateProjectionMatrix(); }
+  // capa automática
+  if (E.modo === 'auto' && E.capa) { const c = capaPorDistancia(); if (c !== E.capa) ponerCapa(c).catch(falloCapa); }
+  quizaDetalle();
+  // fundidos
+  const k = 1 - Math.pow(0.0006, dt);
+  for (const key in E.grupos) { const g = E.grupos[key]; if (Math.abs(g.op - g.obj) > 0.004) { ponerOpacidad(g, g.op + (g.obj - g.op) * k); anim = true; } else if (g.op !== g.obj) ponerOpacidad(g, g.obj); }
+  if (E.fantasma) { const f = E.fantasma; if (Math.abs(f.op - f.obj) > 0.004) { f.op += (f.obj - f.op) * k; anim = true; } f.mat.uniforms.uOp.value = f.op; f.grupo.visible = f.op > 0.01; }
+  if (anim || pedido || medir) { renderer.render(escena, camara); pedido = false; medicion(ahora, dt); ajustarDPR(dt); }
+}
+function ajustarDPR(dt) {
+  tiempos.push(dt); if (tiempos.length < 45) return; const prom = tiempos.reduce((a, b) => a + b) / tiempos.length; tiempos.length = 0;
+  const ahora = performance.now(); if (ahora - ultimoAjuste < 1200) return; ultimoAjuste = ahora;
+  if (prom > 0.024 && dpr > 0.75) { dpr = Math.max(0.75, dpr - 0.15); redimensionar(); }
+  else if (prom < 0.0145 && dpr < DPR_MAX) { dpr = Math.min(DPR_MAX, dpr + 0.1); redimensionar(); }
+}
+function medicion(ahora, dt) {
+  if (!medir) return; med.cuadros++; med.ms.push(dt * 1000);
+  if (ahora - med.inicio > 1000) {
+    const s = [...med.ms].sort((a, b) => a - b); const fps = med.cuadros * 1000 / (ahora - med.inicio); const peor = s.slice(Math.floor(s.length * 0.99));
+    window.__resultadoFps = { fps: +fps.toFixed(1), ms_max: +(s[s.length - 1] || 0).toFixed(1), peor1pc: +((peor.reduce((a, b) => a + b, 0) / Math.max(1, peor.length)) || 0).toFixed(1), dpr, nivel, triangulos: renderer.info.render.triangles, capa: E.capa, escena: E.escena };
+    $('#medidor').textContent = Object.entries(window.__resultadoFps).map(([k, v]) => `${k}: ${v}`).join('\n'); med.cuadros = 0; med.inicio = ahora; med.ms = [];
+  }
+}
+if (medir) $('#medidor').classList.add('visible');
+if (renderer) {
+  redimensionar(); requestAnimationFrame(cuadro);
+  abrirEscena('columna').catch(falloEscena);
+  lienzo.addEventListener('webglcontextlost', (e) => { e.preventDefault(); $('#cargando').classList.remove('oculto'); $('#cargando').textContent = 'Se perdió el 3D. Recarga la página.'; });
+}
+// Para pruebas automáticas: lleva la cámara a una distancia relativa (en radios del modelo).
+if (pruebas) window.__zoom = (f) => { if (!controles) return; controles.autoRotate = false; camara.position.sub(controles.target).setLength(f * E.d0 * E.R).add(controles.target); controles.update(); pedirRender(); };
+</script>
+</body>
+</html>
