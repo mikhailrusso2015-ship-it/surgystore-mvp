@@ -61,6 +61,29 @@ h3{font-size:20px;letter-spacing:-.015em;line-height:1.2;font-stretch:92%}
 .cabecera .boton{gap:8px}
 @media (max-width:900px){.menu{display:none}.cabecera .boton{margin-left:auto}}
 @media (max-width:700px){.cabecera .envoltura{height:58px}.marca{font-size:17px}.marca img{width:32px}.cabecera .boton{min-height:38px;padding:0 6px 0 14px}}
+/* menú en celular */
+.boton-menu{display:none;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--linea);background:var(--blanco);color:var(--noche);place-items:center;cursor:pointer}
+.boton-menu svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2}
+.boton-menu .cerrar-x{display:none}
+.boton-menu[aria-expanded="true"] .abrir-x{display:none}.boton-menu[aria-expanded="true"] .cerrar-x{display:block}
+.menu-movil{position:absolute;left:0;right:0;top:100%;background:var(--blanco);border-bottom:1px solid var(--linea);box-shadow:0 24px 40px -24px rgba(0,29,57,.35);padding:6px var(--margen) 18px;animation:bajar .22s ease-out}
+@keyframes bajar{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.menu-movil a{display:flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;padding:14px 2px;border-top:1px solid var(--linea);font-size:26px;font-weight:600;font-stretch:84%;letter-spacing:-.025em}
+.menu-movil a:first-child{border-top:0}
+.menu-movil a small{font-size:14px;font-weight:500;font-stretch:100%;letter-spacing:0;color:var(--acero)}
+@media (max-width:900px){.boton-menu{display:grid;margin-left:auto}.cabecera .boton{margin-left:0}}
+/* pantalla del catálogo */
+html.pantalla-abierta{overflow:hidden}
+.pantalla{position:fixed;inset:0;z-index:60;background:var(--hielo);overflow-y:auto;overscroll-behavior:contain;animation:entrar .3s cubic-bezier(.2,.7,.1,1)}
+@keyframes entrar{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+.pantalla .barra{position:sticky;top:0;z-index:2;padding-top:env(safe-area-inset-top);background:rgba(243,247,250,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--linea)}
+.pantalla .barra .envoltura{display:flex;align-items:center;gap:10px;height:64px}
+.volver{display:inline-flex;align-items:center;gap:6px;min-height:44px;border:0;background:transparent;font-weight:600;font-size:16px;cursor:pointer;padding:0 14px 0 6px;border-radius:999px;margin-left:-6px}
+.volver:hover{background:var(--blanco)}
+.volver svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2}
+.pantalla .barra .boton{margin-left:auto}
+.pantalla .contenido{padding-top:clamp(24px,5vw,64px);padding-bottom:calc(56px + env(safe-area-inset-bottom))}
+.pantalla h2:focus{outline:none}
 /* portada */
 .portada{padding:clamp(20px,4vh,56px) 0 clamp(40px,6vw,88px)}
 .portada-texto{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(20px,4vw,64px);align-items:end;margin-bottom:clamp(20px,3vw,40px)}
@@ -272,15 +295,23 @@ dialog.cotizacion::backdrop{background:rgba(0,29,57,.35);backdrop-filter:blur(3p
 </script>
 </head>
 <body>
-<a class="saltar" href="#catalogo">Saltar al catálogo</a>
+<a class="saltar" href="#catalogo">Abrir el catálogo</a>
 <header class="cabecera" id="cabecera">
   <div class="envoltura">
     <a class="marca" href="#inicio" aria-label="Surgy Store, inicio"><img src="img/loto.png" alt="" width="40" height="22">Surgy Store</a>
     <nav class="menu" aria-label="Secciones">
       <a href="#inicio">Anatomía 3D</a><a href="#quirofano">Quirófano</a><a href="#catalogo">Catálogo</a><a href="#equipo">Equipo</a><a href="#instagram">Instagram</a>
     </nav>
-    <button class="boton chico lleno" id="abrirCot" type="button" aria-label="Abrir mi cotización">Cotizar <span class="contador" id="contador">0</span></button>
+    <button class="boton-menu" id="botonMenu" type="button" aria-expanded="false" aria-controls="menuMovil" aria-label="Menú"><svg class="abrir-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="cerrar-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button class="boton chico lleno" id="abrirCot" type="button" aria-label="Abrir mi cotización">Cotizar <span class="contador">0</span></button>
   </div>
+  <nav class="menu-movil" id="menuMovil" aria-label="Menú" hidden>
+    <a href="#catalogo">Catálogo <small>Busca y cotiza</small></a>
+    <a href="#inicio">Anatomía 3D</a>
+    <a href="#quirofano">Quirófano</a>
+    <a href="#equipo">Equipo</a>
+    <a href="#instagram">Instagram</a>
+  </nav>
 </header>
 
 <main>
@@ -348,24 +379,6 @@ dialog.cotizacion::backdrop{background:rgba(0,29,57,.35);backdrop-filter:blur(3p
   </div>
 </section>
 
-<section id="catalogo" class="bloque hielo" aria-labelledby="t-catalogo">
-  <div class="envoltura">
-    <div class="cabeza">
-      <h2 id="t-catalogo">Busca y cotiza.</h2>
-      <p class="texto">Toca + para sumar un producto a tu cotización. Si tiene medidas, eliges la tuya antes de agregarlo.</p>
-    </div>
-    <div class="buscador">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-      <input id="buscar" type="search" placeholder="Busca: tornillo pedicular, válvula, clip…" aria-label="Buscar en el catálogo" autocomplete="off">
-    </div>
-    <div class="filtros" id="filtroTipo" role="group" aria-label="Tipo"></div>
-    <div class="filtros selects"><select id="filtroZona" aria-label="Zona"></select><select id="filtroFamilia" aria-label="Familia"></select></div>
-    <p class="resultado" id="resultado" aria-live="polite"></p>
-    <div class="lista" id="rejilla"></div>
-    <div class="mas"><button class="boton" id="verMas" type="button">Ver más</button></div>
-  </div>
-</section>
-
 <section id="equipo" class="bloque" aria-labelledby="t-equipo">
   <div class="envoltura">
     <div class="cabeza"><h2 id="t-equipo">Quiénes te atienden.</h2></div>
@@ -407,6 +420,28 @@ dialog.cotizacion::backdrop{background:rgba(0,29,57,.35);backdrop-filter:blur(3p
     <p class="creditos">Modelos anatómicos: BodyParts3D, © The Database Center for Life Science, bajo licencia CC Attribution 4.0 International (convertidos, recortados, simplificados y comprimidos para esta web). La capa de células es una ilustración. Los nombres anatómicos y los textos médicos están pendientes de revisión por un especialista. Versión de demostración del 18-nov-2026.</p>
   </div>
 </footer>
+
+<section id="catalogo" class="pantalla" aria-labelledby="t-catalogo" hidden>
+  <div class="barra"><div class="envoltura">
+    <button class="volver" id="volverInicio" type="button" aria-label="Volver al inicio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Inicio</button>
+    <button class="boton chico lleno" type="button" data-abrir-cot aria-label="Abrir mi cotización">Cotizar <span class="contador">0</span></button>
+  </div></div>
+  <div class="envoltura contenido">
+    <div class="cabeza">
+      <h2 id="t-catalogo" tabindex="-1">Catálogo</h2>
+      <p class="texto">Toca + para sumar un producto a tu cotización. Si tiene medidas, eliges la tuya antes de agregarlo.</p>
+    </div>
+    <div class="buscador">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="buscar" type="search" placeholder="Busca: tornillo pedicular, válvula, clip…" aria-label="Buscar en el catálogo" autocomplete="off">
+    </div>
+    <div class="filtros" id="filtroTipo" role="group" aria-label="Tipo"></div>
+    <div class="filtros selects"><select id="filtroZona" aria-label="Zona"></select><select id="filtroFamilia" aria-label="Familia"></select></div>
+    <p class="resultado" id="resultado" aria-live="polite"></p>
+    <div class="lista" id="rejilla"></div>
+    <div class="mas"><button class="boton" id="verMas" type="button">Ver más</button></div>
+  </div>
+</section>
 
 <dialog class="cotizacion" id="cotizacion" aria-labelledby="t-cot">
   <form class="cot" id="formCot" method="dialog" novalidate>
@@ -532,7 +567,7 @@ $('#rejilla').addEventListener('click', (e) => {
 function mostrarFamilia(fam) {
   filtro.familia = fam; filtro.zona = ''; filtro.tipo = ''; filtro.texto = ''; $('#buscar').value = '';
   $('#filtroZona').value = ''; llenarFamilias(); $('#filtroFamilia').value = fam; $$('#filtroTipo button').forEach((x) => x.setAttribute('aria-pressed', x.dataset.tipo === ''));
-  filtro.limite = PASO; pintarCatalogo(); $('#catalogo').scrollIntoView({ behavior: reducido ? 'auto' : 'smooth' });
+  filtro.limite = PASO; pintarCatalogo(); abrirCatalogo();
 }
 
 /* ===================== cotización ===================== */
@@ -550,7 +585,7 @@ function agregar(f, clave) {
   guardarCarrito(); pintarCarrito(); refCot = '';
 }
 function pintarCarrito() {
-  $('#contador').textContent = carrito.reduce((a, x) => a + x.cantidad, 0);
+  const total = carrito.reduce((a, x) => a + x.cantidad, 0); $$('.contador').forEach((c) => { c.textContent = total; });
   $('#cotVacia').hidden = carrito.length > 0; $('#vaciarCot').hidden = carrito.length === 0;
   $('#itemsCot').innerHTML = carrito.map((x, i) => `<li><div><div class="n">${esc(x.nombre)}</div>${x.variante ? `<div class="v">${esc(x.variante)}</div>` : ''}</div><input type="number" min="1" max="999" value="${x.cantidad}" aria-label="Cantidad de ${esc(x.nombre)}" data-i="${i}"><button class="quitar" type="button" data-quitar="${i}">Quitar</button></li>`).join('');
 }
@@ -607,6 +642,32 @@ $('#generarCot').addEventListener('click', () => {
 $('#copiarCot').addEventListener('click', async () => { try { await navigator.clipboard.writeText(textoCot); $('#copiarCot').textContent = 'Copiado'; } catch (e) { $('#copiarCot').textContent = 'Selecciona y copia el texto'; } });
 pintarCarrito();
 cargarCatalogo();
+
+/* ===================== menú y pantalla del catálogo ===================== */
+// El catálogo es una pantalla aparte: se abre con #catalogo y se cierra con «Inicio» o con el botón atrás del teléfono.
+const pantalla = $('#catalogo'); const botonMenu = $('#botonMenu'); const menuMovil = $('#menuMovil');
+let empujada = false, desde = null;
+function cerrarMenu() { menuMovil.hidden = true; botonMenu.setAttribute('aria-expanded', 'false'); }
+botonMenu.addEventListener('click', () => { const abrir = menuMovil.hidden; menuMovil.hidden = !abrir; botonMenu.setAttribute('aria-expanded', String(abrir)); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menuMovil.hidden) { cerrarMenu(); botonMenu.focus(); } });
+document.addEventListener('click', (e) => { if (!menuMovil.hidden && !e.target.closest('#menuMovil, #botonMenu')) cerrarMenu(); });
+menuMovil.addEventListener('click', (e) => { if (e.target.closest('a')) cerrarMenu(); });
+function mostrarPantalla(si) {
+  if (si === !pantalla.hidden) return;
+  if (si) desde = document.activeElement;
+  pantalla.hidden = !si; document.documentElement.classList.toggle('pantalla-abierta', si);
+  for (const el of [$('#cabecera'), $('main'), $('.pie-pagina')]) el.inert = si;
+  if (si) { pantalla.scrollTop = 0; $('#t-catalogo').focus({ preventScroll: true }); }
+  else if (desde && desde.isConnected && desde !== document.body) desde.focus({ preventScroll: true });
+}
+function abrirCatalogo() { if (location.hash !== '#catalogo') { empujada = true; location.hash = 'catalogo'; } else mostrarPantalla(true); }
+addEventListener('hashchange', () => { const si = location.hash === '#catalogo'; if (!si) empujada = false; mostrarPantalla(si); });
+document.addEventListener('click', (e) => { const a = e.target.closest('a[href="#catalogo"]'); if (!a) return; e.preventDefault(); abrirCatalogo(); });
+$('#volverInicio').addEventListener('click', () => {
+  if (empujada) { empujada = false; history.back(); return; }
+  history.replaceState(null, '', location.pathname + location.search); mostrarPantalla(false);
+});
+if (location.hash === '#catalogo') mostrarPantalla(true);
 // el módulo del 3D usa estas piezas
 window.__surgy = { CAT, nombreFamilia, agregar, mostrarFamilia };
 // si el visor 3D no arranca (CDN bloqueado), se avisa y el resto de la página sigue
@@ -1325,7 +1386,7 @@ document.addEventListener('visibilitychange', () => { visible = !document.hidden
 addEventListener('pageshow', (e) => { if (e.persisted) { ultimo = performance.now(); pedirRender(); } });
 function cuadro(ahora) {
   requestAnimationFrame(cuadro);
-  if (!renderer || !visible || !enPantalla) return;
+  if (!renderer || !visible || !enPantalla || document.documentElement.classList.contains('pantalla-abierta')) return;
   const dt = Math.min(0.1, (ahora - ultimo) / 1000); ultimo = ahora;
   if (E.enCelulas && CEL.activa) { CEL.render(dt); medicion(ahora, dt); ajustarDPR(dt); return; }
   if (!E.centroRef) return;
