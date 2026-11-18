@@ -13,6 +13,10 @@
 <meta property="og:description" content="Equipos, implantes y servicios. Explora en 3D la columna, el cráneo y el cerebro.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_VE">
+<script>
+// Animación de bienvenida: una vez por sesión. ?intro=1 la fuerza; no sale en pruebas, con #medir ni al entrar directo al catálogo.
+(function(){try{var q=new URLSearchParams(location.search),f=q.get('intro')==='1',v=sessionStorage.getItem('surgy-intro'),a=navigator.webdriver||location.hash==='#medir'||location.hash==='#catalogo';if(f||(!v&&!a))document.documentElement.classList.add('con-intro');}catch(e){}})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
@@ -297,6 +301,27 @@ dialog.cotizacion::backdrop{background:rgba(0,29,57,.35);backdrop-filter:blur(3p
 .medidor{position:fixed;left:10px;top:76px;z-index:90;background:rgba(0,0,0,.78);color:#9f9;font:12px/1.4 ui-monospace,monospace;padding:8px 10px;border-radius:6px;white-space:pre;display:none}
 .medidor.visible{display:block}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* bienvenida */
+.intro{display:none}
+html.con-intro{overflow:hidden}
+html.con-intro .intro{display:block;position:fixed;inset:0;z-index:200;overflow:hidden;color:var(--blanco);background:radial-gradient(110% 85% at 50% 42%,#06305A 0%,#001D39 52%,#000E1D 100%);transition:opacity .38s}
+html.con-intro .portada h1 .l>span,html.con-intro .explorador{animation-play-state:paused}
+.intro.i-fuera{opacity:0}
+.intro canvas{position:absolute;inset:0;width:100%;height:100%}
+.intro-iris{position:absolute;inset:0;background:var(--blanco);clip-path:circle(0px at 50% var(--cy,44%));transition:clip-path .9s cubic-bezier(.7,0,.2,1)}
+.intro.i-sale .intro-iris{clip-path:circle(150vmax at 50% var(--cy,44%))}
+.intro-centro{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 24px 7vh;text-align:center;pointer-events:none}
+.intro-centro img{width:min(58vw,340px);height:auto;opacity:0;transform-origin:center;filter:drop-shadow(0 0 26px rgba(0,156,208,.65));transition:opacity .55s,filter .6s,transform .95s cubic-bezier(.65,0,.15,1)}
+.intro.i-logo .intro-centro img{opacity:1}
+.intro.i-sale .intro-centro img{filter:drop-shadow(0 0 0 rgba(0,156,208,0))}
+.intro-hola{margin:30px 0 6px;font-size:clamp(15px,1.5vw,18px);color:var(--niebla);opacity:0;transform:translateY(10px);transition:opacity .6s .05s,transform .6s .05s}
+.intro-marca{margin:0;font-size:clamp(52px,9.5vw,124px);font-weight:600;font-stretch:80%;letter-spacing:-.035em;line-height:.92;opacity:0;transform:translateY(18px);transition:opacity .7s .18s,transform .8s .18s cubic-bezier(.2,.7,.1,1)}
+.intro.i-texto .intro-hola,.intro.i-texto .intro-marca{opacity:1;transform:none}
+.intro.i-sale .intro-hola,.intro.i-sale .intro-marca{opacity:0;transform:translateY(-10px);transition:opacity .3s,transform .3s}
+.intro-saltar{position:absolute;z-index:5;top:calc(14px + env(safe-area-inset-top));right:14px;display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 18px;border-radius:999px;border:1px solid rgba(189,216,233,.35);background:rgba(0,29,57,.45);color:var(--blanco);font-weight:600;font-size:14px;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);animation:aparecer .5s .4s both;transition:opacity .3s}
+.intro-saltar svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+.intro-saltar:hover{background:rgba(0,29,57,.75)}
+.intro.i-sale .intro-saltar{opacity:0;pointer-events:none}
 </style>
 <script type="importmap">
 {"imports":{
@@ -306,6 +331,199 @@ dialog.cotizacion::backdrop{background:rgba(0,29,57,.35);backdrop-filter:blur(3p
 </script>
 </head>
 <body>
+<div class="intro" id="intro">
+  <canvas id="introLienzo" aria-hidden="true"></canvas>
+  <div class="intro-iris" aria-hidden="true"></div>
+  <div class="intro-centro">
+    <img id="introLogo" src="img/loto-intro.webp" alt="" width="720" height="401" decoding="async">
+    <p class="intro-hola">Te damos la bienvenida</p>
+    <p class="intro-marca">Surgy Store</p>
+  </div>
+  <button class="intro-saltar" id="introSaltar" type="button">Saltar <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l7 7-7 7M13 5l7 7-7 7"/></svg></button>
+</div>
+<script>
+(() => { try {
+  // Animación de bienvenida: red neuronal que se enciende, impulsos hacia el centro y partículas que forman el isotipo.
+  const raiz = document.documentElement; const capa = document.getElementById('intro');
+  if (!raiz.classList.contains('con-intro')) { capa.remove(); return; }
+  try { sessionStorage.setItem('surgy-intro', '1'); } catch (e) {}
+  const lienzo = document.getElementById('introLienzo'), logo = document.getElementById('introLogo'), saltar = document.getElementById('introSaltar');
+  const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let fin = false, raf = 0;
+  function cerrar() {
+    if (capa.classList.contains('i-fuera')) return; fin = true; capa.classList.add('i-fuera');
+    setTimeout(() => { cancelAnimationFrame(raf); capa.remove(); raiz.classList.remove('con-intro'); dispatchEvent(new Event('surgy:intro-fin')); }, 380);
+  }
+  function salir() {
+    if (fin) return; fin = true;
+    const r = logo.getBoundingClientRect(); capa.style.setProperty('--cy', (r.top + r.height / 2) + 'px');
+    capa.classList.add('i-sale');
+    const d = document.querySelector('.cabecera .marca img');
+    if (d && r.width) { const b = d.getBoundingClientRect(); if (b.width) logo.style.transform = `translate(${b.left + b.width / 2 - (r.left + r.width / 2)}px,${b.top + b.height / 2 - (r.top + r.height / 2)}px) scale(${b.width / r.width})`; }
+    setTimeout(cerrar, 1000);
+  }
+  saltar.addEventListener('click', cerrar);
+  addEventListener('keydown', function tecla(e) { if (e.key === 'Escape') { removeEventListener('keydown', tecla); cerrar(); } });
+  setTimeout(() => { if (!fin) salir(); }, 9000); // seguro por si algo falla
+  if (reducido) { capa.classList.add('i-logo', 'i-texto'); setTimeout(cerrar, 1800); return; }
+
+  const ctx = lienzo.getContext('2d'); if (!ctx) { capa.classList.add('i-logo', 'i-texto'); setTimeout(salir, 1600); return; }
+  const DPR = Math.min(devicePixelRatio || 1, 1.5); const W = innerWidth, H = innerHeight; const movil = W < 700;
+  lienzo.width = Math.round(W * DPR); lienzo.height = Math.round(H * DPR);
+  const red = document.createElement('canvas'); red.width = lienzo.width; red.height = lienzo.height;
+  const rc = red.getContext('2d'); rc.scale(DPR, DPR); rc.lineCap = 'round'; rc.lineJoin = 'round'; rc.globalCompositeOperation = 'lighter';
+  const azar = (a, b) => a + Math.random() * (b - a);
+  const lim = (x) => (x < 0 ? 0 : x > 1 ? 1 : x);
+  const suave = (a, b, t) => { const x = lim((t - a) / (b - a)); return x * x * (3 - 2 * x); };
+  const curva = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+  const rl = logo.getBoundingClientRect();
+  const C = { x: rl.width ? rl.left + rl.width / 2 : W / 2, y: rl.height ? rl.top + rl.height / 2 : H * 0.42 };
+  const corto = Math.min(W, H);
+  function sprite(r, rgb) {
+    const c = document.createElement('canvas'); const s = Math.ceil(r * 2 * DPR); c.width = c.height = s; const g = c.getContext('2d');
+    const gr = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+    gr.addColorStop(0, `rgba(${rgb},1)`); gr.addColorStop(0.22, `rgba(${rgb},.55)`); gr.addColorStop(1, `rgba(${rgb},0)`);
+    g.fillStyle = gr; g.fillRect(0, 0, s, s); return c;
+  }
+  const chispa = sprite(16, '190,232,255'), halo = sprite(64, '0,156,208');
+  const dib = (s, x, y, r, a) => { if (a <= 0.01) return; ctx.globalAlpha = Math.min(1, a); ctx.drawImage(s, x - r, y - r, r * 2, r * 2); };
+
+  // red: caminos (polilíneas) que crecen con el tiempo
+  const caminos = [];
+  function camino(pts, o) { const acc = [0]; for (let i = 1; i < pts.length; i++) acc.push(acc[i - 1] + Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y)); const c = Object.assign({ pts, acc, total: acc[acc.length - 1], hecho: 0 }, o); caminos.push(c); return c; }
+  function punto(c, L) {
+    const acc = c.acc; if (L <= 0) return c.pts[0]; if (L >= c.total) return c.pts[c.pts.length - 1];
+    let lo = 1, hi = acc.length - 1; while (lo < hi) { const m = (lo + hi) >> 1; if (acc[m] < L) lo = m + 1; else hi = m; }
+    const a = c.pts[lo - 1], b = c.pts[lo], f = (L - acc[lo - 1]) / ((acc[lo] - acc[lo - 1]) || 1);
+    return { x: a.x + (b.x - a.x) * f, y: a.y + (b.y - a.y) * f };
+  }
+  function dendrita(x, y, ang, largo, ancho, t0, vel, prof) {
+    const pts = [{ x, y }]; let a = ang, L = 0; const paso = 7; const hijos = [];
+    while (L < largo) {
+      a += azar(-0.32, 0.32); x += Math.cos(a) * paso; y += Math.sin(a) * paso; L += paso; pts.push({ x, y });
+      if (prof < 3 && L > largo * 0.2 && Math.random() < 0.13) hijos.push({ x, y, a: a + (Math.random() < 0.5 ? -1 : 1) * azar(0.45, 0.95), L });
+    }
+    camino(pts, { ancho, t0, vel, alfa: 0.8 - prof * 0.15, tipo: 'd' });
+    for (const h of hijos) dendrita(h.x, h.y, h.a, (largo - h.L) * azar(0.5, 0.8), ancho * 0.7, t0 + h.L / vel, vel, prof + 1);
+  }
+  function axon(sx, sy, t0, dur) {
+    const pts = [{ x: sx, y: sy }]; let x = sx, y = sy, i = 0; const fase = azar(0, 6.28); const d0 = Math.hypot(C.x - sx, C.y - sy); const meta = corto * 0.05;
+    while (Math.hypot(C.x - x, C.y - y) > meta && i < 700) {
+      const resto = Math.hypot(C.x - x, C.y - y) / d0;
+      const a = Math.atan2(C.y - y, C.x - x) + Math.sin(i * 0.09 + fase) * 0.6 * Math.min(1, resto + 0.15);
+      x += Math.cos(a) * 6; y += Math.sin(a) * 6; pts.push({ x, y }); i++;
+    }
+    const c = camino(pts, { ancho: 1.8, t0, alfa: 1, tipo: 'a' }); c.vel = c.total / dur; return c;
+  }
+  const somas = []; const n = movil ? 7 : 11;
+  for (let k = 0; k < n; k++) {
+    const ang = (k / n) * Math.PI * 2 + azar(-0.22, 0.22) - Math.PI / 2;
+    const rx = W * (movil ? azar(0.34, 0.46) : azar(0.28, 0.44)), ry = H * (movil ? azar(0.26, 0.36) : azar(0.3, 0.4));
+    const s = { x: C.x + Math.cos(ang) * rx, y: C.y + Math.sin(ang) * ry, t0: 120 + k * 65, r: azar(4, 6.5), flash: 0 };
+    somas.push(s);
+    const fuera = Math.atan2(s.y - C.y, s.x - C.x);
+    for (let j = 0; j < (movil ? 4 : 5); j++) dendrita(s.x, s.y, fuera + azar(-1.4, 1.4), corto * azar(0.1, 0.22), 1.4, s.t0 + 60, azar(0.15, 0.23), 0);
+    s.axon = axon(s.x, s.y, s.t0 + 220, azar(1250, 1650));
+  }
+  for (let k = 0; k < (movil ? 5 : 8); k++) {
+    const ang = (k / (movil ? 5 : 8)) * Math.PI * 2 + azar(-0.3, 0.3);
+    const s = { x: C.x + Math.cos(ang) * W * azar(0.16, 0.24), y: C.y + Math.sin(ang) * H * azar(0.13, 0.2), t0: 500 + k * 90, r: azar(2.5, 4), flash: 0 };
+    somas.push(s); const fuera = Math.atan2(s.y - C.y, s.x - C.x);
+    for (let j = 0; j < 3; j++) dendrita(s.x, s.y, fuera + azar(-1.5, 1.5), corto * azar(0.06, 0.13), 1, s.t0 + 40, azar(0.12, 0.18), 1);
+    s.axon = axon(s.x, s.y, s.t0 + 160, azar(800, 1100)); s.axon.ancho = 1.3;
+  }
+  // fibras lejanas, tenues, para dar profundidad
+  for (let k = 0; k < (movil ? 5 : 9); k++) { const borde = Math.random() < 0.5; dendrita(borde ? (Math.random() < 0.5 ? -10 : W + 10) : azar(0, W), borde ? azar(0, H) : (Math.random() < 0.5 ? -10 : H + 10), Math.atan2(C.y - H / 2, C.x - W / 2) + azar(0, 6.28), corto * azar(0.3, 0.6), 0.8, azar(0, 600), azar(0.25, 0.4), 2); }
+  const polvo = Array.from({ length: movil ? 70 : 140 }, () => ({ x: azar(0, W), y: azar(0, H), r: azar(0.4, 1.4), v: azar(0.004, 0.016), f: azar(0, 6.28) }));
+
+  function tramo(c, a, b) {
+    const p0 = punto(c, a); rc.beginPath(); rc.moveTo(p0.x, p0.y);
+    let lo = 1; while (lo < c.acc.length && c.acc[lo] <= a) lo++;
+    for (let i = lo; i < c.acc.length && c.acc[i] < b; i++) rc.lineTo(c.pts[i].x, c.pts[i].y);
+    const p1 = punto(c, b); rc.lineTo(p1.x, p1.y);
+    rc.strokeStyle = `rgba(0,156,208,${0.12 * c.alfa})`; rc.lineWidth = c.ancho * 6; rc.stroke();
+    rc.strokeStyle = `rgba(160,220,248,${0.85 * c.alfa})`; rc.lineWidth = c.ancho; rc.stroke();
+  }
+
+  // partículas que forman el isotipo
+  let parts = null; const cubetas = new Map();
+  function crearParticulas() {
+    const r = logo.getBoundingClientRect(); const ow = Math.round(r.width), oh = Math.round(r.height); if (!ow || !oh || !logo.complete) return [];
+    const m = document.createElement('canvas'); m.width = ow; m.height = oh; const g = m.getContext('2d');
+    let datos; try { g.drawImage(logo, 0, 0, ow, oh); datos = g.getImageData(0, 0, ow, oh).data; } catch (e) { return []; }
+    const paso = movil ? 3 : 3.5, obj = [];
+    for (let y = 0; y < oh; y += paso) for (let x = 0; x < ow; x += paso) {
+      const i = ((Math.round(y) * ow) + Math.round(x)) * 4; if (datos[i + 3] < 150) continue;
+      const q = (v) => Math.min(255, Math.round(v / 20) * 20 + 10); const col = `rgb(${q(datos[i])},${q(datos[i + 1])},${q(datos[i + 2])})`;
+      obj.push({ x: r.left + x, y: r.top + y, col });
+    }
+    for (let i = obj.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [obj[i], obj[j]] = [obj[j], obj[i]]; }
+    obj.length = Math.min(obj.length, movil ? 1300 : 2400);
+    const vivos = caminos.filter((c) => c.hecho > 30); if (!vivos.length) return [];
+    const z = zoom(3000);
+    return obj.map((o) => {
+      const c = vivos[Math.floor(Math.random() * vivos.length)]; const s = punto(c, Math.random() * c.hecho);
+      const p = { sx: C.x + (s.x - C.x) * z, sy: C.y + (s.y - C.y) * z, x: o.x, y: o.y, d: azar(0, 420), dur: azar(650, 1000), arco: azar(-0.35, 0.35), tam: paso * 0.8 };
+      if (!cubetas.has(o.col)) cubetas.set(o.col, []); cubetas.get(o.col).push(p); return p;
+    });
+  }
+  function dibujarParticulas(t) {
+    const a = 1 - suave(4050, 4450, t); if (a <= 0) return;
+    ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = a;
+    for (const [col, lista] of cubetas) {
+      ctx.fillStyle = col; ctx.beginPath();
+      for (const p of lista) {
+        const k = curva(lim((t - 3000 - p.d) / p.dur)); const dx = p.x - p.sx, dy = p.y - p.sy; const arc = Math.sin(k * Math.PI) * p.arco;
+        const x = p.sx + dx * k - dy * arc, y = p.sy + dy * k + dx * arc; ctx.rect(x - p.tam / 2, y - p.tam / 2, p.tam, p.tam);
+      }
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+  const zoom = (t) => 1 + 0.07 * suave(200, 3100, t);
+
+  const pulsos = [], ondas = []; let energia = 0, proximo = 900, previo = 0; const t00 = performance.now();
+  function cuadro(ahora) {
+    if (capa.classList.contains('i-fuera')) return;
+    raf = requestAnimationFrame(cuadro);
+    const t = ahora - t00; const dt = Math.min(50, t - previo); previo = t;
+    for (const c of caminos) { if (t < c.t0 || c.hecho >= c.total) continue; const L = Math.min(c.total, (t - c.t0) * c.vel); if (L > c.hecho) { tramo(c, c.hecho, L); c.hecho = L; } }
+    const z = zoom(t);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1; ctx.clearRect(0, 0, W, H);
+    // polvo
+    ctx.fillStyle = 'rgba(189,216,233,.35)'; ctx.beginPath();
+    for (const p of polvo) { p.y -= p.v * dt; if (p.y < -4) p.y = H + 4; const x = p.x + Math.sin(t * 0.0006 + p.f) * 6; ctx.rect(x, p.y, p.r, p.r); }
+    ctx.fill();
+    const aRed = 1 - suave(3050, 3800, t);
+    ctx.setTransform(DPR * z, 0, 0, DPR * z, DPR * C.x * (1 - z), DPR * C.y * (1 - z));
+    if (aRed > 0) { ctx.globalAlpha = aRed; ctx.drawImage(red, 0, 0, W, H); }
+    ctx.globalCompositeOperation = 'lighter';
+    for (const c of caminos) if (c.hecho > 0 && c.hecho < c.total) { const p = punto(c, c.hecho); dib(chispa, p.x, p.y, c.tipo === 'a' ? 8 : 4.5, 0.9 * aRed * c.alfa); }
+    for (const s of somas) if (t > s.t0) { dib(chispa, s.x, s.y, s.r * 2.8 + Math.sin(t * 0.006 + s.r) * 1.6 + s.flash * 14, suave(s.t0, s.t0 + 300, t) * aRed); s.flash *= 0.9; }
+    if (t > 950 && t < 3050 && t > proximo) {
+      const s = somas[Math.floor(Math.random() * somas.length)];
+      if (s.axon.hecho >= s.axon.total - 0.5) { pulsos.push({ c: s.axon, t0: t, vel: azar(0.5, 0.8) }); s.flash = 1; }
+      proximo = t + 240 - 205 * suave(950, 2900, t);
+    }
+    for (let i = pulsos.length - 1; i >= 0; i--) {
+      const p = pulsos[i]; const u = (t - p.t0) * p.vel; const nodo = 24; const j = Math.floor(u / nodo); const f = lim((u / nodo - j) * 1.7); const L = (j + f * f * (3 - 2 * f)) * nodo;
+      if (L >= p.c.total) { pulsos.splice(i, 1); energia = Math.min(1.3, energia + 0.13); if (Math.random() < 0.3) ondas.push({ t0: t }); continue; }
+      const q = punto(p.c, L), q2 = punto(p.c, Math.max(0, L - 12)); dib(chispa, q.x, q.y, 10, aRed); dib(chispa, q2.x, q2.y, 6, 0.45 * aRed);
+    }
+    ctx.lineWidth = 1.4;
+    for (let i = ondas.length - 1; i >= 0; i--) { const e = (t - ondas[i].t0) / 900; if (e >= 1) { ondas.splice(i, 1); continue; } ctx.globalAlpha = (1 - e) * 0.5; ctx.strokeStyle = 'rgb(123,189,232)'; ctx.beginPath(); ctx.arc(C.x, C.y, 18 + e * corto * 0.32, 0, 6.2832); ctx.stroke(); }
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    energia *= Math.pow(0.985, dt / 16.7);
+    const estallido = suave(3250, 3650, t) * (1 - suave(3750, 4700, t));
+    const e = energia * aRed + estallido * 1.5; if (e > 0.01) dib(halo, C.x, C.y, corto * 0.16 + e * corto * 0.22, Math.min(1, e));
+    if (t >= 3000) { if (!parts) parts = crearParticulas(); dibujarParticulas(t); }
+    if (t > 3900 && !capa.classList.contains('i-logo')) capa.classList.add('i-logo');
+    if (t > 4100 && !capa.classList.contains('i-texto')) capa.classList.add('i-texto');
+    if (t > 5350 && !fin) salir();
+  }
+  raf = requestAnimationFrame(cuadro);
+} catch (e) { document.documentElement.classList.remove('con-intro'); const i = document.getElementById('intro'); if (i) i.remove(); dispatchEvent(new Event('surgy:intro-fin')); } })();
+</script>
 <a class="saltar" href="#catalogo">Abrir el catálogo</a>
 <header class="cabecera" id="cabecera">
   <div class="envoltura">
@@ -655,6 +873,7 @@ $('#generarCot').addEventListener('click', () => {
 $('#copiarCot').addEventListener('click', async () => { try { await navigator.clipboard.writeText(textoCot); $('#copiarCot').textContent = 'Copiado'; } catch (e) { $('#copiarCot').textContent = 'Selecciona y copia el texto'; } });
 pintarCarrito();
 cargarCatalogo();
+setTimeout(() => { if (document.documentElement.classList.contains('con-intro')) { document.documentElement.classList.remove('con-intro'); const i = $('#intro'); if (i) i.remove(); dispatchEvent(new Event('surgy:intro-fin')); } }, 12000);
 
 /* ===================== menú y pantalla del catálogo ===================== */
 // El catálogo es una pantalla aparte: se abre con #catalogo y se cierra con «Inicio» o con el botón atrás del teléfono.
@@ -1436,7 +1655,7 @@ document.addEventListener('visibilitychange', () => { visible = !document.hidden
 addEventListener('pageshow', (e) => { if (e.persisted) { ultimo = performance.now(); pedirRender(); } });
 function cuadro(ahora) {
   requestAnimationFrame(cuadro);
-  if (!renderer || !visible || !enPantalla || document.documentElement.classList.contains('pantalla-abierta')) return;
+  if (!renderer || !visible || !enPantalla || document.documentElement.classList.contains('pantalla-abierta') || document.documentElement.classList.contains('con-intro')) return;
   const dt = Math.min(0.1, (ahora - ultimo) / 1000); ultimo = ahora;
   if (E.enCelulas && CEL.activa) { CEL.render(dt); medicion(ahora, dt); ajustarDPR(dt); return; }
   if (!E.centroRef) return;
@@ -1476,7 +1695,12 @@ function medicion(ahora, dt) {
 if (medir) $('#medidor').classList.add('visible');
 if (renderer) {
   redimensionar(); requestAnimationFrame(cuadro);
-  abrirEscena('columna').catch(falloEscena);
+  const arrancar = () => abrirEscena('columna').catch(falloEscena);
+  if (document.documentElement.classList.contains('con-intro')) {
+    // durante la bienvenida solo se descargan los modelos; se procesan al terminar, para no trabar la animación
+    for (const u of [ESCENAS.columna.ref, ...ESCENAS.columna.capas.slice(0, 2).map((c) => c.glb)]) fetch(u).then((r) => r.arrayBuffer()).catch(() => {});
+    addEventListener('surgy:intro-fin', arrancar, { once: true });
+  } else arrancar();
   lienzo.addEventListener('webglcontextlost', (e) => { e.preventDefault(); $('#cargando').classList.remove('oculto'); $('#cargando').textContent = 'Se perdió el 3D. Recarga la página.'; });
 }
 // Para pruebas automáticas: lleva la cámara a una distancia relativa (en radios del modelo).
