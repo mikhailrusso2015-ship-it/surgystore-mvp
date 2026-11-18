@@ -124,7 +124,9 @@ html.pantalla-abierta{overflow:hidden}
 .capa-ui{position:absolute;z-index:3;pointer-events:none}
 .capa-ui>*{pointer-events:auto}
 .vidrio{background:var(--ui-fondo);border:1px solid var(--ui-borde);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.pestanas{top:16px;left:16px;display:flex;gap:2px;padding:4px;border-radius:999px}
+.pestanas{top:16px;left:16px;display:flex;gap:2px;padding:4px;border-radius:999px;max-width:calc(100% - 140px);overflow-x:auto;scrollbar-width:none}
+.pestanas::-webkit-scrollbar{display:none}
+.pestanas button{flex:none}
 .pestanas button{border:0;background:transparent;padding:9px 18px;border-radius:999px;cursor:pointer;font-size:15px;font-weight:500;color:var(--ui-texto)}
 .pestanas button:hover{background:var(--ui-hover)}
 .pestanas button[aria-selected="true"]{background:var(--ui-activo);color:var(--ui-activo-texto)}
@@ -192,12 +194,12 @@ html.pantalla-abierta{overflow:hidden}
   .ficha3d{bottom:66px;right:10px;left:10px;width:auto;padding:14px 14px 12px}
   .con-ficha .estado{display:none}
   #fichaProd{max-height:31vh}
-  .pestanas{left:10px;top:10px;padding:3px}
+  .pestanas{left:10px;top:10px;padding:3px;max-width:calc(100% - 20px)}
   .pestanas button{padding:8px 12px;font-size:14px}
   .herramientas{top:60px;right:10px;gap:6px;flex-direction:column}
   .icono{width:40px;height:40px}
-  .ilustracion{top:60px;left:10px}
-  .salir-celulas{bottom:auto;top:58px;left:auto;right:10px;transform:none}
+  .ilustracion{top:60px;left:10px;max-width:calc(100% - 76px)}
+  .salir-celulas{bottom:64px;top:auto;left:auto;right:10px;transform:none}
   .rotulo{font-size:11px;padding:2px 7px}
 }
 /* secciones */
@@ -565,6 +567,8 @@ html.con-intro .portada h1 .l>span,html.con-intro .explorador{animation-play-sta
       <button role="tab" data-escena="columna" aria-selected="true">Columna</button>
       <button role="tab" data-escena="craneo" aria-selected="false">Cráneo</button>
       <button role="tab" data-escena="cerebro" aria-selected="false">Cerebro</button>
+      <button role="tab" data-escena="corazon" aria-selected="false">Corazón</button>
+      <button role="tab" data-escena="hombro" aria-selected="false">Hombro</button>
     </div>
     <div class="capa-ui herramientas">
       <button class="icono vidrio" id="reiniciar" type="button" aria-label="Volver a la vista inicial"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/></svg></button>
@@ -604,6 +608,8 @@ html.con-intro .portada h1 .l>span,html.con-intro .explorador{animation-play-sta
         <li><b>Columna</b><span>Tornillos transpediculares, dispositivos intersomáticos, masa lateral y vertebroplastia.</span></li>
         <li><b>Cráneo</b><span>Craneotomía, reconstrucción craneal y prótesis personalizada.</span></li>
         <li><b>Cerebro</b><span>Clips de aneurisma, microcirugía e hidrocefalia.</span></li>
+        <li><b>Corazón</b><span>Válvulas cardíacas y sus medidores, catéteres de vía central y línea arterial.</span></li>
+        <li><b>Hombro y brazo</b><span>Placas de clavícula y de húmero, tornillos canulados y alambres de Kirschner.</span></li>
         <li><b>En la cirugía</b><span>Neuronavegación, neuromonitoreo y ecografía Doppler.</span></li>
       </ul>
     </div>
@@ -931,6 +937,9 @@ const CAPAS = {
   nervio: { nombre: 'Nervios', color: '#E5C36A' },
   hueso: { nombre: 'Huesos', color: '#E8DFC9' },
   cerebro: { nombre: 'Cerebro', color: '#D7ACA2' },
+  ventriculo: { nombre: 'Ventrículos', color: '#4FA8DE', nota: 'válvula ilustrada' },
+  corazon: { nombre: 'Corazón', color: '#9E2B2B' },
+  valvula: { nombre: 'Válvulas', color: '#E6D3B3' },
   celula: { nombre: 'Células', color: '#7BBDE8', nota: 'ilustración' },
   nervioIlus: { nombre: 'Nervios', color: '#E5C36A', nota: 'ilustración' },
 };
@@ -959,7 +968,7 @@ const ESCENAS = {
       { id: 'hueso', glb: 'modelos/craneo.glb', detalle: 'modelos/craneo-detalle.glb', f: 0.012 },
       { id: 'celula', celulas: 'hueso', f: 0 },
     ],
-    productos: { piel: ['craneotomia'], musculo: ['craneotomia'], vaso: ['clips-aneurisma'], nervio: ['microcirugia'], hueso: ['craneotomia', 'reconstruccion-craneal'], celula: ['reconstruccion-craneal'] },
+    productos: { piel: ['craneotomia'], musculo: ['craneotomia'], vaso: ['clips-aneurisma'], nervio: (p) => /Hipófisis/.test(p.nombre_es || '') ? { fams: ['microcirugia'], prefer: /hip[oó]fisis|nariz|endoscop/i } : ['microcirugia'], hueso: ['craneotomia', 'reconstruccion-craneal'], celula: ['reconstruccion-craneal'] },
   },
   cerebro: {
     nombre: 'Cerebro', ref: 'modelos/cerebro.glb', nucleo: 'cerebro', vista: { dir: [0.75, 0.3, 1], dist: 2.7 },
@@ -968,10 +977,41 @@ const ESCENAS = {
       { id: 'hueso', glb: 'modelos/craneo.glb', f: 0.64 },
       { id: 'vaso', glb: 'modelos/cabeza-vaso.glb', f: 0.5 },
       { id: 'nervio', glb: 'modelos/cabeza-nervio.glb', f: 0.37 },
-      { id: 'cerebro', glb: 'modelos/cerebro.glb', detalle: 'modelos/cerebro-detalle.glb', f: 0.012 },
+      { id: 'cerebro', glb: 'modelos/cerebro.glb', detalle: 'modelos/cerebro-detalle.glb', f: 0.2 },
+      { id: 'ventriculo', glb: 'modelos/cerebro-ventriculos.glb', extra: 'derivacion', f: 0.012 },
       { id: 'celula', celulas: 'neuronas', f: 0 },
     ],
-    productos: { piel: ['craneotomia'], hueso: ['craneotomia', 'reconstruccion-craneal', 'duramadre-hemostasia'], vaso: ['clips-aneurisma', 'microcirugia'], nervio: ['microcirugia', 'equipos'], cerebro: ['microcirugia', 'hidrocefalia', 'equipos'], celula: ['equipos'] },
+    productos: { piel: ['craneotomia'], hueso: ['craneotomia', 'reconstruccion-craneal', 'duramadre-hemostasia'], vaso: ['clips-aneurisma', 'microcirugia'],
+      nervio: (p) => /Hipófisis/.test(p.nombre_es || '') ? { fams: ['microcirugia'], prefer: /hip[oó]fisis|nariz|endoscop/i } : ['microcirugia', 'equipos'],
+      cerebro: ['microcirugia', 'hidrocefalia', 'equipos'], celula: ['equipos'],
+      ventriculo: (p) => { const n = p.nombre_es || ''; return { fams: ['hidrocefalia'], prefer: /Válvula/.test(n) ? /v[aá]lvula|programaci/i : /peritoneal/i.test(n) ? /peritoneal|tunelizador/i : /Catéter ventricular/.test(n) ? /ventricular|omaya/i : /v[aá]lvula|ventricular|drenaje/i }; } },
+  },
+  corazon: {
+    nombre: 'Corazón', ref: 'modelos/corazon.glb', nucleo: 'corazon', escalaR: 2.0, centroFijo: true, vista: { dir: [0.28, 0.12, 1], dist: 2.6 },
+    capas: [
+      { id: 'piel', glb: 'modelos/torax-piel.glb', f: 0.84 },
+      { id: 'musculo', glb: 'modelos/torax-musculo.glb', f: 0.72 },
+      { id: 'hueso', glb: 'modelos/torax-hueso.glb', f: 0.6 },
+      { id: 'vaso', glb: 'modelos/torax-vaso.glb', f: 0.48 },
+      { id: 'corazon', glb: 'modelos/corazon.glb', f: 0.13 },
+      { id: 'valvula', glb: 'modelos/corazon-valvulas.glb', f: 0.012 },
+      { id: 'celula', celulas: 'corazon', f: 0 },
+    ],
+    productos: { piel: { fams: ['cardiovascular'], prefer: /v[ií]a central|l[ií]nea arterial|trilumen|multilumen/i }, musculo: ['cardiovascular'], hueso: ['cardiovascular'],
+      vaso: { fams: ['cardiovascular'], prefer: /v[ií]a central|l[ií]nea arterial|trilumen|multilumen|bal[oó]n/i },
+      corazon: { fams: ['cardiovascular'], prefer: /v[aá]lvula card|recuperaci/i }, valvula: { fams: ['cardiovascular'], prefer: /v[aá]lvula card|medidor/i }, celula: ['cardiovascular'] },
+  },
+  hombro: {
+    nombre: 'Hombro y brazo', ref: 'modelos/hombro.glb', nucleo: 'hueso', centroFijo: true, vista: { dir: [-0.8, 0.22, 0.9], dist: 2.6 },
+    capas: [
+      { id: 'piel', glb: 'modelos/hombro-piel.glb', f: 0.82 },
+      { id: 'musculo', glb: 'modelos/hombro-musculo.glb', f: 0.64 },
+      { id: 'vaso', glb: 'modelos/hombro-vaso.glb', f: 0.46 },
+      { id: 'hueso', glb: 'modelos/hombro.glb', f: 0.012 },
+      { id: 'celula', celulas: 'hueso', f: 0 },
+    ],
+    productos: { piel: ['trauma'], musculo: ['trauma'], vaso: ['trauma'], celula: ['trauma', 'injerto-oseo'],
+      hueso: (p) => { const n = p.nombre_es || ''; return { fams: ['trauma'], prefer: /Clavícula/.test(n) ? /clav[ií]cula/i : /Húmero/.test(n) ? /h[uú]mero/i : /kirschner|canulado/i }; } },
   },
 };
 
@@ -1033,6 +1073,11 @@ function materialReal(capa, mesh) {
     case 'musculo': return Fisico({ ...base, color: 0x9C3B33, roughness: 0.42, clearcoat: 0.25, clearcoatRoughness: 0.5 });
     case 'vaso': return Fisico({ ...base, color: /Vena|Venas|Senos/.test(n) ? 0x2E5C9C : 0xB8322A, roughness: 0.32, clearcoat: 0.4, clearcoatRoughness: 0.35 });
     case 'nervio': return new THREE.MeshStandardMaterial({ ...base, color: /Médula/.test(n) ? 0xF1E2B4 : 0xE3C060, roughness: 0.48, emissive: 0x3a2c08, emissiveIntensity: 0.6 });
+    case 'corazon': return /Arteria|Arco|Aorta|Tronco pulmonar|coronari/.test(n) ? Fisico({ ...base, color: 0xB8322A, roughness: 0.32, clearcoat: 0.4, clearcoatRoughness: 0.35 })
+      : /Vena|Venas/.test(n) ? Fisico({ ...base, color: 0x2E5C9C, roughness: 0.32, clearcoat: 0.4, clearcoatRoughness: 0.35 })
+      : Fisico({ ...base, color: /Aurícula/.test(n) ? 0xA8443B : 0x8E2C27, roughness: 0.45, clearcoat: 0.35, clearcoatRoughness: 0.45, side: THREE.DoubleSide });
+    case 'valvula': return /papilar/i.test(n) ? Fisico({ ...base, color: 0x9C3B33, roughness: 0.45, clearcoat: 0.25 }) : Fisico({ ...base, color: 0xEADBC4, roughness: 0.5, sheen: 0.4, sheenColor: new THREE.Color(0xFFF1E0), sheenRoughness: 0.5, side: THREE.DoubleSide });
+    case 'ventriculo': return Fisico({ ...base, color: 0x4FA8DE, roughness: 0.28, clearcoat: 0.6, clearcoatRoughness: 0.2 });
     case 'cerebro': return Fisico({ ...base, color: 0xD3A69C, roughness: 0.55, clearcoat: 0.2, clearcoatRoughness: 0.6, sheen: 0.25, sheenColor: new THREE.Color(0xFFE2DA) });
     default: return new THREE.MeshStandardMaterial({ ...base, color: /disco/i.test(n) ? 0x9FC2CB : (CLARO ? 0xD3C4A6 : 0xE7DDC7), roughness: /disco/i.test(n) ? 0.45 : 0.72 });
   }
@@ -1081,6 +1126,38 @@ async function construirMedula() {
   const envoltura = new THREE.Group(); envoltura.add(grupo); envoltura.position.set(c[0] - E.centroRef[0], c[1] - E.centroRef[1], c[2] - E.centroRef[2]);
   return { grupo: envoltura, mats };
 }
+async function construirDerivacion(gVent, cVent) {
+  // Válvula de hidrocefalia (derivación ventrículo-peritoneal): ILUSTRACIÓN, no sale de BodyParts3D.
+  // Catéter desde el asta frontal del ventrículo lateral derecho, salida por un trépano, válvula detrás de la oreja
+  // y catéter que baja bajo la piel hacia el abdomen. El cráneo se aproxima con un elipsoide sacado de su caja.
+  const gCr = await cargarGLB('modelos/craneo.glb'); const cCr = gCr.parser.json.asset?.extras?.centro_m || [0, 0, 0];
+  gVent.scene.updateMatrixWorld(true); gCr.scene.updateMatrixWorld(true);
+  let nodo = null; gVent.scene.traverse((o) => { if (!nodo && /lateral derecho/.test(o.userData?.nombre_es || '')) nodo = o; });
+  const bv = new THREE.Box3().setFromObject(nodo || gVent.scene);
+  const bc = new THREE.Box3().setFromObject(gCr.scene); const off = new THREE.Vector3(cCr[0] - cVent[0], cCr[1] - cVent[1], cCr[2] - cVent[2]); bc.min.add(off); bc.max.add(off);
+  const C = bc.getCenter(new THREE.Vector3()); const Rr = bc.getSize(new THREE.Vector3()).multiplyScalar(0.47);
+  const sup = (d, extra = 0.004) => { d = d.clone().normalize(); const t = 1 / Math.sqrt((d.x / Rr.x) ** 2 + (d.y / Rr.y) ** 2 + (d.z / Rr.z) ** 2); return C.clone().addScaledVector(d, t + extra); };
+  const tam = bv.getSize(new THREE.Vector3());
+  const punta = new THREE.Vector3((bv.min.x + bv.max.x) / 2, bv.max.y - tam.y * 0.38, bv.max.z - tam.z * 0.16);
+  const dTrep = new THREE.Vector3(punta.x - C.x, Rr.y * 0.95, (punta.z - C.z) + Rr.z * 0.32); const trepano = sup(dTrep, 0.002);
+  const dVal = new THREE.Vector3(-0.82, -0.02, -0.55); const valvula = sup(dVal, 0.006);
+  const tubo = (pts, r, n) => new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), n, r, 10, false);
+  const mTubo = Fisico({ color: 0xEEF5F9, roughness: 0.22, metalness: 0, clearcoat: 0.7, clearcoatRoughness: 0.2 });
+  const mValv = Fisico({ color: 0x2F7EC4, roughness: 0.35, metalness: 0.15, clearcoat: 0.5, clearcoatRoughness: 0.3 });
+  const mRes = Fisico({ color: 0xCFE1EC, roughness: 0.3, metalness: 0, clearcoat: 0.6, clearcoatRoughness: 0.25 });
+  const grupo = new THREE.Group(); const mats = [mTubo, mValv, mRes];
+  const malla = (geo, m, nombre) => { const x = new THREE.Mesh(geo, m); x.userData = { nombre_es: nombre, capa: 'ventriculo' }; grupo.add(x); return x; };
+  malla(tubo([punta, punta.clone().lerp(trepano, 0.5), trepano], 0.0014, 24), mTubo, 'Catéter ventricular (ilustración)');
+  const sobre = []; for (let i = 0; i <= 14; i++) sobre.push(sup(dTrep.clone().normalize().lerp(dVal.clone().normalize(), i / 14), 0.0045));
+  malla(tubo(sobre, 0.0013, 64), mTubo, 'Catéter ventricular (ilustración)');
+  const res = malla(new THREE.SphereGeometry(0.0075, 20, 12), mRes, 'Reservorio de la válvula (ilustración)'); res.position.copy(trepano).addScaledVector(trepano.clone().sub(C).normalize(), 0.0015); res.scale.set(1, 0.45, 1); res.lookAt(C); res.rotateX(Math.PI / 2);
+  const ult = sobre[sobre.length - 1], peni = sobre[sobre.length - 3]; const eje = ult.clone().sub(peni).normalize();
+  const cuerpo = malla(new THREE.CapsuleGeometry(0.0055, 0.022, 8, 16), mValv, 'Válvula de hidrocefalia (ilustración)');
+  const centroV = valvula.clone(); cuerpo.position.copy(centroV); cuerpo.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(0, -1, -0.15).normalize());
+  const baja = [centroV.clone().add(new THREE.Vector3(0, -0.016, 0)), centroV.clone().add(new THREE.Vector3(0.004, -0.05, 0.004)), new THREE.Vector3(centroV.x * 0.8 + C.x * 0.2, C.y - Rr.y * 1.35, centroV.z + 0.015), new THREE.Vector3(centroV.x * 0.6 + C.x * 0.4, C.y - Rr.y * 1.75, C.z + Rr.z * 0.2)];
+  malla(tubo(baja, 0.0013, 48), mTubo, 'Catéter peritoneal: sigue bajo la piel hasta el abdomen (ilustración)');
+  return { grupo, mats };
+}
 async function prepararCapa(esc, capa) {
   const clave = esc + ':' + capa.id;
   if (E.grupos[clave]) return E.grupos[clave];
@@ -1092,6 +1169,7 @@ async function prepararCapa(esc, capa) {
   grupo.position.set(c[0] - E.centroRef[0], c[1] - E.centroRef[1], c[2] - E.centroRef[2]);
   const mats = [];
   obj.traverse((m) => { if (m.isMesh) { m.material = materialReal(capa.id, m); mats.push(m.material); m.userData.capa = capa.id; } });
+  if (capa.extra === 'derivacion') { try { const d = await construirDerivacion(g, c); grupo.add(d.grupo); mats.push(...d.mats); } catch (e) { /* sin ilustración, la capa sigue */ } }
   const info = { grupo, mats, op: 0, obj: 0, capa, detalle: null };
   grupo.visible = false; raiz.add(grupo); E.grupos[clave] = info;
   ponerOpacidad(info, 0);
@@ -1123,7 +1201,7 @@ async function abrirEscena(esc) {
   E.centroRef = ref.parser.json.asset?.extras?.centro_m || [0, 0, 0];
   for (const k of Object.keys(E.grupos)) if (!k.startsWith(esc + ':')) { raiz.remove(E.grupos[k].grupo); delete E.grupos[k]; }
   const esfera = new THREE.Box3().setFromObject(ref.scene).getBoundingSphere(new THREE.Sphere());
-  E.R = esfera.radius; E.centro = esfera.center.clone();
+  E.R = esfera.radius * (cfg.escalaR || 1); E.centro = esfera.center.clone();
   E.fantasma = await prepararFantasma(esc);
   pintarCapas(); vistaInicial();
   await ponerCapa(E.modo === 'auto' ? capaPorDistancia() : E.modo, true);
@@ -1181,6 +1259,7 @@ async function ponerCapa(id, inmediato = false) {
   if (inmediato) for (const k in E.grupos) ponerOpacidad(E.grupos[k], E.grupos[k].obj);
   if (E.fantasma) E.fantasma.obj = (id === cfg.nucleo || id === 'piel') ? 0 : (cfg.nucleo === 'cerebro' ? (id === 'nervio' ? 0.22 : 0.32) : (id === 'nervio' ? 0.4 : 0.85));
   if (cfg.nucleo === 'cerebro' && id === 'hueso') E.fantasma.obj = 0;
+  if (cfg.nucleo === 'corazon' && id === 'valvula') E.fantasma.obj = 0.6;
   pedirRender();
   // capas vecinas, en segundo plano
   const i = cfg.capas.indexOf(capa); for (const v of [cfg.capas[i + 1], cfg.capas[i - 1]]) if (v && v.glb) prepararCapa(E.escena, v).catch(() => {});
@@ -1211,7 +1290,8 @@ function actualizarUI() {
   $$('#capas button').forEach((b) => { b.classList.toggle('activa', b.dataset.capa === E.capa); b.setAttribute('aria-pressed', b.dataset.capa === E.modo); });
   $$('#profundidad i').forEach((x, k) => x.classList.toggle('on', k <= i));
   $('#capaNombre').textContent = E.capa ? CAPAS[E.capa].nombre + (E.modo !== 'auto' ? ' · fija' : '') : '';
-  const capaCfg = ESCENAS[E.escena].capas.find((c) => c.id === E.capa); $('#ilustracion').classList.toggle('visible', E.capa === 'celula' || !!capaCfg?.medula);
+  const capaCfg = ESCENAS[E.escena].capas.find((c) => c.id === E.capa); $('#ilustracion').classList.toggle('visible', E.capa === 'celula' || !!capaCfg?.medula || !!capaCfg?.extra);
+  $('#ilustracion').textContent = capaCfg?.extra === 'derivacion' ? 'La válvula y los catéteres son una ilustración' : 'Ilustración 3D, no es una imagen real';
 }
 $('#capas').addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return; const id = b.dataset.capa;
@@ -1264,15 +1344,15 @@ lienzo.addEventListener('pointermove', (e) => {
 });
 lienzo.addEventListener('pointerleave', () => { $('#punta').style.display = 'none'; });
 // Tocar una pieza muestra solo su nombre. Los productos se ven con un botón aparte, y cada uno se agrega con su propio botón.
-const ZONA = { columna: 'la columna', craneo: 'el cráneo', cerebro: 'el cerebro' };
-let fichaDesde = 0, famsFicha = [];
+const ZONA = { columna: 'la columna', craneo: 'el cráneo', cerebro: 'el cerebro', corazon: 'el corazón', hombro: 'el hombro y el brazo' };
+let fichaDesde = 0, famsFicha = [], preferFicha = null;
 function seleccionar(m) {
   if (resaltado) { resaltado.material.emissive?.setHex(0x000000); }
   resaltado = m; m.material.emissive?.setHex(0x16324d); pedirRender();
   const ud = m.userData; const cfg = ESCENAS[E.escena];
   $('#fichaTipo').textContent = CAPAS[E.capa].nombre + ', ' + cfg.nombre.toLowerCase();
   $('#fichaNombre').textContent = ud.nombre_es || 'Pieza';
-  famsFicha = CAT.listo ? familiasPara(ud) : [];
+  const sug = CAT.listo ? sugerenciasPara(ud) : { fams: [], prefer: null }; famsFicha = sug.fams; preferFicha = sug.prefer;
   const total = CAT.fichas.filter((f) => famsFicha.includes(f.familia)).length;
   $('#verSugeridos').hidden = !total; $('#sinProd').hidden = !!total || !CAT.listo;
   $('#verSugeridosTexto').textContent = `Ver productos para ${ZONA[E.escena]} (${total})`;
@@ -1280,11 +1360,13 @@ function seleccionar(m) {
   fichaDesde = performance.now();
   $('#ficha3d').classList.add('visible'); caja.classList.add('con-ficha');
 }
-function familiasPara(ud) { const p = ESCENAS[E.escena].productos[E.capa]; return typeof p === 'function' ? p(ud) : (p || []); }
+function sugerenciasPara(ud) { const p = ESCENAS[E.escena].productos[E.capa]; const r = typeof p === 'function' ? p(ud) : (p || []); return Array.isArray(r) ? { fams: r, prefer: null } : { fams: r.fams || [], prefer: r.prefer || null }; }
+function familiasPara(ud) { return sugerenciasPara(ud).fams; }
 function pintarProductos(fams) {
   const cont = $('#fichaProd');
   // una ficha destacada por familia (primero implantes y servicios con más variantes), hasta 3
-  const peso = (f) => (f.tipo === 'implante' ? 3 : f.tipo === 'servicio' ? 2 : f.tipo === 'equipo' ? 1 : 0) * 100 + f.variantes.length;
+  const peso = (f) => (preferFicha && preferFicha.test(f.nombre) ? 1000 : 0) + (f.tipo === 'implante' ? 3 : f.tipo === 'servicio' ? 2 : f.tipo === 'equipo' ? 1 : 0) * 100 + f.variantes.length;
+  if (preferFicha) { const top = CAT.fichas.filter((f) => fams.includes(f.familia) && preferFicha.test(f.nombre)).sort((x, y) => peso(y) - peso(x)).slice(0, 3); if (top.length) fams = [...new Set([top[0].familia, ...fams])]; }
   const fichas = []; for (const fam of fams) { const mejor = CAT.fichas.filter((f) => f.familia === fam).sort((x, y) => peso(y) - peso(x))[0]; if (mejor) fichas.push(mejor); }
   for (const f of CAT.fichas.filter((f) => fams.includes(f.familia)).sort((x, y) => peso(y) - peso(x))) { if (fichas.length >= 3) break; if (!fichas.includes(f)) fichas.push(f); }
   fichas.length = Math.min(fichas.length, 3);
@@ -1582,11 +1664,76 @@ const CEL = (() => {
       { texto: 'Impulso nervioso (cámara lenta ×10 000)', p: caminos[1].curva.getPointAt(0.5), obj: null },
     ];
   }
+
+  // Material de fibra: el de membrana más estrías (sarcómeros) y una onda de contracción que recorre el tejido.
+  function MLFibra(p) {
+    const m = ML(p); m.uniforms.uPer = { value: p.periodo ?? 0.22 }; m.uniforms.uOnda = { value: -999 };
+    m.vertexShader = m.vertexShader.replace('varying float vZ;', 'varying float vZ; varying float vAv; varying float vX;').replace('gl_Position = projectionMatrix * mv;', 'vAv = pos.x; vX = (modelMatrix * pos).x; gl_Position = projectionMatrix * mv;');
+    m.fragmentShader = m.fragmentShader.replace('varying float vZ;', 'varying float vZ; varying float vAv; varying float vX; uniform float uPer, uOnda;')
+      .replace('float niebla =', 'float est = 0.5 + 0.5 * cos(6.2832 * vAv / uPer); float lejos = 1.0 - smoothstep(8.0, 24.0, vZ); c *= mix(1.0, mix(0.78, 1.07, smoothstep(0.2, 0.8, est)), lejos); c += vec3(1.0, 0.62, 0.5) * exp(-pow((vX - uOnda) / 1.1, 2.0)) * 0.32;\n          float niebla =');
+    return m;
+  }
+  function construirCorazon(e) {
+    // Músculo cardíaco (ilustración). 1 unidad = 10 µm. Cardiomiocitos de unos 100 µm de largo y 15–20 µm de diámetro,
+    // unidos punta con punta por discos intercalares y ramificados entre fibras; sarcómeros de unos 2 µm (estrías);
+    // capilares de 5–8 µm entre las fibras. El latido va en cámara lenta.
+    semilla = 41; const tejido = new THREE.Group(); e.add(tejido);
+    const mFib = MLFibra({ color: 0xB4483F, dispersion: 0xFF7A66, borde: 0xFFB3A6, wrap: 0.45, dist: 0.25, pot: 3, esc: 1.0, amb: 0.16, niebla: 0.045, periodo: 0.22 });
+    const mDisco = ML({ color: 0x7A2A26, dispersion: 0xB4504A, borde: 0xE09088, wrap: 0.4, esc: 0.6, niebla: 0.045 });
+    const mGR = ML({ color: 0xB3261E, dispersion: 0xFF6A4D, borde: 0xFF9C88, wrap: 0.4, dist: 0.3, pot: 2.5, esc: 1.5, niebla: 0.045 });
+    const filas = [[0, 0], [2.5, 1.1], [-2.4, -0.9], [0.7, -2.6], [-0.9, 2.7], [3.2, -2.0], [-3.4, 1.9]];
+    const tubos = [], discos = []; const cadenas = [];
+    filas.forEach(([y0, z0], k) => {
+      let x = -17 + azar(-2, 2); const puntos = [];
+      while (x < 17) {
+        const largo = azar(8.5, 11); const r = azar(0.85, 1.05); const pts = [];
+        for (let i = 0; i <= 6; i++) { const xx = x + largo * i / 6; pts.push(new THREE.Vector3(xx, y0 + Math.sin(xx * 0.18 + k) * 0.35 + azar(-0.06, 0.06), z0 + Math.cos(xx * 0.15 + k * 2) * 0.3 + azar(-0.06, 0.06))); }
+        const curva = new THREE.CatmullRomCurve3(pts); tubos.push(tuboAfinado(curva, r, r * azar(0.92, 1.02), 40, 16, 0.55, 0.55));
+        const fin = curva.getPointAt(1); const tg = curva.getTangentAt(1);
+        const d = conEspesor(new THREE.CylinderGeometry(r * 1.008, r * 1.008, 0.09, 18, 1), 0.3); d.rotateZ(Math.PI / 2); const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(1, 0, 0), tg); d.applyQuaternion(q); d.translate(fin.x, fin.y, fin.z); discos.push(d);
+        puntos.push({ curva, r }); x += largo + 0.07;
+      }
+      cadenas.push(puntos);
+    });
+    // ramificaciones: una fibra se abre en Y hacia la fila vecina
+    for (let k = 0; k < cadenas.length; k++) for (let b = 0; b < 2; b++) {
+      const a = cadenas[k][Math.floor(azar(0, cadenas[k].length))], vecina = cadenas[(k + 1 + Math.floor(azar(0, 2))) % cadenas.length]; const bb = vecina[Math.floor(azar(0, vecina.length))];
+      const p0 = a.curva.getPointAt(azar(0.3, 0.6)), p1 = bb.curva.getPointAt(azar(0.4, 0.8)); if (p0.distanceTo(p1) > 6) continue;
+      const medio = p0.clone().lerp(p1, 0.5).add(new THREE.Vector3(azar(0.8, 1.6), 0, 0));
+      tubos.push(tuboAfinado(new THREE.CatmullRomCurve3([p0, medio, p1]), 0.7, 0.62, 24, 12, 0.5, 0.5));
+    }
+    const fibras = new THREE.Mesh(mergeGeometries(tubos.map((g) => conEspesor(g, 0.5)), false), mFib); tejido.add(fibras);
+    tejido.add(new THREE.Mesh(mergeGeometries(discos, false), mDisco));
+    // capilares entre las fibras, uno con glóbulos rojos en movimiento
+    const mCap = new THREE.ShaderMaterial({ uniforms: { uC: { value: new THREE.Color(0xE58A86) } }, vertexShader: 'varying vec3 vN; varying vec3 vV; void main(){ vec4 mv = modelViewMatrix*vec4(position,1.0); vN = normalize(normalMatrix*normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix*mv; }',
+      fragmentShader: 'precision mediump float; uniform vec3 uC; varying vec3 vN; varying vec3 vV; void main(){ float f = pow(1.0-abs(dot(normalize(vN),normalize(vV))),2.0); gl_FragColor = vec4(uC*(0.4+0.8*f), 0.12+0.5*f); }', transparent: true, depthWrite: false, side: THREE.DoubleSide });
+    const capilares = [[1.3, -0.9, 1.3], [-1.2, 1.1, -1.4], [1.6, 2.0, 0.2]].map(([y, z, f]) => new THREE.CatmullRomCurve3([-17, -8, 0, 8, 17].map((x, i) => new THREE.Vector3(x, y + Math.sin(i + f) * 0.4, z + Math.cos(i * 1.3 + f) * 0.35))));
+    for (const c of capilares) tejido.add(new THREE.Mesh(tuboAfinado(c, 0.33, 0.33, 140, 22, 0.3, 0.3), mCap));
+    const perfil = []; for (let i = 0; i <= 16; i++) { const r = i / 16; const x = r * 0.27; const y = 0.5 * 0.27 * Math.sqrt(Math.max(0, 1 - r * r)) * (0.21 + 2.0 * r * r - 1.12 * r * r * r * r); perfil.push(new THREE.Vector2(x, y)); }
+    const ladoGR = new THREE.LatheGeometry(perfil, 20); const ladoGR2 = ladoGR.clone(); ladoGR2.scale(1, -1, 1); ladoGR2.index && ladoGR2.setIndex([...ladoGR2.index.array].reverse());
+    const gGR = conEspesor(mergeGeometries([conEspesor(ladoGR, 0.2), conEspesor(ladoGR2, 0.2)], false), 0.2); gGR.computeVertexNormals();
+    const nGR = 18; const gr = new THREE.InstancedMesh(gGR, mGR, nGR); tejido.add(gr);
+    mundo.globulos = { mesh: gr, curva: capilares[0], fases: [...Array(nGR)].map(() => azar()), giro: [...Array(nGR)].map(() => new THREE.Euler(azar(0, 3), azar(0, 3), azar(0, 3))) };
+    const nPart = nivel === 'baja' ? 400 : 900; const pp = new Float32Array(nPart * 3); for (let i = 0; i < nPart; i++) { pp[i * 3] = azar(-16, 16); pp[i * 3 + 1] = azar(-6, 6); pp[i * 3 + 2] = azar(-6, 6); }
+    const gpp = new THREE.BufferGeometry(); gpp.setAttribute('position', new THREE.Float32BufferAttribute(pp, 3));
+    tejido.add(new THREE.Points(gpp, new THREE.PointsMaterial({ size: 0.05, color: 0xFFB3A6, transparent: true, opacity: 0.3, depthWrite: false })));
+    // latido en cámara lenta: las fibras se acortan y engrosan un poco; una onda clara recorre el tejido
+    mundo.latido = (t) => { const f = (t * 0.45) % 1; const k = f < 0.22 ? Math.sin((f / 0.22) * Math.PI) : 0; tejido.scale.set(1 - 0.07 * k, 1 + 0.035 * k, 1 + 0.035 * k); mFib.uniforms.uOnda.value = -20 + f * 44; };
+    mundo.objetivoInicial = new THREE.Vector3(0, 0, 0); mundo.dist = 24;
+    const c0 = cadenas[0][1] || cadenas[0][0];
+    rotulos = [
+      { texto: 'Célula del músculo cardíaco (cardiomiocito)', p: c0.curva.getPointAt(0.5).clone().add(new THREE.Vector3(0, 1.0, 0)), obj: tejido },
+      { texto: 'Estrías: las unidades que se contraen', p: cadenas[1][1].curva.getPointAt(0.35).clone().add(new THREE.Vector3(0, 1.0, 0)), obj: tejido },
+      { texto: 'Disco intercalar: une una célula con la siguiente', p: c0.curva.getPointAt(1).clone().add(new THREE.Vector3(0, 1.1, 0)), obj: tejido },
+      { texto: 'Capilar con glóbulos rojos', p: capilares[0].getPointAt(0.62), obj: tejido },
+      { texto: 'Latido (cámara lenta)', p: cadenas[2][1].curva.getPointAt(0.5).clone().add(new THREE.Vector3(0, -1.1, 0)), obj: tejido },
+    ];
+  }
   const v3 = new THREE.Vector3();
   function iniciar(t) {
     tipo = t; esc = new THREE.Scene(); esc.environment = escena.environment; esc.environmentIntensity = 0.6; luces(esc);
     mundo = {}; rotulos = []; pulsos = null;
-    if (t === 'hueso') construirHueso(esc); else construirNeuronas(esc);
+    if (t === 'hueso') construirHueso(esc); else if (t === 'corazon') construirCorazon(esc); else construirNeuronas(esc);
     cam = new THREE.PerspectiveCamera(35, camara.aspect, 0.05, 200);
     ctrl = new OrbitControls(cam, lienzo); Object.assign(ctrl, { enableDamping: true, dampingFactor: 0.12, zoomToCursor: false, enablePan: false, rotateSpeed: movil ? 0.55 : 0.7, minPolarAngle: 0.12, maxPolarAngle: Math.PI - 0.12, autoRotate: !reducido, autoRotateSpeed: 0.5, minDistance: 1.2, maxDistance: mundo.dist * 1.6 });
     ctrl.addEventListener('start', () => (ctrl.autoRotate = false)); ctrl.addEventListener('change', pedirRender);
@@ -1609,6 +1756,7 @@ const CEL = (() => {
     }
     if (mundo.globulos) { const g = mundo.globulos; const M = new THREE.Matrix4(); const q = new THREE.Quaternion(); const tg = new THREE.Vector3(); const Y = new THREE.Vector3(0, 1, 0);
       g.fases.forEach((f, i) => { const t = (f + reloj * 0.03) % 1; g.curva.getPointAt(t, v); g.curva.getTangentAt(t, tg); q.setFromUnitVectors(Y, tg); M.compose(v, q, new THREE.Vector3(1, 1.25, 1)); g.mesh.setMatrixAt(i, M); }); g.mesh.instanceMatrix.needsUpdate = true; }
+    if (mundo.latido) mundo.latido(reloj);
     ctrl.update(); cam.updateMatrixWorld(); const lv = LUZ_MUNDO.clone().transformDirection(cam.matrixWorldInverse); for (const m of ML_REG) m.uniforms.uLuz.value.copy(lv);
     // rótulos
     const r = lienzo.getBoundingClientRect(); const els = $('#rotulos').children;
@@ -1666,7 +1814,7 @@ function cuadro(ahora) {
     if (t >= 1) animEnfoque = null; anim = true;
   }
   if (controles.update()) anim = true; if (controles.autoRotate) anim = true;
-  if (!animEnfoque) { const info = capaConCaja(); if (info) { if (mantenerCentro(controles, camara, info.centro, info.caja, E.R * E.d0 * 0.55, E.R * E.d0 * 0.85, E.encajar ? 1 : dt * 5)) anim = true; E.encajar = false; } }
+  if (!animEnfoque) { const info = capaConCaja(); if (info) { if (mantenerCentro(controles, camara, ESCENAS[E.escena].centroFijo ? E.centro : info.centro, info.caja, E.R * E.d0 * 0.55, E.R * E.d0 * 0.85, E.encajar ? 1 : dt * 5)) anim = true; E.encajar = false; } }
   // plano cercano según la distancia: permite acercarse mucho sin cortar el modelo
   const d = controles.getDistance(); const cerca = Math.max(0.0004, d * 0.02); if (Math.abs(camara.near - cerca) / cerca > 0.2) { camara.near = cerca; camara.far = Math.max(10, d * 40); camara.updateProjectionMatrix(); }
   // capa automática
@@ -1705,6 +1853,8 @@ if (renderer) {
 }
 // Para pruebas automáticas: lleva la cámara a una distancia relativa (en radios del modelo).
 if (pruebas) window.__camara = () => { const i = capaConCaja(); const p = i ? i.centro.clone().project(camara) : null; return { capa: E.capa, d: controles.getDistance() / (E.R * E.d0), t: controles.target.toArray(), centro: i ? i.centro.toArray() : null, pantalla: p ? [p.x, p.y] : null, dentro: i ? i.caja.containsPoint(controles.target) : null }; };
+if (pruebas) window.__vista = (d, f = 1) => { const v = new THREE.Vector3(...d).normalize(); controles.autoRotate = false; camara.position.copy(controles.target).addScaledVector(v, f * E.d0 * E.R); controles.update(); pedirRender(); };
+if (pruebas) window.__seleccionar = (nombre) => { const info = E.grupos[E.escena + ':' + E.capa]; let m = null; info?.grupo.traverse((o) => { if (!m && o.isMesh && (o.userData.nombre_es || '').includes(nombre)) m = o; }); if (!m) return 'no está'; seleccionar(m); fichaDesde = 0; return m.userData.nombre_es; };
 if (pruebas) window.__zoom = (f) => { if (!controles) return; controles.autoRotate = false; camara.position.sub(controles.target).setLength(f * E.d0 * E.R).add(controles.target); controles.update(); pedirRender(); };
 </script>
 </body>
