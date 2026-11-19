@@ -571,6 +571,7 @@ html.con-intro .portada h1 .l>span,html.con-intro .explorador{animation-play-sta
       <button role="tab" data-escena="hombro" aria-selected="false">Hombro</button>
       <button role="tab" data-escena="muneca" aria-selected="false">Muñeca</button>
       <button role="tab" data-escena="abdomen" aria-selected="false">Abdomen</button>
+      <button role="tab" data-escena="cuerpo" aria-selected="false">Cuerpo completo</button>
     </div>
     <div class="capa-ui herramientas">
       <button class="icono vidrio" id="reiniciar" type="button" aria-label="Volver a la vista inicial"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/></svg></button>
@@ -944,6 +945,7 @@ const CAPAS = {
   corazon: { nombre: 'Corazón', color: '#9E2B2B' },
   valvula: { nombre: 'Válvulas', color: '#E6D3B3' },
   organo: { nombre: 'Órganos', color: '#C46A5A' },
+  pulmon: { nombre: 'Pulmones', color: '#E59A98', nota: 'contorno ilustrado' },
   celula: { nombre: 'Células', color: '#7BBDE8', nota: 'ilustración' },
   nervioIlus: { nombre: 'Nervios', color: '#E5C36A', nota: 'ilustración' },
 };
@@ -995,14 +997,15 @@ const ESCENAS = {
     nombre: 'Corazón', ref: 'modelos/corazon.glb', nucleo: 'corazon', escalaR: 2.0, centroFijo: true, vista: { dir: [0.28, 0.12, 1], dist: 2.6 },
     capas: [
       { id: 'piel', glb: 'modelos/torax-piel.glb', f: 0.84 },
-      { id: 'musculo', glb: 'modelos/torax-musculo.glb', f: 0.72 },
-      { id: 'hueso', glb: 'modelos/torax-hueso.glb', f: 0.6 },
-      { id: 'vaso', glb: 'modelos/torax-vaso.glb', f: 0.48 },
+      { id: 'musculo', glb: 'modelos/torax-musculo.glb', f: 0.74 },
+      { id: 'hueso', glb: 'modelos/torax-hueso.glb', f: 0.64 },
+      { id: 'pulmon', glb: 'modelos/torax-pulmon.glb', f: 0.54, ilus: 'El contorno de los pulmones es una ilustración' },
+      { id: 'vaso', glb: 'modelos/torax-vaso.glb', f: 0.44 },
       { id: 'corazon', glb: 'modelos/corazon.glb', f: 0.13 },
       { id: 'valvula', glb: 'modelos/corazon-valvulas.glb', f: 0.012 },
       { id: 'celula', celulas: 'corazon', f: 0 },
     ],
-    productos: { piel: { fams: ['cardiovascular'], prefer: /v[ií]a central|l[ií]nea arterial|trilumen|multilumen/i }, musculo: ['cardiovascular'], hueso: ['cardiovascular'],
+    productos: { piel: { fams: ['cardiovascular'], prefer: /v[ií]a central|l[ií]nea arterial|trilumen|multilumen/i }, musculo: ['cardiovascular'], hueso: ['cardiovascular'], pulmon: [],
       vaso: { fams: ['cardiovascular'], prefer: /v[ií]a central|l[ií]nea arterial|trilumen|multilumen|bal[oó]n/i },
       corazon: { fams: ['cardiovascular'], prefer: /v[aá]lvula card|recuperaci/i }, valvula: { fams: ['cardiovascular'], prefer: /v[aá]lvula card|medidor/i }, celula: ['cardiovascular'] },
   },
@@ -1043,7 +1046,51 @@ const ESCENAS = {
       organo: (p) => ({ fams: ['hidrocefalia'], prefer: /lumbo/i.test(p.nombre_es || '') ? /lumbo|derivaci[oó]n lumbar/i : /peritoneal|tunelizador/i }),
       hueso: (p) => /L[1-5]|lumbo/.test(p.nombre_es || '') ? { fams: ['hidrocefalia', 'fijacion-columna'], prefer: /lumbo|derivaci[oó]n lumbar/i } : ['hidrocefalia'] },
   },
+  // Cuerpo entero para aprender: cada pieza dice su nombre y su zona. Solo se sugieren productos donde la empresa los tiene.
+  cuerpo: {
+    nombre: 'Cuerpo completo', ref: 'modelos/cuerpo-hueso.glb', nucleo: 'hueso', fusionar: true, modoInicial: 'musculo', fantasmaOp: 0.35, vista: { dir: [0.3, 0.08, 1], dist: 2.6 },
+    pista: 'Elige una capa en el panel. Toca una pieza para ver su nombre y su zona. Doble toque para acercarte.',
+    capas: [
+      { id: 'piel', glb: 'modelos/cuerpo-piel.glb', f: 0.8 },
+      { id: 'musculo', glb: 'modelos/cuerpo-musculo.glb', f: 0.62 },
+      { id: 'organo', glb: 'modelos/cuerpo-organo.glb', f: 0.48, ilus: 'Los pulmones son un contorno ilustrado' },
+      { id: 'vaso', glb: 'modelos/cuerpo-vaso.glb', f: 0.36 },
+      { id: 'nervio', glb: 'modelos/cuerpo-nervio.glb', f: 0.24, nombre: 'Sistema nervioso', nota: 'médula ilustrada', ilus: 'La médula y las raíces nerviosas son una ilustración' },
+      { id: 'hueso', glb: 'modelos/cuerpo-hueso.glb', f: 0.012 },
+      { id: 'celula', celulas: 'hueso', f: 0 },
+    ],
+    productos: {
+      hueso: (p) => { const n = p.nombre_es || '';
+        if (/\(C\d\)|Disco intervertebral C/.test(n)) return { fams: ['fijacion-cervical', 'intersomaticos'], zona: 'la columna cervical' };
+        if (/\([TL]\d+\)|Disco intervertebral/.test(n)) return { fams: ['fijacion-columna', 'vertebroplastia', 'intersomaticos'], zona: 'la columna' };
+        if (/^(Sacro|Cóccix)/.test(n)) return { fams: ['fijacion-columna', 'injerto-oseo'], zona: 'la columna' };
+        if (/^(Hueso (frontal|parietal|temporal|occipital)|Esfenoides|Etmoides)/.test(n)) return { fams: ['craneotomia', 'reconstruccion-craneal'], zona: 'el cráneo' };
+        if (/^Clavícula/.test(n)) return { fams: ['trauma'], prefer: /clav[ií]cula/i, zona: 'la clavícula' };
+        if (/^Húmero/.test(n)) return { fams: ['trauma'], prefer: /h[uú]mero/i, zona: 'el brazo' };
+        if (/^(Radio|Cúbito)|\(carpo\)|metacarpiano|de la mano/.test(n)) return { fams: ['trauma'], prefer: /kirschner|canulado/i, solo: true, zona: 'la muñeca y la mano' };
+        return []; },
+      vaso: (p) => { const n = p.nombre_es || '';
+        if (/^Arteria radial/.test(n)) return { fams: ['cardiovascular'], prefer: /l[ií]nea arterial/i, solo: true, zona: 'la arteria radial' };
+        if (/^Vena (subclavia|yugular interna|femoral)/.test(n)) return { fams: ['cardiovascular'], prefer: /v[ií]a central|trilumen|multilumen/i, zona: 'las vías centrales' };
+        if (/cerebral|basilar|carótida interna|comunicantes|vertebral/.test(n)) return { fams: ['clips-aneurisma', 'microcirugia'], zona: 'las arterias del cerebro' };
+        if (/^(Aorta|Arterias coronarias|Venas del corazón|Tronco pulmonar|Vena cava)/.test(n)) return { fams: ['cardiovascular'], zona: 'el corazón' };
+        return []; },
+      nervio: (p) => { const n = p.nombre_es || '';
+        if (/Hipófisis/.test(n)) return { fams: ['microcirugia'], prefer: /hip[oó]fisis|nariz|endoscop/i, zona: 'la hipófisis' };
+        if (/ventrículo|Acueducto/i.test(n)) return { fams: ['hidrocefalia'], prefer: /v[aá]lvula|ventricular|drenaje/i, zona: 'los ventrículos del cerebro' };
+        if (/Cola de caballo/.test(n)) return { fams: ['hidrocefalia'], prefer: /derivaci[oó]n lumbar|lumbo/i, solo: true, zona: 'la columna lumbar' };
+        if (/^(Médula|Raíz)/.test(n)) return { fams: ['equipos'], zona: 'la columna' };
+        if (p.zona === 'Cabeza' && !/^(Nervio|Nervios|Ganglio|Quiasma|Cintilla)/.test(n)) return { fams: ['microcirugia', 'equipos'], zona: 'el cerebro' };
+        return []; },
+      organo: (p) => { const n = p.nombre_es || '';
+        if (/^Válvula/.test(n)) return { fams: ['cardiovascular'], prefer: /v[aá]lvula card|medidor/i, zona: 'el corazón' };
+        if (/^(Aurícula|Ventrículos del corazón|Músculos papilares)/.test(n)) return { fams: ['cardiovascular'], prefer: /v[aá]lvula card|recuperaci/i, zona: 'el corazón' };
+        return []; },
+    },
+  },
 };
+// Nombre de una capa en la escena abierta (una escena puede darle otro nombre, p. ej. «Sistema nervioso»).
+const nombreCapa = (id) => ESCENAS[E.escena].capas.find((c) => c.id === id)?.nombre || CAPAS[id].nombre;
 
 /* ===================== 3D: motor ===================== */
 const lienzo = $('#lienzo'); const caja = $('#explorador');
@@ -1102,17 +1149,35 @@ function materialReal(capa, mesh) {
     case 'piel': return Fisico({ ...base, color: 0xC59B83, roughness: 0.52, sheen: 0.35, sheenColor: new THREE.Color(0xFFD9C8), sheenRoughness: 0.6, side: THREE.DoubleSide });
     case 'musculo': return Fisico({ ...base, color: 0x9C3B33, roughness: 0.42, clearcoat: 0.25, clearcoatRoughness: 0.5 });
     case 'vaso': return Fisico({ ...base, color: /Vena|Venas|Senos/.test(n) ? 0x2E5C9C : 0xB8322A, roughness: 0.32, clearcoat: 0.4, clearcoatRoughness: 0.35 });
-    case 'nervio': return new THREE.MeshStandardMaterial({ ...base, color: /Médula/.test(n) ? 0xF1E2B4 : 0xE3C060, roughness: 0.48, emissive: 0x3a2c08, emissiveIntensity: 0.6 });
+    case 'nervio':
+      // en el cuerpo completo esta capa también trae el encéfalo: el tejido cerebral y los ventrículos van con su propio color
+      if (E.escena === 'cuerpo' && /ventrículo|Acueducto/i.test(n)) return Fisico({ ...base, color: 0x4FA8DE, roughness: 0.28, clearcoat: 0.6, clearcoatRoughness: 0.2 });
+      if (E.escena === 'cuerpo' && !/^(Nervio|Nervios|Raíz|Cola de caballo|Médula|Quiasma|Cintilla|Ganglio|Hipófisis)/.test(n)) return Fisico({ ...base, color: 0xD3A69C, roughness: 0.55, clearcoat: 0.2, clearcoatRoughness: 0.6 });
+      return new THREE.MeshStandardMaterial({ ...base, color: /Médula/.test(n) ? 0xF1E2B4 : 0xE3C060, roughness: 0.48, emissive: 0x3a2c08, emissiveIntensity: 0.6 });
+    case 'pulmon': if (/contorno/i.test(n)) return contornoPulmon();
+      return /^(Arteria|Arterias|Tronco pulmonar)/.test(n) ? Fisico({ ...base, color: 0x2E5C9C, roughness: 0.32, clearcoat: 0.4, clearcoatRoughness: 0.35 }) // la arteria pulmonar lleva sangre sin oxígeno: azul
+        : /^(Vena|Venas)/.test(n) ? Fisico({ ...base, color: 0xB8322A, roughness: 0.32, clearcoat: 0.4, clearcoatRoughness: 0.35 })
+        : Fisico({ ...base, color: 0xE6CFC4, roughness: 0.45, clearcoat: 0.3, clearcoatRoughness: 0.4 });
     case 'corazon': return /Arteria|Arco|Aorta|Tronco pulmonar|coronari/.test(n) ? Fisico({ ...base, color: 0xB8322A, roughness: 0.32, clearcoat: 0.4, clearcoatRoughness: 0.35 })
       : /Vena|Venas/.test(n) ? Fisico({ ...base, color: 0x2E5C9C, roughness: 0.32, clearcoat: 0.4, clearcoatRoughness: 0.35 })
       : Fisico({ ...base, color: /Aurícula/.test(n) ? 0xA8443B : 0x8E2C27, roughness: 0.45, clearcoat: 0.35, clearcoatRoughness: 0.45, side: THREE.DoubleSide });
     case 'valvula': return /papilar/i.test(n) ? Fisico({ ...base, color: 0x9C3B33, roughness: 0.45, clearcoat: 0.25 }) : Fisico({ ...base, color: 0xEADBC4, roughness: 0.5, sheen: 0.4, sheenColor: new THREE.Color(0xFFF1E0), sheenRoughness: 0.5, side: THREE.DoubleSide });
-    case 'organo': { const col = /Hígado/.test(n) ? 0x7A2E26 : /Estómago/.test(n) ? 0xD48F84 : /Bazo/.test(n) ? 0x6E2B3C : /Vesícula/.test(n) ? 0x4F7A3A : /Páncreas/.test(n) ? 0xE2B27E : /Riñón/.test(n) ? 0x8A3A33 : /delgado/.test(n) ? 0xE3A495 : 0xC98576;
+    case 'organo': { if (/contorno/i.test(n)) return contornoPulmon();
+      if (/^(Aurícula|Ventrículos del corazón|Músculos papilares)/.test(n)) return Fisico({ ...base, color: /Aurícula/.test(n) ? 0xA8443B : 0x8E2C27, roughness: 0.45, clearcoat: 0.35, clearcoatRoughness: 0.45 });
+      if (/^Válvula/.test(n)) return Fisico({ ...base, color: 0xEADBC4, roughness: 0.5, side: THREE.DoubleSide });
+      if (/^(Tráquea|Bronquio|Árbol bronquial|Cartílago|Epiglotis)/.test(n)) return Fisico({ ...base, color: 0xE6CFC4, roughness: 0.45, clearcoat: 0.3, clearcoatRoughness: 0.4 });
+      if (/^Ojo/.test(n)) return Fisico({ ...base, color: 0xF1EEE8, roughness: 0.2, clearcoat: 0.8, clearcoatRoughness: 0.1 });
+      const col = /Hígado/.test(n) ? 0x7A2E26 : /Estómago/.test(n) ? 0xD48F84 : /Bazo/.test(n) ? 0x6E2B3C : /Vesícula/.test(n) ? 0x4F7A3A : /Páncreas/.test(n) ? 0xE2B27E : /Riñón/.test(n) ? 0x8A3A33 : /delgado/.test(n) ? 0xE3A495 : 0xC98576;
       return Fisico({ ...base, color: col, roughness: 0.4, clearcoat: 0.45, clearcoatRoughness: 0.35 }); }
     case 'ventriculo': return Fisico({ ...base, color: 0x4FA8DE, roughness: 0.28, clearcoat: 0.6, clearcoatRoughness: 0.2 });
     case 'cerebro': return Fisico({ ...base, color: 0xD3A69C, roughness: 0.55, clearcoat: 0.2, clearcoatRoughness: 0.6, sheen: 0.25, sheenColor: new THREE.Color(0xFFE2DA) });
     default: return new THREE.MeshStandardMaterial({ ...base, color: /disco/i.test(n) ? 0x9FC2CB : (CLARO ? 0xD3C4A6 : 0xE7DDC7), roughness: /disco/i.test(n) ? 0.45 : 0.72 });
   }
+}
+// Contorno translúcido de los pulmones (ilustración): deja ver las vías aéreas y los vasos de adentro.
+function contornoPulmon() {
+  const m = Fisico({ metalness: 0, color: 0xE59A98, roughness: 0.35, clearcoat: 0.5, clearcoatRoughness: 0.3, transparent: true, opacity: 0.28, depthWrite: false, side: THREE.FrontSide });
+  m.userData.base = 0.28; return m;
 }
 const holograma = () => new THREE.ShaderMaterial({
   uniforms: { uColor: { value: new THREE.Color(CLARO ? 0x0A4174 : 0x7BBDE8) }, uOp: { value: 0.0 } },
@@ -1249,6 +1314,47 @@ async function construirLineaArterial(gVaso, cVaso) {
   return { grupo, mats: [M.tubo, M.azul, M.rojo] };
 }
 const EXTRAS = { derivacion: (g, c) => construirDerivacion(g, c), peritoneal: construirPeritoneal, lumboperitoneal: construirLumboPeritoneal, lineaArterial: construirLineaArterial };
+// Une todas las piezas de una capa en una sola malla (una sola llamada de dibujo, clave en el cuerpo completo con cientos de piezas).
+// Cada pieza guarda su rango de índices y su esfera para tocarla y resaltarla sin separarla. Las piezas «contorno» (translúcidas) quedan aparte.
+function fusionar(obj, capaId, conColor = true) {
+  obj.removeFromParent(); obj.updateMatrixWorld(true); // posiciones relativas al modelo, sin el desplazamiento de la escena
+  const geos = [], piezas = [], sueltas = []; let inicio = 0, matBase = null;
+  obj.traverse((m) => {
+    if (!m.isMesh) return;
+    const ud = m.userData || {};
+    if (conColor && /contorno/i.test(ud.nombre_es || '')) { sueltas.push(m); return; }
+    const src = m.geometry; const g = new THREE.BufferGeometry(); const n = src.getAttribute('position').count;
+    for (const k of ['position', 'normal']) { // los modelos llegan cuantizados: se pasan a números normales antes de unirlos
+      const a = src.getAttribute(k); if (!a) continue; const f = new Float32Array(n * 3);
+      for (let i = 0; i < n; i++) { f[i * 3] = a.getX(i); f[i * 3 + 1] = a.getY(i); f[i * 3 + 2] = a.getZ(i); }
+      g.setAttribute(k, new THREE.BufferAttribute(f, 3));
+    }
+    const idx = []; if (src.index) for (let i = 0; i < src.index.count; i++) idx.push(src.index.getX(i)); else for (let i = 0; i < n; i++) idx.push(i);
+    g.setIndex(idx); if (!g.getAttribute('normal')) g.computeVertexNormals(); g.applyMatrix4(m.matrixWorld);
+    if (conColor) {
+      const mt = materialReal(capaId, m); const c = mt.color; const col = new Float32Array(n * 3);
+      for (let i = 0; i < n; i++) { col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b; }
+      g.setAttribute('color', new THREE.BufferAttribute(col, 3)); if (!matBase) matBase = mt; else mt.dispose();
+    }
+    g.computeBoundingSphere(); piezas.push({ inicio, cuenta: idx.length, ud, esfera: g.boundingSphere.clone() }); inicio += idx.length; geos.push(g);
+  });
+  const geo = mergeGeometries(geos, false); for (const g of geos) g.dispose();
+  geo.computeBoundingSphere(); geo.computeBoundingBox();
+  if (matBase) { matBase.color.set(0xffffff); matBase.vertexColors = true; }
+  const malla = new THREE.Mesh(geo, matBase || undefined); malla.userData = { fusion: true, piezas, capa: capaId };
+  return { malla, sueltas };
+}
+// Resalta una sola pieza de una malla unida: una copia que comparte los mismos datos y dibuja solo ese rango.
+function resaltarPieza(fm, p) {
+  let ov = fm.userData.resalte;
+  if (!ov) {
+    const vista = new THREE.BufferGeometry(); for (const k in fm.geometry.attributes) vista.setAttribute(k, fm.geometry.attributes[k]);
+    vista.setIndex(fm.geometry.index); vista.boundingSphere = fm.geometry.boundingSphere; vista.boundingBox = fm.geometry.boundingBox;
+    const mat = fm.material.clone(); mat.vertexColors = false; mat.color.setHex(0x8DBFE6); mat.emissive?.setHex(0x0A2A4A); Object.assign(mat, { polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
+    ov = new THREE.Mesh(vista, mat); ov.renderOrder = 2; ov.raycast = () => {}; fm.userData.resalte = ov;
+  }
+  ov.geometry.setDrawRange(p.inicio, p.cuenta); ov.material.opacity = fm.material.opacity; ov.material.transparent = fm.material.transparent; fm.add(ov);
+}
 async function prepararCapa(esc, capa) {
   const clave = esc + ':' + capa.id;
   if (E.grupos[clave]) return E.grupos[clave];
@@ -1258,22 +1364,28 @@ async function prepararCapa(esc, capa) {
   const c = g.parser.json.asset?.extras?.centro_m || [0, 0, 0];
   const grupo = new THREE.Group(); grupo.add(obj);
   grupo.position.set(c[0] - E.centroRef[0], c[1] - E.centroRef[1], c[2] - E.centroRef[2]);
-  const mats = [];
-  obj.traverse((m) => { if (m.isMesh) { m.material = materialReal(capa.id, m); mats.push(m.material); m.userData.capa = capa.id; } });
+  const mats = []; let fusion = null, sueltas = [];
+  if (ESCENAS[esc].fusionar) {
+    // una malla por capa; las piezas translúcidas aparte, con su posición ya aplicada
+    const f = fusionar(obj, capa.id); const cont = new THREE.Group(); grupo.add(cont);
+    f.malla.userData.capa = capa.id; cont.add(f.malla); mats.push(f.malla.material); fusion = [f.malla];
+    for (const s of f.sueltas) { const sm = new THREE.Mesh(s.geometry, materialReal(capa.id, s)); sm.applyMatrix4(s.matrixWorld); sm.userData = { ...s.userData, capa: capa.id }; cont.add(sm); mats.push(sm.material); sueltas.push(sm); }
+  } else obj.traverse((m) => { if (m.isMesh) { m.material = materialReal(capa.id, m); mats.push(m.material); m.userData.capa = capa.id; } });
   if (capa.extra && EXTRAS[capa.extra]) { try { const d = await EXTRAS[capa.extra](g, c); grupo.add(d.grupo); mats.push(...d.mats); } catch (e) { /* sin ilustración, la capa sigue */ } }
-  const info = { grupo, mats, op: 0, obj: 0, capa, detalle: null };
+  const info = { grupo, mats, op: 0, obj: 0, capa, detalle: null, fusion, sueltas };
   grupo.visible = false; raiz.add(grupo); E.grupos[clave] = info;
   ponerOpacidad(info, 0);
   return info;
 }
 function ponerOpacidad(info, o) {
   info.op = o; info.grupo.visible = o > 0.01;
-  for (const m of info.mats) { m.opacity = o; const t = o < 0.999; if (m.transparent !== t) { m.transparent = t; m.needsUpdate = true; } m.depthWrite = o > 0.6; }
+  // base < 1: materiales que siempre son translúcidos (contorno de los pulmones)
+  for (const m of info.mats) { const b = m.userData.base ?? 1; m.opacity = o * b; const t = o * b < 0.999; if (m.transparent !== t) { m.transparent = t; m.needsUpdate = true; } m.depthWrite = b >= 1 && o > 0.6; }
 }
 async function prepararFantasma(esc) {
   const cfg = ESCENAS[esc]; const capa = cfg.capas.find((c) => c.id === cfg.nucleo);
-  const g = await cargarGLB(capa.glb); const obj = g.scene.clone(true); const mat = holograma();
-  obj.traverse((m) => { if (m.isMesh) m.material = mat; });
+  const g = await cargarGLB(capa.glb); let obj = g.scene.clone(true); const mat = holograma();
+  if (cfg.fusionar) { obj = fusionar(obj, null, false).malla; obj.material = mat; } else obj.traverse((m) => { if (m.isMesh) m.material = mat; });
   const c = g.parser.json.asset?.extras?.centro_m || [0, 0, 0];
   const grupo = new THREE.Group(); grupo.add(obj); grupo.position.set(c[0] - E.centroRef[0], c[1] - E.centroRef[1], c[2] - E.centroRef[2]);
   grupo.renderOrder = 10; raiz.add(grupo); return { grupo, mat, op: 0, obj: 0 };
@@ -1281,12 +1393,15 @@ async function prepararFantasma(esc) {
 
 async function abrirEscena(esc) {
   if (!renderer) return;
-  E.escena = esc; E.capa = null; E.seleccion = null; cerrarFicha(); salirDeCelulas(true);
+  const previa = ESCENAS[E.escena]; E.escena = esc; E.capa = null; E.seleccion = null; cerrarFicha(); salirDeCelulas(true);
   $$('.pestanas button').forEach((b) => b.setAttribute('aria-selected', b.dataset.escena === esc));
   $('#cargando').classList.remove('oculto'); $('#cargando').textContent = 'Cargando modelo 3D…';
   for (const k in E.grupos) { E.grupos[k].grupo.visible = false; E.grupos[k].obj = 0; ponerOpacidad(E.grupos[k], 0); }
   if (E.fantasma) { raiz.remove(E.fantasma.grupo); E.fantasma = null; }
   const cfg = ESCENAS[esc];
+  // el cuerpo completo abre con una capa fija; al salir de él se vuelve al modo automático
+  if (previa?.modoInicial && !cfg.modoInicial) E.modo = 'auto';
+  if (cfg.modoInicial && E.modo === 'auto') E.modo = cfg.modoInicial;
   if (E.modo !== 'auto' && !cfg.capas.some((c) => c.id === E.modo)) E.modo = 'auto';
   const ref = await cargarGLB(cfg.ref);
   E.centroRef = ref.parser.json.asset?.extras?.centro_m || [0, 0, 0];
@@ -1341,7 +1456,7 @@ async function ponerCapa(id, inmediato = false) {
   if (id === E.capa) return;
   const cfg = ESCENAS[E.escena]; const capa = cfg.capas.find((c) => c.id === id);
   E.capa = id; actualizarUI(); cerrarFicha();
-  if (!E.enCelulas) $('#pista').textContent = 'Arrastra para girar. Pellizca o usa la rueda para acercarte: las capas cambian solas. Doble toque sobre una pieza para ir hacia ella.';
+  if (!E.enCelulas) $('#pista').textContent = (E.modo !== 'auto' && cfg.pista) || 'Arrastra para girar. Pellizca o usa la rueda para acercarte: las capas cambian solas. Doble toque sobre una pieza para ir hacia ella.';
   if (capa.celulas) { entrarEnCelulas(capa.celulas); return; }
   if (E.enCelulas) salirDeCelulas(false);
   const info = await prepararCapa(E.escena, capa);
@@ -1352,6 +1467,7 @@ async function ponerCapa(id, inmediato = false) {
   if (cfg.nucleo === 'cerebro' && id === 'hueso') E.fantasma.obj = 0;
   if (cfg.nucleo === 'corazon' && id === 'valvula') E.fantasma.obj = 0.6;
   if (cfg.nucleo === 'organo' && id === 'hueso') E.fantasma.obj = 0.25;
+  if (cfg.fantasmaOp != null && E.fantasma.obj > 0) E.fantasma.obj = cfg.fantasmaOp;
   pedirRender();
   // capas vecinas, en segundo plano
   const i = cfg.capas.indexOf(capa); for (const v of [cfg.capas[i + 1], cfg.capas[i - 1]]) if (v && v.glb) prepararCapa(E.escena, v).catch(() => {});
@@ -1373,7 +1489,7 @@ async function quizaDetalle() {
 function pintarCapas() {
   const cs = ESCENAS[E.escena].capas;
   $('#capas').innerHTML = `<div class="titulo">Capas</div><button type="button" class="auto" data-capa="auto" aria-pressed="${E.modo === 'auto'}"><span class="punto" style="background:linear-gradient(135deg,#C79E86,#7BBDE8)"></span>Automático<span class="nota">zoom</span></button>` +
-    cs.map((c) => { const nota = c.medula ? 'ilustración' : CAPAS[c.id].nota; return `<button type="button" data-capa="${c.id}" aria-pressed="${E.modo === c.id}"><span class="punto" style="background:${CAPAS[c.id].color}"></span>${CAPAS[c.id].nombre}${nota ? `<span class="nota">${nota}</span>` : ''}</button>`; }).join('');
+    cs.map((c) => { const nota = c.medula ? 'ilustración' : c.nota || CAPAS[c.id].nota; return `<button type="button" data-capa="${c.id}" aria-pressed="${E.modo === c.id}"><span class="punto" style="background:${CAPAS[c.id].color}"></span>${c.nombre || CAPAS[c.id].nombre}${nota ? `<span class="nota">${nota}</span>` : ''}</button>`; }).join('');
   $('#profundidad').innerHTML = cs.map(() => '<i></i>').join('');
   actualizarUI();
 }
@@ -1381,9 +1497,9 @@ function actualizarUI() {
   const cs = ESCENAS[E.escena].capas; const i = cs.findIndex((c) => c.id === E.capa);
   $$('#capas button').forEach((b) => { b.classList.toggle('activa', b.dataset.capa === E.capa); b.setAttribute('aria-pressed', b.dataset.capa === E.modo); });
   $$('#profundidad i').forEach((x, k) => x.classList.toggle('on', k <= i));
-  $('#capaNombre').textContent = E.capa ? CAPAS[E.capa].nombre + (E.modo !== 'auto' ? ' · fija' : '') : '';
-  const capaCfg = ESCENAS[E.escena].capas.find((c) => c.id === E.capa); $('#ilustracion').classList.toggle('visible', E.capa === 'celula' || !!capaCfg?.medula || !!capaCfg?.extra);
-  $('#ilustracion').textContent = ({ derivacion: 'La válvula y los catéteres son una ilustración', peritoneal: 'El catéter es una ilustración', lumboperitoneal: 'La derivación es una ilustración', lineaArterial: 'La línea arterial es una ilustración' })[capaCfg?.extra] || 'Ilustración 3D, no es una imagen real';
+  $('#capaNombre').textContent = E.capa ? nombreCapa(E.capa) + (E.modo !== 'auto' ? ' · fija' : '') : '';
+  const capaCfg = ESCENAS[E.escena].capas.find((c) => c.id === E.capa); $('#ilustracion').classList.toggle('visible', E.capa === 'celula' || !!capaCfg?.medula || !!capaCfg?.extra || !!capaCfg?.ilus);
+  $('#ilustracion').textContent = ({ derivacion: 'La válvula y los catéteres son una ilustración', peritoneal: 'El catéter es una ilustración', lumboperitoneal: 'La derivación es una ilustración', lineaArterial: 'La línea arterial es una ilustración' })[capaCfg?.extra] || (E.capa !== 'celula' && capaCfg?.ilus) || 'Ilustración 3D, no es una imagen real';
 }
 $('#capas').addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return; const id = b.dataset.capa;
@@ -1408,7 +1524,29 @@ function golpe(ev) {
   const r = lienzo.getBoundingClientRect(); puntero.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
   rayo.setFromCamera(puntero, camara);
   const info = E.grupos[E.escena + ':' + E.capa]; if (!info || !info.grupo.visible) return null;
-  const h = rayo.intersectObject(info.grupo, true); return h[0] || null;
+  let hs;
+  if (info.fusion) {
+    // malla unida: solo se revisan los triángulos de las piezas cuya esfera cruza el rayo
+    hs = [];
+    for (const fm of info.fusion) {
+      const geo = fm.geometry; _inv.copy(fm.matrixWorld).invert(); _rayoLocal.copy(rayo.ray).applyMatrix4(_inv);
+      for (const p of fm.userData.piezas) {
+        if (!_rayoLocal.intersectsSphere(p.esfera)) continue;
+        const n0 = hs.length; geo.setDrawRange(p.inicio, p.cuenta); fm.raycast(rayo, hs); for (let i = n0; i < hs.length; i++) hs[i].pieza = p;
+      }
+      geo.setDrawRange(0, Infinity);
+    }
+    for (const sm of info.sueltas) sm.raycast(rayo, hs);
+    hs.sort((a, b) => a.distance - b.distance);
+  } else hs = rayo.intersectObject(info.grupo, true);
+  const h = hs[0]; if (!h) return null;
+  h.ud = h.pieza ? h.pieza.ud : h.object.userData; return h;
+}
+const _inv = new THREE.Matrix4(), _rayoLocal = new THREE.Ray();
+// Lo que se resalta al tocar: una pieza de una malla unida o una malla suelta.
+function blancoDe(h) {
+  if (h.pieza) { const fm = h.object, p = h.pieza; return { ud: p.ud, encender: () => resaltarPieza(fm, p), apagar: () => fm.userData.resalte?.removeFromParent() }; }
+  const m = h.object; return { ud: m.userData, encender: () => m.material.emissive?.setHex(0x16324d), apagar: () => m.material.emissive?.setHex(0x000000) };
 }
 let abajo = null, ultimoToque = 0, resaltado = null;
 lienzo.addEventListener('pointerdown', (e) => { abajo = { x: e.clientX, y: e.clientY, t: performance.now() }; });
@@ -1418,7 +1556,7 @@ lienzo.addEventListener('pointerup', (e) => {
   const h = golpe(e);
   if (doble && h) { enfocar(h.point); return; }
   $('#punta').style.display = 'none';
-  if (h) seleccionar(h.object); else cerrarFicha();
+  if (h) seleccionar(blancoDe(h)); else cerrarFicha();
 });
 lienzo.addEventListener('dblclick', (e) => { if (!renderer || !E.centroRef) return; const h = golpe(e); if (h) enfocar(h.point); });
 let animEnfoque = null;
@@ -1431,28 +1569,30 @@ function enfocar(p) {
 lienzo.addEventListener('pointermove', (e) => {
   if (!renderer || !E.centroRef || movil || E.enCelulas || e.buttons) { $('#punta').style.display = 'none'; return; }
   const h = golpe(e); const p = $('#punta');
-  if (h && h.object.userData.nombre_es) { const r = caja.getBoundingClientRect(); p.textContent = h.object.userData.nombre_es; p.style.left = (e.clientX - r.left + 14) + 'px'; p.style.top = (e.clientY - r.top + 14) + 'px'; p.style.display = 'block'; lienzo.style.cursor = 'pointer'; }
+  if (h && h.ud.nombre_es) { const r = caja.getBoundingClientRect(); p.textContent = h.ud.nombre_es; p.style.left = (e.clientX - r.left + 14) + 'px'; p.style.top = (e.clientY - r.top + 14) + 'px'; p.style.display = 'block'; lienzo.style.cursor = 'pointer'; }
   else { p.style.display = 'none'; lienzo.style.cursor = 'grab'; }
 });
 lienzo.addEventListener('pointerleave', () => { $('#punta').style.display = 'none'; });
 // Tocar una pieza muestra solo su nombre. Los productos se ven con un botón aparte, y cada uno se agrega con su propio botón.
-const ZONA = { columna: 'la columna', craneo: 'el cráneo', cerebro: 'el cerebro', corazon: 'el corazón', hombro: 'el hombro y el brazo', muneca: 'la muñeca y la mano', abdomen: 'el abdomen' };
-let fichaDesde = 0, famsFicha = [], preferFicha = null, preferPrimero = true, preferSolo = false;
-function seleccionar(m) {
-  if (resaltado) { resaltado.material.emissive?.setHex(0x000000); }
-  resaltado = m; m.material.emissive?.setHex(0x16324d); pedirRender();
-  const ud = m.userData; const cfg = ESCENAS[E.escena];
-  $('#fichaTipo').textContent = CAPAS[E.capa].nombre + ', ' + cfg.nombre.toLowerCase();
+const ZONA = { columna: 'la columna', craneo: 'el cráneo', cerebro: 'el cerebro', corazon: 'el corazón', hombro: 'el hombro y el brazo', muneca: 'la muñeca y la mano', abdomen: 'el abdomen', cuerpo: 'esta zona' };
+let zonaFicha = '', fichaDesde = 0, famsFicha = [], preferFicha = null, preferPrimero = true, preferSolo = false;
+function seleccionar(b) {
+  if (resaltado) resaltado.apagar();
+  resaltado = b; b.encender(); pedirRender();
+  const ud = b.ud; const cfg = ESCENAS[E.escena];
+  // en el cuerpo completo se dice la zona de la pieza (p. ej. «Huesos, mano izquierda»)
+  $('#fichaTipo').textContent = nombreCapa(E.capa) + ', ' + (cfg.fusionar && ud.zona ? ud.zona : cfg.nombre).toLowerCase();
   $('#fichaNombre').textContent = ud.nombre_es || 'Pieza';
-  const sug = CAT.listo ? sugerenciasPara(ud) : { fams: [], prefer: null }; famsFicha = sug.fams; preferFicha = sug.prefer; preferPrimero = sug.primero !== false; preferSolo = sug.solo;
+  const sug = CAT.listo ? sugerenciasPara(ud) : { fams: [], prefer: null }; famsFicha = sug.fams; zonaFicha = sug.zona || ZONA[E.escena]; preferFicha = sug.prefer; preferPrimero = sug.primero !== false; preferSolo = sug.solo;
   const total = CAT.fichas.filter((f) => famsFicha.includes(f.familia)).length;
   $('#verSugeridos').hidden = !total; $('#sinProd').hidden = !!total || !CAT.listo;
-  $('#verSugeridosTexto').textContent = `Ver productos para ${ZONA[E.escena]} (${total})`;
+  $('#sinProd').textContent = cfg.fusionar || E.capa === 'pulmon' ? 'Esta pieza es para aprender: no tenemos productos para esta zona.' : 'Para esta pieza todavía no hay productos en el catálogo.';
+  $('#verSugeridosTexto').textContent = `Ver productos para ${zonaFicha} (${total})`;
   $('#verSugeridos').setAttribute('aria-expanded', 'false'); $('#fichaProd').hidden = true; $('#fichaProd').innerHTML = '';
   fichaDesde = performance.now();
   $('#ficha3d').classList.add('visible'); caja.classList.add('con-ficha');
 }
-function sugerenciasPara(ud) { const p = ESCENAS[E.escena].productos[E.capa]; const r = typeof p === 'function' ? p(ud) : (p || []); return Array.isArray(r) ? { fams: r, prefer: null, primero: true, solo: false } : { fams: r.fams || [], prefer: r.prefer || null, primero: r.primero !== false, solo: !!r.solo }; }
+function sugerenciasPara(ud) { const p = ESCENAS[E.escena].productos[E.capa]; const r = typeof p === 'function' ? p(ud) : (p || []); return Array.isArray(r) ? { fams: r, prefer: null, primero: true, solo: false } : { fams: r.fams || [], prefer: r.prefer || null, primero: r.primero !== false, solo: !!r.solo, zona: r.zona || '' }; }
 function familiasPara(ud) { return sugerenciasPara(ud).fams; }
 function pintarProductos(fams) {
   const cont = $('#fichaProd');
@@ -1471,7 +1611,7 @@ function pintarProductos(fams) {
     const opciones = varios ? `<div class="opciones" hidden><select aria-label="Medida de ${esc3(f.nombre)}">${f.variantes.map((v) => `<option value="${esc3(v.clave)}">${esc3(v.etiqueta || v.clave)}</option>`).join('')}</select><button class="boton chico lleno" type="button" data-agr3d="${esc3(f.id)}">Agregar</button></div>` : '';
     return `<li data-id="${esc3(f.id)}"><div><b>${esc3(f.nombre)}</b><span>${esc3(nombreFamilia(f.familia))}</span></div>${boton}${opciones}<p class="hecho" role="status" hidden></p></li>`;
   };
-  cont.innerHTML = `<p class="prod">Esto vendemos o alquilamos para ${ZONA[E.escena]}. Elige qué agregar a tu cotización.</p><ul class="sugeridos">${fichas.map(item).join('')}</ul><button class="boton chico vertodos" type="button" data-fam="${esc3(fams[0])}">Ver los ${total} en el catálogo</button>`;
+  cont.innerHTML = `<p class="prod">Esto vendemos o alquilamos para ${zonaFicha}. Elige qué agregar a tu cotización.</p><ul class="sugeridos">${fichas.map(item).join('')}</ul><button class="boton chico vertodos" type="button" data-fam="${esc3(fams[0])}">Ver los ${total} en el catálogo</button>`;
 }
 $('#verSugeridos').addEventListener('click', (e) => {
   if (performance.now() - fichaDesde < 450) return; // evita que el mismo toque sobre el modelo abra la lista
@@ -1499,7 +1639,7 @@ $('#fichaProd').addEventListener('click', (e) => {
   if (d) { const h = d.closest('.hecho'); quitarUno(h.dataset.clave); h.hidden = true; li.querySelectorAll(':scope > .boton').forEach((x) => { x.hidden = false; }); return; }
   const v = e.target.closest('[data-fam]'); if (v) { if (document.fullscreenElement) document.exitFullscreen(); caja.classList.remove('completa'); mostrarFamilia(v.dataset.fam); }
 });
-function cerrarFicha() { $('#ficha3d').classList.remove('visible'); caja.classList.remove('con-ficha'); if (resaltado) { resaltado.material.emissive?.setHex(0x000000); resaltado = null; pedirRender(); } }
+function cerrarFicha() { $('#ficha3d').classList.remove('visible'); caja.classList.remove('con-ficha'); if (resaltado) { resaltado.apagar(); resaltado = null; pedirRender(); } }
 $('#cerrarFicha').addEventListener('click', cerrarFicha);
 
 /* ===================== 3D: células (ilustración) ===================== */
@@ -1947,7 +2087,9 @@ if (renderer) {
 // Para pruebas automáticas: lleva la cámara a una distancia relativa (en radios del modelo).
 if (pruebas) window.__camara = () => { const i = capaConCaja(); const p = i ? i.centro.clone().project(camara) : null; return { capa: E.capa, d: controles.getDistance() / (E.R * E.d0), t: controles.target.toArray(), centro: i ? i.centro.toArray() : null, pantalla: p ? [p.x, p.y] : null, dentro: i ? i.caja.containsPoint(controles.target) : null }; };
 if (pruebas) window.__vista = (d, f = 1) => { const v = new THREE.Vector3(...d).normalize(); controles.autoRotate = false; camara.position.copy(controles.target).addScaledVector(v, f * E.d0 * E.R); controles.update(); pedirRender(); };
-if (pruebas) window.__seleccionar = (nombre) => { const info = E.grupos[E.escena + ':' + E.capa]; let m = null; info?.grupo.traverse((o) => { if (!m && o.isMesh && (o.userData.nombre_es || '').includes(nombre)) m = o; }); if (!m) return 'no está'; seleccionar(m); fichaDesde = 0; return m.userData.nombre_es; };
+if (pruebas) window.__seleccionar = (nombre) => { const info = E.grupos[E.escena + ':' + E.capa];
+  for (const fm of info?.fusion || []) { const p = fm.userData.piezas.find((q) => (q.ud.nombre_es || '').includes(nombre)); if (p) { seleccionar(blancoDe({ object: fm, pieza: p })); fichaDesde = 0; return p.ud.nombre_es; } }
+  let m = null; info?.grupo.traverse((o) => { if (!m && o.isMesh && (o.userData.nombre_es || '').includes(nombre)) m = o; }); if (!m) return 'no está'; seleccionar(blancoDe({ object: m })); fichaDesde = 0; return m.userData.nombre_es; };
 if (pruebas) window.__zoom = (f) => { if (!controles) return; controles.autoRotate = false; camara.position.sub(controles.target).setLength(f * E.d0 * E.R).add(controles.target); controles.update(); pedirRender(); };
 </script>
 </body>
