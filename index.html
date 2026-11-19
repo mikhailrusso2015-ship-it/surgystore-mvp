@@ -569,6 +569,8 @@ html.con-intro .portada h1 .l>span,html.con-intro .explorador{animation-play-sta
       <button role="tab" data-escena="cerebro" aria-selected="false">Cerebro</button>
       <button role="tab" data-escena="corazon" aria-selected="false">Corazón</button>
       <button role="tab" data-escena="hombro" aria-selected="false">Hombro</button>
+      <button role="tab" data-escena="muneca" aria-selected="false">Muñeca</button>
+      <button role="tab" data-escena="abdomen" aria-selected="false">Abdomen</button>
     </div>
     <div class="capa-ui herramientas">
       <button class="icono vidrio" id="reiniciar" type="button" aria-label="Volver a la vista inicial"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/></svg></button>
@@ -610,6 +612,7 @@ html.con-intro .portada h1 .l>span,html.con-intro .explorador{animation-play-sta
         <li><b>Cerebro</b><span>Clips de aneurisma, microcirugía e hidrocefalia.</span></li>
         <li><b>Corazón</b><span>Válvulas cardíacas y sus medidores, catéteres de vía central y línea arterial.</span></li>
         <li><b>Hombro y brazo</b><span>Placas de clavícula y de húmero, tornillos canulados y alambres de Kirschner.</span></li>
+        <li><b>Muñeca y mano</b><span>Línea arterial en la arteria radial, tornillos canulados y alambres para fracturas.</span></li>
         <li><b>En la cirugía</b><span>Neuronavegación, neuromonitoreo y ecografía Doppler.</span></li>
       </ul>
     </div>
@@ -940,6 +943,7 @@ const CAPAS = {
   ventriculo: { nombre: 'Ventrículos', color: '#4FA8DE', nota: 'válvula ilustrada' },
   corazon: { nombre: 'Corazón', color: '#9E2B2B' },
   valvula: { nombre: 'Válvulas', color: '#E6D3B3' },
+  organo: { nombre: 'Órganos', color: '#C46A5A' },
   celula: { nombre: 'Células', color: '#7BBDE8', nota: 'ilustración' },
   nervioIlus: { nombre: 'Nervios', color: '#E5C36A', nota: 'ilustración' },
 };
@@ -955,8 +959,9 @@ const ESCENAS = {
       { id: 'hueso', glb: 'modelos/columna.glb', detalle: 'modelos/columna-detalle.glb', f: 0.012 },
       { id: 'celula', celulas: 'hueso', f: 0 },
     ],
-    productos: { piel: ['instrumental-columna'], musculo: ['instrumental-columna'], vaso: ['duramadre-hemostasia'], nervio: ['equipos'], celula: ['injerto-oseo'],
-      hueso: (p) => p.id?.startsWith('disco') ? ['intersomaticos'] : ({ 'columna-cervical': ['fijacion-cervical', 'intersomaticos'], 'columna-sacra': ['fijacion-columna', 'injerto-oseo'] }[p.zona] || ['fijacion-columna', 'vertebroplastia', 'intersomaticos']) },
+    productos: { piel: ['instrumental-columna'], musculo: ['instrumental-columna'], vaso: ['duramadre-hemostasia'], celula: ['injerto-oseo'],
+      nervio: (p) => /Cola de caballo/.test(p.nombre_es || '') ? { fams: ['hidrocefalia'], prefer: /derivaci[oó]n lumbar|lumbo/i, solo: true } : ['equipos'],
+      hueso: (p) => p.id?.startsWith('disco') ? ['intersomaticos'] : p.zona === 'columna-lumbar' ? { fams: ['fijacion-columna', 'vertebroplastia', 'hidrocefalia'], prefer: /derivaci[oó]n lumbar|lumbo/i, primero: false } : ({ 'columna-cervical': ['fijacion-cervical', 'intersomaticos'], 'columna-sacra': ['fijacion-columna', 'injerto-oseo'] }[p.zona] || ['fijacion-columna', 'vertebroplastia', 'intersomaticos']) },
   },
   craneo: {
     nombre: 'Cráneo', ref: 'modelos/craneo.glb', nucleo: 'hueso', vista: { dir: [0.6, 0.15, 1], dist: 2.6 },
@@ -1012,6 +1017,31 @@ const ESCENAS = {
     ],
     productos: { piel: ['trauma'], musculo: ['trauma'], vaso: ['trauma'], celula: ['trauma', 'injerto-oseo'],
       hueso: (p) => { const n = p.nombre_es || ''; return { fams: ['trauma'], prefer: /Clavícula/.test(n) ? /clav[ií]cula/i : /Húmero/.test(n) ? /h[uú]mero/i : /kirschner|canulado/i }; } },
+  },
+  muneca: {
+    nombre: 'Muñeca y mano', ref: 'modelos/muneca.glb', nucleo: 'hueso', centroFijo: true, vista: { dir: [-0.35, 0.08, 1], dist: 2.6 },
+    capas: [
+      { id: 'piel', glb: 'modelos/muneca-piel.glb', f: 0.82 },
+      { id: 'musculo', glb: 'modelos/muneca-musculo.glb', f: 0.64 },
+      { id: 'vaso', glb: 'modelos/muneca-vaso.glb', extra: 'lineaArterial', f: 0.46 },
+      { id: 'hueso', glb: 'modelos/muneca.glb', f: 0.012 },
+      { id: 'celula', celulas: 'hueso', f: 0 },
+    ],
+    productos: { piel: { fams: ['cardiovascular', 'trauma'], prefer: /l[ií]nea arterial|canulado|kirschner/i, solo: true }, musculo: { fams: ['trauma'], prefer: /canulado|kirschner/i, solo: true }, celula: ['trauma', 'injerto-oseo'],
+      vaso: (p) => /radial|arterial/i.test(p.nombre_es || '') ? { fams: ['cardiovascular'], prefer: /l[ií]nea arterial/i, solo: true } : { fams: ['cardiovascular'], prefer: /l[ií]nea arterial/i, solo: true },
+      hueso: (p) => { const n = p.nombre_es || ''; return { fams: ['trauma'], prefer: /Escafoides/.test(n) ? /canulado|kirschner/i : /kirschner|canulado/i, solo: true }; } },
+  },
+  abdomen: {
+    nombre: 'Abdomen', ref: 'modelos/abdomen-organos.glb', nucleo: 'organo', escalaR: 1.35, centroFijo: true, vista: { dir: [0.18, 0.12, 1], dist: 2.6 },
+    capas: [
+      { id: 'piel', glb: 'modelos/abdomen-piel.glb', f: 0.82 },
+      { id: 'musculo', glb: 'modelos/abdomen-musculo.glb', f: 0.66 },
+      { id: 'organo', glb: 'modelos/abdomen-organos.glb', extra: 'peritoneal', f: 0.4 },
+      { id: 'hueso', glb: 'modelos/abdomen-hueso.glb', extra: 'lumboperitoneal', f: 0.012 },
+    ],
+    productos: { piel: { fams: ['hidrocefalia'], prefer: /peritoneal|tunelizador/i }, musculo: { fams: ['hidrocefalia'], prefer: /peritoneal|tunelizador/i },
+      organo: (p) => ({ fams: ['hidrocefalia'], prefer: /lumbo/i.test(p.nombre_es || '') ? /lumbo|derivaci[oó]n lumbar/i : /peritoneal|tunelizador/i }),
+      hueso: (p) => /L[1-5]|lumbo/.test(p.nombre_es || '') ? { fams: ['hidrocefalia', 'fijacion-columna'], prefer: /lumbo|derivaci[oó]n lumbar/i } : ['hidrocefalia'] },
   },
 };
 
@@ -1077,6 +1107,8 @@ function materialReal(capa, mesh) {
       : /Vena|Venas/.test(n) ? Fisico({ ...base, color: 0x2E5C9C, roughness: 0.32, clearcoat: 0.4, clearcoatRoughness: 0.35 })
       : Fisico({ ...base, color: /Aurícula/.test(n) ? 0xA8443B : 0x8E2C27, roughness: 0.45, clearcoat: 0.35, clearcoatRoughness: 0.45, side: THREE.DoubleSide });
     case 'valvula': return /papilar/i.test(n) ? Fisico({ ...base, color: 0x9C3B33, roughness: 0.45, clearcoat: 0.25 }) : Fisico({ ...base, color: 0xEADBC4, roughness: 0.5, sheen: 0.4, sheenColor: new THREE.Color(0xFFF1E0), sheenRoughness: 0.5, side: THREE.DoubleSide });
+    case 'organo': { const col = /Hígado/.test(n) ? 0x7A2E26 : /Estómago/.test(n) ? 0xD48F84 : /Bazo/.test(n) ? 0x6E2B3C : /Vesícula/.test(n) ? 0x4F7A3A : /Páncreas/.test(n) ? 0xE2B27E : /Riñón/.test(n) ? 0x8A3A33 : /delgado/.test(n) ? 0xE3A495 : 0xC98576;
+      return Fisico({ ...base, color: col, roughness: 0.4, clearcoat: 0.45, clearcoatRoughness: 0.35 }); }
     case 'ventriculo': return Fisico({ ...base, color: 0x4FA8DE, roughness: 0.28, clearcoat: 0.6, clearcoatRoughness: 0.2 });
     case 'cerebro': return Fisico({ ...base, color: 0xD3A69C, roughness: 0.55, clearcoat: 0.2, clearcoatRoughness: 0.6, sheen: 0.25, sheenColor: new THREE.Color(0xFFE2DA) });
     default: return new THREE.MeshStandardMaterial({ ...base, color: /disco/i.test(n) ? 0x9FC2CB : (CLARO ? 0xD3C4A6 : 0xE7DDC7), roughness: /disco/i.test(n) ? 0.45 : 0.72 });
@@ -1158,6 +1190,65 @@ async function construirDerivacion(gVent, cVent) {
   malla(tubo(baja, 0.0013, 48), mTubo, 'Catéter peritoneal: sigue bajo la piel hasta el abdomen (ilustración)');
   return { grupo, mats };
 }
+// ---- ilustraciones de dispositivos (no salen de BodyParts3D) ----
+const matsDispositivo = () => ({ tubo: Fisico({ color: 0xEEF5F9, roughness: 0.22, metalness: 0, clearcoat: 0.7, clearcoatRoughness: 0.2 }), azul: Fisico({ color: 0x2F7EC4, roughness: 0.35, metalness: 0.15, clearcoat: 0.5, clearcoatRoughness: 0.3 }), rojo: Fisico({ color: 0xC0392B, roughness: 0.35, metalness: 0.05, clearcoat: 0.5, clearcoatRoughness: 0.3 }) });
+// Corte de la piel a una altura: centro y semiejes de la elipse que forman sus vértices (en las coordenadas de la capa).
+async function seccionPiel(url, cCapa) {
+  const g = await cargarGLB(url); const c = g.parser.json.asset?.extras?.centro_m || [0, 0, 0]; g.scene.updateMatrixWorld(true);
+  const pts = []; const v = new THREE.Vector3(); const off = new THREE.Vector3(c[0] - cCapa[0], c[1] - cCapa[1], c[2] - cCapa[2]);
+  g.scene.traverse((m) => { if (!m.isMesh) return; const a = m.geometry.getAttribute('position'); for (let i = 0; i < a.count; i += 2) { v.fromBufferAttribute(a, i).applyMatrix4(m.matrixWorld).add(off); pts.push(v.x, v.y, v.z); } });
+  const caja = new THREE.Box3(); for (let i = 0; i < pts.length; i += 3) caja.expandByPoint(v.set(pts[i], pts[i + 1], pts[i + 2]));
+  const corte = (y, banda = 0.012) => { let x0 = 1e9, x1 = -1e9, z0 = 1e9, z1 = -1e9; for (let i = 0; i < pts.length; i += 3) if (Math.abs(pts[i + 1] - y) < banda) { x0 = Math.min(x0, pts[i]); x1 = Math.max(x1, pts[i]); z0 = Math.min(z0, pts[i + 2]); z1 = Math.max(z1, pts[i + 2]); }
+    return { cx: (x0 + x1) / 2, cz: (z0 + z1) / 2, rx: (x1 - x0) / 2, rz: (z1 - z0) / 2 }; };
+  const bajoPiel = (y, ang, adentro = 0.007) => { const k = corte(y); return new THREE.Vector3(k.cx + (k.rx - adentro) * Math.cos(ang), y, k.cz + (k.rz - adentro) * Math.sin(ang)); };
+  return { caja, corte, bajoPiel };
+}
+const tuboIlus = (pts, r, n = 64) => new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), n, r, 10, false);
+async function construirPeritoneal(gOrg, cOrg) {
+  // Extremo de la válvula de hidrocefalia: el catéter baja bajo la piel del tórax y el abdomen y entra en la cavidad peritoneal (ilustración).
+  const P = await seccionPiel('modelos/abdomen-piel.glb', cOrg); gOrg.scene.updateMatrixWorld(true); const bo = new THREE.Box3().setFromObject(gOrg.scene);
+  const M = matsDispositivo(); const grupo = new THREE.Group(); const malla = (geo, m, nombre) => { const x = new THREE.Mesh(geo, m); x.userData = { nombre_es: nombre, capa: 'organo' }; grupo.add(x); return x; };
+  const yTop = P.caja.max.y - 0.006, yEnt = bo.min.y + (bo.max.y - bo.min.y) * 0.42; const ang = Math.PI / 2 + 0.55; // frente, lado derecho del paciente (x negativa)
+  const sub = []; for (let i = 0; i <= 16; i++) sub.push(P.bajoPiel(yTop + (yEnt - yTop) * i / 16, ang, 0.006));
+  malla(tuboIlus(sub, 0.0015, 96), M.tubo, 'Catéter peritoneal bajo la piel (ilustración)');
+  const e0 = sub[sub.length - 1]; const centro = new THREE.Vector3(e0.x + 0.03, yEnt - 0.07, e0.z - 0.07); const rizo = [e0, e0.clone().lerp(centro, 0.5).add(new THREE.Vector3(0, 0.005, 0))];
+  for (let i = 0; i <= 40; i++) { const t = i / 40; const a = t * Math.PI * 5; const r = 0.035 - 0.012 * t; rizo.push(new THREE.Vector3(centro.x + Math.cos(a) * r, centro.y + Math.sin(a) * r * 0.8 - t * 0.03, centro.z + Math.sin(a * 0.5) * 0.012)); }
+  malla(tuboIlus(rizo, 0.0015, 160), M.tubo, 'Catéter peritoneal en la cavidad abdominal (ilustración)');
+  return { grupo, mats: [M.tubo, M.azul, M.rojo] };
+}
+async function construirLumboPeritoneal(gHue, cHue) {
+  // Derivación lumbo-peritoneal: del canal raquídeo lumbar (L4) rodea el flanco derecho bajo la piel y entra al peritoneo (ilustración).
+  gHue.scene.updateMatrixWorld(true); let l4 = null; gHue.scene.traverse((o) => { if (!l4 && /L4/.test(o.userData?.nombre_es || '')) l4 = o; });
+  const bv = new THREE.Box3().setFromObject(l4 || gHue.scene); const P = await seccionPiel('modelos/abdomen-piel.glb', cHue);
+  const M = matsDispositivo(); const grupo = new THREE.Group(); const malla = (geo, m, nombre) => { const x = new THREE.Mesh(geo, m); x.userData = { nombre_es: nombre, capa: 'hueso' }; grupo.add(x); return x; };
+  const y0 = (bv.min.y + bv.max.y) / 2; const prof = bv.max.z - bv.min.z; const canal = new THREE.Vector3((bv.min.x + bv.max.x) / 2, y0 + 0.012, bv.min.z + prof * 0.47);
+  const pts = [canal, new THREE.Vector3(canal.x - 0.004, y0, bv.min.z + prof * 0.2), new THREE.Vector3(canal.x - 0.012, y0 - 0.004, bv.min.z - 0.012)];
+  for (let i = 0; i <= 18; i++) { const t = i / 18; pts.push(P.bajoPiel(y0 - 0.006 - t * 0.035, -Math.PI / 2 - t * Math.PI * 0.92, 0.008)); }
+  const fin = pts[pts.length - 1]; pts.push(new THREE.Vector3(fin.x + 0.012, fin.y - 0.01, fin.z - 0.035), new THREE.Vector3(fin.x + 0.03, fin.y - 0.03, fin.z - 0.05));
+  malla(tuboIlus(pts, 0.0014, 140), M.tubo, 'Derivación lumbo-peritoneal (ilustración)');
+  return { grupo, mats: [M.tubo, M.azul, M.rojo] };
+}
+async function construirLineaArterial(gVaso, cVaso) {
+  // Línea arterial: cánula en la arteria radial, unos 2–3 cm antes del pliegue de la muñeca (ilustración).
+  gVaso.scene.updateMatrixWorld(true); let art = null; gVaso.scene.traverse((o) => { if (!art && o.isMesh && /Arteria radial/.test(o.userData?.nombre_es || o.parent?.userData?.nombre_es || '')) art = o; });
+  if (!art) gVaso.scene.traverse((o) => { if (!art && /Arteria radial/.test(o.userData?.nombre_es || '')) o.traverse((m) => { if (!art && m.isMesh) art = m; }); });
+  const gH = await cargarGLB('modelos/muneca.glb'); const cH = gH.parser.json.asset?.extras?.centro_m || [0, 0, 0]; gH.scene.updateMatrixWorld(true);
+  let radio = null; gH.scene.traverse((o) => { if (!radio && /^Radio$/.test(o.userData?.nombre_es || '')) radio = o; });
+  const br = new THREE.Box3().setFromObject(radio || gH.scene); const yMun = br.min.y + (cH[1] - cVaso[1]);
+  const a = art.geometry.getAttribute('position'); const v = new THREE.Vector3(); const banda = (y) => { const c = new THREE.Vector3(); let n = 0; for (let i = 0; i < a.count; i++) { v.fromBufferAttribute(a, i).applyMatrix4(art.matrixWorld); if (Math.abs(v.y - y) < 0.004) { c.add(v); n++; } } return n ? c.multiplyScalar(1 / n) : null; };
+  const p0 = banda(yMun + 0.025), p1 = banda(yMun + 0.045); if (!p0 || !p1) throw new Error('sin arteria');
+  const eje = p1.clone().sub(p0).normalize(); const afuera = new THREE.Vector3(0, 0, 1).addScaledVector(eje, -eje.z).normalize();
+  const punta = p0.clone().addScaledVector(eje, 0.012); const entrada = p0.clone().addScaledVector(eje, -0.004); const piel = entrada.clone().addScaledVector(eje, -0.012).addScaledVector(afuera, 0.008);
+  const M = matsDispositivo(); const grupo = new THREE.Group(); const malla = (geo, m, nombre) => { const x = new THREE.Mesh(geo, m); x.userData = { nombre_es: nombre, capa: 'vaso' }; grupo.add(x); return x; };
+  const nombre = 'Línea arterial en la arteria radial (ilustración)';
+  malla(tuboIlus([punta, entrada, piel], 0.0006, 24), M.tubo, nombre);
+  const dirHub = piel.clone().sub(entrada).normalize(); const hub = malla(new THREE.CylinderGeometry(0.0026, 0.002, 0.012, 16), M.rojo, nombre); hub.position.copy(piel).addScaledVector(dirHub, 0.006); hub.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dirHub);
+  const alas = malla(new THREE.BoxGeometry(0.014, 0.0012, 0.006), M.azul, nombre); alas.position.copy(piel).addScaledVector(dirHub, 0.002); alas.quaternion.copy(hub.quaternion);
+  const ext = [hub.position.clone().addScaledVector(dirHub, 0.006)]; for (let i = 1; i <= 6; i++) ext.push(ext[0].clone().addScaledVector(eje, i * 0.012).addScaledVector(afuera, 0.004 + 0.002 * Math.sin(i)));
+  malla(tuboIlus(ext, 0.0011, 48), M.tubo, nombre);
+  return { grupo, mats: [M.tubo, M.azul, M.rojo] };
+}
+const EXTRAS = { derivacion: (g, c) => construirDerivacion(g, c), peritoneal: construirPeritoneal, lumboperitoneal: construirLumboPeritoneal, lineaArterial: construirLineaArterial };
 async function prepararCapa(esc, capa) {
   const clave = esc + ':' + capa.id;
   if (E.grupos[clave]) return E.grupos[clave];
@@ -1169,7 +1260,7 @@ async function prepararCapa(esc, capa) {
   grupo.position.set(c[0] - E.centroRef[0], c[1] - E.centroRef[1], c[2] - E.centroRef[2]);
   const mats = [];
   obj.traverse((m) => { if (m.isMesh) { m.material = materialReal(capa.id, m); mats.push(m.material); m.userData.capa = capa.id; } });
-  if (capa.extra === 'derivacion') { try { const d = await construirDerivacion(g, c); grupo.add(d.grupo); mats.push(...d.mats); } catch (e) { /* sin ilustración, la capa sigue */ } }
+  if (capa.extra && EXTRAS[capa.extra]) { try { const d = await EXTRAS[capa.extra](g, c); grupo.add(d.grupo); mats.push(...d.mats); } catch (e) { /* sin ilustración, la capa sigue */ } }
   const info = { grupo, mats, op: 0, obj: 0, capa, detalle: null };
   grupo.visible = false; raiz.add(grupo); E.grupos[clave] = info;
   ponerOpacidad(info, 0);
@@ -1260,6 +1351,7 @@ async function ponerCapa(id, inmediato = false) {
   if (E.fantasma) E.fantasma.obj = (id === cfg.nucleo || id === 'piel') ? 0 : (cfg.nucleo === 'cerebro' ? (id === 'nervio' ? 0.22 : 0.32) : (id === 'nervio' ? 0.4 : 0.85));
   if (cfg.nucleo === 'cerebro' && id === 'hueso') E.fantasma.obj = 0;
   if (cfg.nucleo === 'corazon' && id === 'valvula') E.fantasma.obj = 0.6;
+  if (cfg.nucleo === 'organo' && id === 'hueso') E.fantasma.obj = 0.25;
   pedirRender();
   // capas vecinas, en segundo plano
   const i = cfg.capas.indexOf(capa); for (const v of [cfg.capas[i + 1], cfg.capas[i - 1]]) if (v && v.glb) prepararCapa(E.escena, v).catch(() => {});
@@ -1291,7 +1383,7 @@ function actualizarUI() {
   $$('#profundidad i').forEach((x, k) => x.classList.toggle('on', k <= i));
   $('#capaNombre').textContent = E.capa ? CAPAS[E.capa].nombre + (E.modo !== 'auto' ? ' · fija' : '') : '';
   const capaCfg = ESCENAS[E.escena].capas.find((c) => c.id === E.capa); $('#ilustracion').classList.toggle('visible', E.capa === 'celula' || !!capaCfg?.medula || !!capaCfg?.extra);
-  $('#ilustracion').textContent = capaCfg?.extra === 'derivacion' ? 'La válvula y los catéteres son una ilustración' : 'Ilustración 3D, no es una imagen real';
+  $('#ilustracion').textContent = ({ derivacion: 'La válvula y los catéteres son una ilustración', peritoneal: 'El catéter es una ilustración', lumboperitoneal: 'La derivación es una ilustración', lineaArterial: 'La línea arterial es una ilustración' })[capaCfg?.extra] || 'Ilustración 3D, no es una imagen real';
 }
 $('#capas').addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return; const id = b.dataset.capa;
@@ -1344,15 +1436,15 @@ lienzo.addEventListener('pointermove', (e) => {
 });
 lienzo.addEventListener('pointerleave', () => { $('#punta').style.display = 'none'; });
 // Tocar una pieza muestra solo su nombre. Los productos se ven con un botón aparte, y cada uno se agrega con su propio botón.
-const ZONA = { columna: 'la columna', craneo: 'el cráneo', cerebro: 'el cerebro', corazon: 'el corazón', hombro: 'el hombro y el brazo' };
-let fichaDesde = 0, famsFicha = [], preferFicha = null;
+const ZONA = { columna: 'la columna', craneo: 'el cráneo', cerebro: 'el cerebro', corazon: 'el corazón', hombro: 'el hombro y el brazo', muneca: 'la muñeca y la mano', abdomen: 'el abdomen' };
+let fichaDesde = 0, famsFicha = [], preferFicha = null, preferPrimero = true, preferSolo = false;
 function seleccionar(m) {
   if (resaltado) { resaltado.material.emissive?.setHex(0x000000); }
   resaltado = m; m.material.emissive?.setHex(0x16324d); pedirRender();
   const ud = m.userData; const cfg = ESCENAS[E.escena];
   $('#fichaTipo').textContent = CAPAS[E.capa].nombre + ', ' + cfg.nombre.toLowerCase();
   $('#fichaNombre').textContent = ud.nombre_es || 'Pieza';
-  const sug = CAT.listo ? sugerenciasPara(ud) : { fams: [], prefer: null }; famsFicha = sug.fams; preferFicha = sug.prefer;
+  const sug = CAT.listo ? sugerenciasPara(ud) : { fams: [], prefer: null }; famsFicha = sug.fams; preferFicha = sug.prefer; preferPrimero = sug.primero !== false; preferSolo = sug.solo;
   const total = CAT.fichas.filter((f) => famsFicha.includes(f.familia)).length;
   $('#verSugeridos').hidden = !total; $('#sinProd').hidden = !!total || !CAT.listo;
   $('#verSugeridosTexto').textContent = `Ver productos para ${ZONA[E.escena]} (${total})`;
@@ -1360,16 +1452,17 @@ function seleccionar(m) {
   fichaDesde = performance.now();
   $('#ficha3d').classList.add('visible'); caja.classList.add('con-ficha');
 }
-function sugerenciasPara(ud) { const p = ESCENAS[E.escena].productos[E.capa]; const r = typeof p === 'function' ? p(ud) : (p || []); return Array.isArray(r) ? { fams: r, prefer: null } : { fams: r.fams || [], prefer: r.prefer || null }; }
+function sugerenciasPara(ud) { const p = ESCENAS[E.escena].productos[E.capa]; const r = typeof p === 'function' ? p(ud) : (p || []); return Array.isArray(r) ? { fams: r, prefer: null, primero: true, solo: false } : { fams: r.fams || [], prefer: r.prefer || null, primero: r.primero !== false, solo: !!r.solo }; }
 function familiasPara(ud) { return sugerenciasPara(ud).fams; }
 function pintarProductos(fams) {
   const cont = $('#fichaProd');
   // una ficha destacada por familia (primero implantes y servicios con más variantes), hasta 3
   const peso = (f) => (preferFicha && preferFicha.test(f.nombre) ? 1000 : 0) + (f.tipo === 'implante' ? 3 : f.tipo === 'servicio' ? 2 : f.tipo === 'equipo' ? 1 : 0) * 100 + f.variantes.length;
-  if (preferFicha) { const top = CAT.fichas.filter((f) => fams.includes(f.familia) && preferFicha.test(f.nombre)).sort((x, y) => peso(y) - peso(x)).slice(0, 3); if (top.length) fams = [...new Set([top[0].familia, ...fams])]; }
+  if (preferFicha && preferPrimero) { const top = CAT.fichas.filter((f) => fams.includes(f.familia) && preferFicha.test(f.nombre)).sort((x, y) => peso(y) - peso(x)).slice(0, 3); if (top.length) fams = [...new Set([top[0].familia, ...fams])]; }
   const fichas = []; for (const fam of fams) { const mejor = CAT.fichas.filter((f) => f.familia === fam).sort((x, y) => peso(y) - peso(x))[0]; if (mejor) fichas.push(mejor); }
   for (const f of CAT.fichas.filter((f) => fams.includes(f.familia)).sort((x, y) => peso(y) - peso(x))) { if (fichas.length >= 3) break; if (!fichas.includes(f)) fichas.push(f); }
   fichas.length = Math.min(fichas.length, 3);
+  if (preferSolo && preferFicha) { const solo = CAT.fichas.filter((f) => fams.includes(f.familia) && preferFicha.test(f.nombre)).sort((x, y) => peso(y) - peso(x)).slice(0, 3); if (solo.length) fichas.splice(0, fichas.length, ...solo); }
   const total = CAT.fichas.filter((f) => fams.includes(f.familia)).length;
   const item = (f) => {
     const varios = f.variantes.length > 1;
