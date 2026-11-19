@@ -2148,7 +2148,7 @@ if (pruebas) window.__zoom = (f) => { if (!controles) return; controles.autoRota
 // Fondo vivo: neuronas que flotan despacio, se conectan entre sí y disparan impulsos. Cerca del puntero (o del dedo)
 // se apartan un poco, se encienden y reciben impulsos desde él. Muy tenue para no competir con el texto.
 (function () { try {
-  const ACTIVO = false; // se enciende cuando el dueño apruebe la vista previa
+  const ACTIVO = true; // aprobado por el dueño el 2026-11-18; para apagarlo, false
   if (!ACTIVO && !/[?&]fondo=1/.test(location.search)) return;
   const lienzo = document.getElementById('fondoRed'); const ctx = lienzo && lienzo.getContext('2d'); if (!ctx) return;
   const raiz = document.documentElement; const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
